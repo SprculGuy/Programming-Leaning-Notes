@@ -1,0 +1,44 @@
+
+
+*To Compile & Run Python Program -->
+
+Exicute these in terminal of working directory...
+python3 (file name.py)										python3 hello.py
+
+
+
+
+**PRINTING OUTPUT-- 
+		print("& this is Python...")			# new line defaultly. like, end="\n"
+		print(end="")							# without new line
+
+
+**TAKING INPUT--
+		variable = input("Enter whatever brother :) ...")
+
+
+**CONDITIONAL STATEMENT--
+	IF		if x < 5:
+				_block_
+			elif x == 5:
+				_block_
+			else:
+				_block_
+
+	MATCH	match var:
+				case "100":
+					_block_
+				case "200":
+					_block_
+				case "300":
+					_block_
+				case _:
+					_block_
+
+
+**LOOPING STATEMENTS--
+	WHILE	while x == 5:
+				_block_
+
+	FOR		for x in range(0,11,2):    //x = 0,2,4,6,8,10
+				_block_

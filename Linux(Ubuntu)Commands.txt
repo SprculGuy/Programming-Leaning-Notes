@@ -1,0 +1,68 @@
+Commands 
+cd /home/anynomus/Downloads/Python
+
+
+**Check For Update/Latest Packages:
+		>sudo apt update;sudo apt upgrade
+
+**Install Any App/Software:
+		Settings -> gnome-control-center
+		Google Chrome -> google-chrome-stable
+
+
+**All Software/Apps--
+		path: Computer/usr/share/applications
+
+
+**Check RAM Stats : 
+		>free -h
+
+**Characteristics of Installed memory--
+		>>sudo lshw -short -C memory
+		>>sudo dmidecode -t memory | grep -i max
+		>>sudo lshw -short -C memory | grep -i empty
+
+
+**Unistall any App/Software:
+		1>sudo apt purge (App/Softwarename)
+		2>rm -rf /home/anynomus/.cache/(foldername)
+		3>rm /home/anynomus/.config/(foldername)
+		4>sudo apt autoremove
+
+
+
+**Check Python version
+		>ls -l /usr/bin/python*
+
+**PIP:
+			sudo apt install python3-pip
+			pip3 --version
+			pip3 --help
+			pip <command> --help
+			pip3 install --help
+		pip3 install numpy
+		pip3 list
+		pip3 install --upgrade numpy
+		pip3 uninstall numpy
+		
+**Git:
+		sudo apt install git
+		git --version
+		git config --global user.name "Anynomus"
+		git config --global user.email "Ankit7887@git.com"
+		git status											-->Check working directory status
+		git diff file_name									-->to check-out the updations before adding to staging area
+> git diff file.txt
+		git diff --staged file_name							-->to check-out the updations of files in staging area
+> git diff --staged file.txt
+		git init											-->Initialise empty Git repository in working directory
+		git add .											-->add all to the staging area				|
+		git reset .											-->unstage all the files from staging area	|at,<.> we can use <FileName>
+		gir checkout .										-->undo all updated content of file, before staging
+		git commit -m "CommitComments"						-->Commits to Git Repo
+> git commit -m "fix to minor login bug"
+		git log												-->Shows all commit history
+		git push origin master								-->Push to GitHub Repo from Git Repo
+		git pull origin master								-->Pull from Github Repo to the Git & Local Repo
+		git clone <SSH key>									-->Create/Download any public/private Repo
+

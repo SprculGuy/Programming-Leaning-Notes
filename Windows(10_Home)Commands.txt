@@ -1,0 +1,28 @@
+cd C:\Users\ap788\Downloads
+cls 	clears cmd screen	
+
+
+**File Related
+	cd -							>change directory to specified path after keyword
+	dir -							>list out the all files in current working directory
+
+**C\C++ 
+	After installing Msys2
+	Msys2 64 bit -> type command "pacman -Syu"		>update all packages of msys2
+	Msys2 -> type "pacman -Su"				>update all base packages
+	Msys2/Mingw64 -> type "pacman -Ss gcc"			>checking all available gcc/gdb(debugger) packages list for installation
+	Msys2/Mingw64 -> type "pacman -S choosen_package_name"		   
+
+
+**Check Python version
+	python --version
+	
+	pip --version
+	python -m pip install --upgrade pip			>update pip installer
+	pip list
+	pip install numpy
+	pip install --upgrade numpy
+	pip uninstall numpy
+			pip --help
+			pip <command> --help
+			pip install --help

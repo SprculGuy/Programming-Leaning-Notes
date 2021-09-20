@@ -1,0 +1,367 @@
+Bjarne Stroustrup	(Denmark)	(1979-C_with_classes|1983-C++)
+
+#Compiler: SourceCode>Compiler>ObjectFile(ComputerLanguage)
+#CrossCompiler: SourceCode>CrossCompiler>ObjectFile(For Exicution on Other OS/Platform)
+#Transpiler: SourceCode>Transpiler>SourceCode
+#Interpreter: SourceCode>Interpreter(Takes 1st line)>SourceCode(Immediately Exicutes 1st line then goes for 2nd line)
+#Just-in-time-Compiler: SourceCode>Interpreter(Takes line-by-line and store in buffer)>SourceCode(Exicutes line-by-line from buffer)
+
+
+*To Compile & Run C++ Program -->
+ app.cpp --> pre-processor(HeaderFiles) --> app.i --> compiler --> app.obj --> Linker(LibraryFiles) --> app.exe
+Exicute these in terminal of working directory...  
+->gcc (file name.cpp) (binary file name)                      gcc hello.cpp -o hello
+->./(binary file name)										  ./hello
+
+
+we can only pass arguments to main function(), while running code as .exe on command line...
+														  1   2 3	So, total no of arg = argno = 3 
+main(int argno, char *argv[]){}							|>c:\user\anynomus\documents\test.exe 6 9
+main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] argv[2]
+															//argv is pointer array, so it's stoaring addresses of arguments
+
+
+**PREPROCESSOR--
+#include<Header_file_only>			| We can include any header file
+#include "full_file_path"			| We can include any header file as well as user created sourse file
+
+#define identifier any_value_char_string			// #define PI 3.14		// #define Msg "Hello" 		// #define SUM(a,b) a+b
+#undef identifier									// #define PI			// #define Msg		 		// #define SUM(a,b)
+																								if a=2 & b=3 then	a##b = 23
+#if _condition
+	-----;
+#elif _condition
+	-----;
+#elif _condition
+	-----;
+#endif
+
+#ifdef PI							|is PI defined
+	-----;
+#endif
+
+#ifndef PI							|is PI not defined
+	-----;
+#endif
+
+
+
+**OPRATERS---
+	& 	- address(referencing) opperator			|UNARY OPERATOR
+	* 	- indirectional(de-referencing) opperator	|
+	~ 	- bitwise complement						|
+	++ 	- increment					 				|
+	-- 	- decrement									|
+	! 	- logical negation							|
+
+	<< 	- shift left								|BINARY OPERATOR
+	>> 	- shift right								|
+	&	- bitwise and								|
+	|	- bitwise or								|
+	^	- bitwise xor								|
+	&&	- logical and								|
+	||	- logical or								|
+
+
+
+**DEFINING VARIABLES & POINTERS--
+		void
+PREMITIVE DATA TYPES
+	2	int number = 34;							
+	8	int *pnumber = &number;					|	cout<< pnumber		= 76FG34H5
+	4	long									|	cout<< *pnumber		= 34
+	1	char character = 'A';
+	8	char *pcharacter = & character;
+	4	float
+	1	bool x = true;							
+	2	bool y = false;
+	8	double flot = 45.678;
+	8	double *pflot = &flot;					|	pointer var.. can stoares 1st byte address of same variable type of pointer
+												|	Ex.for float x has 1000 1001 1010 1011 this adress then float *px = &x stoares 
+														base address(1000) in pointer 'px', and this is the reason px must be float.
+												|	px + n = px + sizeof(float)*n		&&		px - n = px - sizeof(float)*n
+												|	py - px = substraction/sizeof(float) = (1040 - 1000)/4 = 40/4 = 10
+												|	px - py = substraction/sizeof(float) = (1000 - 1020)/4 = (-20)/4 = -5
+												|					 #as py & px are must float (same)type, having size 4 bytes 
+
+	typedef int LENGTH;		//int also= LENGTH
+	LENGTH x,y;				//this line means  >int x,y; 
+
+Wild & Void(generic) Pointer
+	int x;				
+	void *p;			|	wild pointer - as pointer has garbage adress of unreserved memory
+	p = &x;				|	void pointer can stoare adress of any type of variable
+	*(int*)p = 11;		|	type-casting void pointer to int, to stoare int value in x. ie, x=11
+Function Pointer
+	void (*p)(int, int);				|	creating"function pointer" for pre defined funtion; void func1(int a, int b) { }
+	p = func1;							|	assigning function adress
+	p();								|	calling function using function pointer
+
+
+																0123456789...
+		string word;							|string line = "My name is Ankit Patil. I'm 19 years old."
+		string *pword = &word;					|line.length();     			>>41
+		char sentences[100] = "Ankit Patil";	|line[3] = g					>>My game is...
+		int array[] = {12,45,56,673,3,6}		|line.find("Ankit", 3)			>>11		//'3' is starting find index
+												|line.substr(11, 5)				>>Ankit		//'5' is size of substring
+Reference Variable
+	int x = 2;				
+	int &y = x;			y is refernce to int variable x, & must be initialised during declearation only.
+	y++;				refernce variables can't be updated, we can only access/update the referenced variable value 
+	cout<<x;			x = 3
+
+**STOARAGE CLASSES--
+	Storg Class	|Default Value	|Stoared	|Scope	|Life
+
+	auto		 garbage		 RAM		 block	 End of block in which variable decleared  //default -inside any block/function.
+	register	 garbage		 Register	 block	 End of block in which variable decleared
+	static		 0				 RAM		 block	 End of whole Programme
+	extern		 0				 RAM		 global	 End of whole Programme	//'extern' used for defining, not declearing variable.
+			 //'extern' variable in any block, actually shows that the variable is decleared globally outside of any block\funtion.
+
+ex.	register int a;		register char b; 
+	
+
+
+**PRINTING OUTPUT-- 
+		cout << << endl;
+		std::cout << << std::endl;
+							--without std definition ( using namespace std;)
+		printf	printf("%s \n", "string")			\n - new line
+				printf(" %c", "A")	 				\b - backspace
+				printf("%d \t", 12)					\t - tab
+				printf("%f \v", 34.23)				\v - vertical tab
+				printf("%f", "double")
+
+				printf("%p", &variable_name)     
+								   // %p - pointer | print out the phisical(hexadecimal format) memory address assigned to variable 
+
+		puts	puts(variable_name)
+
+**TAKING INPUT--
+		cin >> variable_name;
+		std::cin >> variable_name;
+								--without std definition ( using namespace std;)
+		getline(cin, variable_name);
+		scanf	scanf("%s", variable_name)
+				scanf("%c", &variable_name)
+				scanf("%d", &variable_name)
+				scanf("%f", &variable_name)
+				scanf("%lf", &variable_name)
+
+		fgets	fgets(variable_name, 20, stdin);
+						        size
+
+		gets	gets(variable_name)
+
+
+**CONDITIONAL STATEMENT--
+ Condition	condition?true:false
+			6>5 ? x=6 : x=5;   
+							// x gets value 6 as condition is true(ie.6>5)
+
+	IF		if(num1 > num2 && num1 > num3)
+			{		
+			}
+			else if(num2 > num1 && num2 > num3)
+			{
+			}
+			else
+			{
+			}
+
+	SWITCH  switch(grade)
+			{
+				case 'A':
+					printf("You did great\n");
+					break;
+				case 'B':
+					printf("You did good\n");
+					break;	
+				case 'C':
+					printf("You need to improve\n");
+					break;	
+				case 'D':
+					printf("You got Failed!\n");
+					break;
+				default:
+					printf("Please recheck the grade you entered...\n");
+			}
+
+
+**LOOPING STATEMENTS--
+	WHILE		while(_condition_)
+				{
+				}
+
+	DO-WHILE	do
+				{
+					_block_
+				}while(_condition_);
+
+	FOR 		for(int i; i < 10; i++)
+				{
+				}
+
+
+**FUNCTIONS--
+		inline char hello(int, char*);	
+						--'inline' is the request to interchage small functions into simple lines of code, to reduce exicution time.
+						--'hello(int, char*)' is "Function Signature"
+		char hello(int, char*);		
+							--Declearing post-defined Function, also called as Function Prototype...
+		char hello(int arg1, char *arg2[])					
+		{															
+			return 'A';
+		}					--Defining Function Definition...
+
+	  >>return_val = hello(a, &b);					
+							--calling function and stoaring it's return value in variable...
+
+
+**STRUCT data Type--(defaultly all members are public)
+		struct Name
+		{
+			_block_			//Default all defined attributes are public
+		}obj1,obj2;			//we can create global objects(variable) just end of defining structure 
+
+	  >>Name obj;
+						//creating object(variable) & calling constructor functions... 
+		obj1=obj2;
+
+struct date	
+{																															 32 bits
+private:									Every unsigned int takes 4bytes = 32bit.so Memory will alloted in the multiple of 4 byte
+	unsigned int d:5,m:4,y:23;				But, by using "bit-fields" we can declare variable(for struct & union) with its bit size
+public:										ie,in 'data' data type every object takes 32(5+4+23) bits ...
+	void input()							
+	{
+		cout<<"Ener Date, Month & Year : ";
+		cin>>d>>m>>y;
+	}
+	void display()							
+	{
+		cout<<"\n"<<d<<":"<<m<<":"<<y;
+	}									
+}obj;
+obj.d=17;			//Error : as d is private 
+obj.input();
+obj.display();	
+
+
+**CLASS data type--(defaultly all members are private)
+		class Name
+		{				// Default all defined attributes are private
+			Name(){}					//Default Constructor | Constructor doesn't have any return type & it never be static
+			Name(int a){}				|
+			Name(int a,char a){}		|//Parameterized Constructor(Constructor Overloading)
+			Name(Name &a){}				//Copy Constructor | Reason of using reference variable is to avoid creation of object and 
+			~Name()							//again calling constructor function in infinite recursion...
+		};									//Destructor doesn't have any return type & doesn't takes arguments, it never be static 
+
+	  >>Name obj1,obj2(4),obj3(4,'B'),obj4(obj1);
+				//creating instance or object variable & calling constructor functions...
+				
+
+**INHERITANCE	class Child: public Parent
+					{
+					};	
+
+					class Child: private Parent
+					{
+					};	
+
+					class Child: protected Parent
+					{
+					};	
+				
+				Parent *p = new Child;		|creating pointer object p of class Parent and assigning address of obj of Child class
+				p -> fun(5);				|calling fuction fun from Parent class as p is obj(poiter obj) of Parent class
+
+**FUNCTION OVERLOADING-- "Function is overloaded with multiple jobs (without same signature)(compile time polymorphism)"
+					  --  Functions must be in same scope(class) for function overloading
+					  --  Function must be in Parent-Child class with same signature for function overriding
+				void f1(int x) {...}			|Rules of Exicution of Function Call-- 
+				void f1(int x) {...}			|1. Exact Match with function signature
+				char k='5';						|2. Type pramotion [char>int & float>double]
+				f1(k)							|3. Type Conversion [premitive>premitive(char,int,float,double)]
+
+**OPERATOR OVERLOADING-- "operator is overloaded with multiple jobs(compile time polymorphism)"
+				Complex operator + (Complex c)		|Complex is User defined class data type having a & b attributes...
+				{
+					Complex temp;
+					temp.a = a + c.a;
+					temp.b = b + c.b;
+					return(temp)
+				}
+			Complex c1,c2,c3;					
+			c1.setdata(3,4);
+			c2.setdata(5,6);
+			c3 = c1 + c2;		|c3=c1.operator+(c2)|Adding attributes in c1 & c2 objects,assigning them in c3 object's attributes
+			c2 = -c1			|c2=c1.operator-()	"For Unary opperators"
+
+**FILE HANDLING--
+		MODES--
+			r/rb> only able to read content
+			w/wb> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
+			a/ab> same as "w". besides, if file exists, append the content after old content of file.
+			r+/rb+	> r & w possible. Overwrite existing data, generally used for modifing existing data.
+			w+/wb+	> r & w possible, creates file if not exist. Eraze old content and write.
+			a+/ab+	> r & w possible, creates file if not exist. Append the content after old content of file.
+
+
+	creating /			FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","w");	
+	overwriting file	fprintf(fpointer, "Jim > Nice\nAnkit > OP\n");
+						fclose(fpointer);
+
+
+	appending to 		FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","a");	
+		file content	fprintf(fpointer, "Johnny > Good\nRitesh > OvPwr\n");
+						fclose(fpointer);
+
+					
+	reading file		FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","r");
+		content			char line[200];
+						while(!feof(fpointer))						|strlen(fpointer)
+						{
+							fgets(line, 200, fpointer);				|
+							printf("%s", line);						| # These only prints one line of file content
+						}
+						fclose(fpointer);
+						
+						>>	while(fgets(line,200,fpointer) != NULL)				|
+							{
+								printf("%s", line);
+							}
+						fscanf(fpointer, " %d,%d/%d,%d",&a,&b,&c,&d)	//file content-> 12,34/23,56 then a=12, b=34 and so on...
+
+	for binary file
+					fwrite(&a, sizeof(a), 1, fpointer)	//'a' is the variable from which we want to write its content to binary file
+					fread(&a, sizeof(a), 1, fpointer) 	//fread() returns(0 or 1),by checking if file has content left(1), or not(0)
+
+
+
+
+**DYNAMIC VARIABLES--
+MALLOC
+	float *p;
+	p = (float*)malloc(4);		// "malloc" Creates Dynamic Variable of size 4 bytes and returns "void type pointer" of 1st byte
+	*p = 3.4;					// so, " float* " used to type cast to "float type pointer" return type
+	printf(" %lf \n", *p);
+
+CALLOC
+	int *q;
+	q = (int*)calloc(5,2);		// "malloc" Creates Dynamic Variable 'Array' of 5 items each of 2 bytes and returns "void type pointer" 
+							// of 1st byte of 1st item.
+
+REALLOC
+	double r;
+	r = (double*)realloc(p,8);		// "realloc" re-sizes the block created by "malloc/calloc"
+	float r;
+	r = (float*)realloc(q,4);
+
+FREE
+	free(p);				
+	free(q);				
+	free(r);			// releases memory used for dynamic variable created by "malloc/calloc/realloc"
+

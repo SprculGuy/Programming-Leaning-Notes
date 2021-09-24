@@ -251,7 +251,8 @@ obj.display();
 
 **CLASS data type--(defaultly all members are private)
 		class Name
-		{				// Default all defined attributes are private
+		{
+		 private:				// Default all defined attributes are private
 			Name(){}					//Default Constructor | Constructor doesn't have any return type & it never be static
 			Name(int a){}				|
 			Name(int a,char a){}		|//Parameterized Constructor(Constructor Overloading)
@@ -261,22 +262,29 @@ obj.display();
 
 	  >>Name obj1,obj2(4),obj3(4,'B'),obj4(obj1);
 				//creating instance or object variable & calling constructor functions...
+
+**VISIBILITY MODES--
+		private			-Only Accessible inside class
+		Protected		-Accessible from inside & derived/child class, but not to Objects...
+		Public			-Accessible to objects, from inside & derived/child class.
 				
 
-**INHERITANCE	class Child: public Parent
-					{
-					};	
+**INHERITANCE	
+				class Child: public Parent							//access specifier(public) shows the scope of attributes/members of Parent class. For public, 
+					{													//all the public attributes/members of Parent class are works as public attributes/members in Child class & 
+					};													//all the protected attributes/members of Parent class are works as protected attributes/members in Child class
 
-					class Child: private Parent
-					{
-					};	
+				class Child: private Parent, Parent1				//multiple inheritance with default visibility to private for Parent1 class 
+					{												//For private, all the accessible attributes/members of Parent class are works as private attributes/members in Child class
+					};									
 
-					class Child: protected Parent
-					{
-					};	
+				class Child: protected Parent,						//For protected, all the accessible attributes/members of Parent class are works as protected attributes/members in Child class
+					{							
+					};											
 				
 				Parent *p = new Child;		|creating pointer object p of class Parent and assigning address of obj of Child class
 				p -> fun(5);				|calling fuction fun from Parent class as p is obj(poiter obj) of Parent class
+
 
 **FUNCTION OVERLOADING-- "Function is overloaded with multiple jobs (without same signature)(compile time polymorphism)"
 					  --  Functions must be in same scope(class) for function overloading

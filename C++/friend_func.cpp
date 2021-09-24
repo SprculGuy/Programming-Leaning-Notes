@@ -9,15 +9,22 @@ class A
     int a = 2;
     public:
     friend void fun(A, B);          //declearing frind function for class B
+    void func()
+    {}
 };
 class B
 {
     private:
     int b = 3;
-    friend void fun(A, B);          //friend func declearation can be done any scope(public/private)
+    friend void fun(A, B);          //friend function declearation can be done any scope(public/private)
     public:
     
 };
+class C
+{
+    friend void A::func();          //'func' function in class A is friend of class C
+    friend class A;                 //class A is friend class of class C
+};                                  //all the member functions of class A are friend func of class C
 
 void fun(A o1, B o2)                //defining friend fuction...
 {

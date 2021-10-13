@@ -10,20 +10,22 @@ Bjarne Stroustrup	(Denmark)	(1979-C_with_classes|1983-C++)
 *To Compile & Run C++ Program -->
  app.cpp --> pre-processor(HeaderFiles) --> app.i --> compiler --> app.obj --> Linker(LibraryFiles) --> app.exe
 Exicute these in terminal of working directory...  
-->gcc (file name.cpp) (binary file name)                      gcc hello.cpp -o hello
-->./(binary file name)										  ./hello
+->gcc (file name.cpp) (binary file name)                      gcc hello.cpp -o hello		//this'll create obj file 'hello' in working directory
+->./(binary file name)										  ./hello						//to exicute that obj file
 
-
+Exicution of any C++ programme is defaultly from Main function...
 we can only pass arguments to main function(), while running code as .exe on command line...
 														  1   2 3	So, total no of arg = argno = 3 
-main(int argno, char *argv[]){}							|>c:\user\anynomus\documents\test.exe 6 9
-main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] argv[2]
+int main(int argno, char *argv[]){}							|>c:\user\anynomus\documents\test.exe 6 9
+int main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] argv[2]
 															//argv is pointer array, so it's stoaring addresses of arguments
 
 
 **PREPROCESSOR--
-#include<Header_file_only>			| We can include any header file
+#include<Standard_lib/header_file>	| We can include any header file(stdio.h) or Standard library file(iostream/fstream)
 #include "full_file_path"			| We can include any header file as well as user created sourse file
+			--- Header files contains only declearation of identifiers which needs to checks definition in library file
+			--- Standard library file contains full definitions of identifiers
 
 #define identifier any_value_char_string			// #define PI 3.14		// #define Msg "Hello" 		// #define SUM(a,b) a+b
 #undef identifier									// #define PI			// #define Msg		 		// #define SUM(a,b)
@@ -44,6 +46,20 @@ main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] a
 	-----;
 #endif
 
+
+**NAMESPACE--	(Container for Identifier without same name conflict) it can contain variable/class/functions/object...
+	- must be defined globally or nested inside another namespace
+	- definition can be continue and extended over more than one file
+		ie. we can create same named namespace on multiple files, that simply means 1st namespace's extenstion 
+eg.
+	namespace Myspace				namespace 		// namespace can be without any name
+	{int x; void fun(){}}			{}
+	namespace ms = Myspace							// giving alias to access with ease
+
+	Myspace::x=5;
+	Myspace::
+	using namespace Myspace;						// 'using' keyword allows to import namespace global scope in any namespace also
+	x=5;
 
 
 **OPRATERS---
@@ -72,6 +88,9 @@ PREMITIVE DATA TYPES
 	4	long									|	cout<< *pnumber		= 34
 	1	char character = 'A';
 	8	char *pcharacter = & character;
+	20	char charr[20]							|	fast to exicute
+		string str;								|	safe to use, without error	>must use 'string' header file
+		string *str = &str;
 	4	float
 	1	bool x = true;							
 	2	bool y = false;
@@ -92,6 +111,9 @@ Wild & Void(generic) Pointer
 	void *p;			|	wild pointer - as pointer has garbage adress of unreserved memory
 	p = &x;				|	void pointer can stoare adress of any type of variable
 	*(int*)p = 11;		|	type-casting void pointer to int, to stoare int value in x. ie, x=11
+
+	(char)x				|	type-casting int to char...
+
 Function Pointer
 	void (*p)(int, int);				|	creating"function pointer" for pre defined funtion; void func1(int a, int b) { }
 	p = func1;							|	assigning function adress
@@ -110,6 +132,7 @@ Reference Variable
 	y++;				refernce variables can't be updated, we can only access/update the referenced variable value 
 	cout<<x;			x = 3
 
+
 **STOARAGE CLASSES--
 	Storg Class	|Default Value	|Stoared	|Scope	|Life
 
@@ -127,11 +150,11 @@ ex.	register int a;		register char b;
 		cout << << endl;
 		std::cout << << std::endl;
 							--without std definition ( using namespace std;)
-		printf	printf("%s \n", "string")			\n - new line
-				printf(" %c", "A")	 				\b - backspace
-				printf("%d \t", 12)					\t - tab
-				printf("%f \v", 34.23)				\v - vertical tab
-				printf("%f", "double")
+		printf	printf("%s \n", "string")			\n - new line			\\n - prints \n
+				printf(" %c", "A")	 				\b - backspace			\\b - prints \b
+				printf("%d \t", 12)					\t - tab				\\t - prints \t
+				printf("%f \v", 34.23)				\v - vertical tab		\\v - prints \v
+				printf("%f", "double")										\\ - prints '\'
 
 				printf("%p", &variable_name)     
 								   // %p - pointer | print out the phisical(hexadecimal format) memory address assigned to variable 
@@ -204,19 +227,29 @@ ex.	register int a;		register char b;
 				}
 
 
+**JUMP STATEMENT
+	break		# terminates current/working loop and goes out of loop
+	continue	# terminates current/working loop and goes for next iteration of loop
+	pass		# Used where we don't want any operation to perform
+	return		
+	goto		 	>x:				#exicution control goes to x: block
+					>	cout<<"Hello World";
+					>goto x;
+
+
 **FUNCTIONS--
 		inline char hello(int, char*);	
 						--'inline' is the request to interchage small functions into simple lines of code, to reduce exicution time.
-						--'hello(int, char*)' is "Function Signature"
-		char hello(int, char*);		
+						--'hello(int, char*)' is "Function Signature",ie. name and parameters with parameter type.
+		char hello(int, char*);
 							--Declearing post-defined Function, also called as Function Prototype...
 		char hello(int arg1, char *arg2[])					
 		{															
 			return 'A';
-		}					--Defining Function Definition...
+		}					--Defining Function Definition(Code)...
 
-	  >>return_val = hello(a, &b);					
-							--calling function and stoaring it's return value in variable...
+	  >>char return_val = hello(a, &b);					
+							--calling function with arguments and stoaring it's return value in variable...
 
 
 **STRUCT data Type--(defaultly all members are public)
@@ -249,19 +282,30 @@ obj.input();
 obj.display();	
 
 
-**CLASS data type--(defaultly all members are private)
+**CLASS data type--(defaultly all members are private) 		
+		class Name;				// Declearing post-defined Class
 		class Name
 		{
-		 private:				// Default all defined attributes are private
+		 private:				// Default all defined attributes are private, doesn't matters we specify or not
 			Name(){}					//Default Constructor | Constructor doesn't have any return type & it never be static
 			Name(int a){}				|
 			Name(int a,char a){}		|//Parameterized Constructor(Constructor Overloading)
 			Name(Name &a){}				//Copy Constructor | Reason of using reference variable is to avoid creation of object and 
 			~Name()							//again calling constructor function in infinite recursion...
-		};									//Destructor doesn't have any return type & doesn't takes arguments, it never be static 
+		};								//Destructor doesn't have any return type & doesn't takes arguments, it never be static 
 
 	  >>Name obj1,obj2(4),obj3(4,'B'),obj4(obj1);
 				//creating instance or object variable & calling constructor functions...
+Note:  
+  - class can be nested in another class, but members of nested class get accessed only in that class. not from enclosing class... 
+		>student::address obj;		- to create object of nested class address outside the student class, address class must be public in student
+
+
+**ABSTRACT CLASS--		
+					- Class containing Pure Virtual function is Abstract Class, means- we can't create object/instance of Abstract class
+	void f1()=0;	- By assigning value zero a to function, we create 'DO NOTHING FUNCTION' which can't be accessed/called...
+					- Declearing Pure Virtual function in any class causes class 'A' to becomes Abstract Class
+
 
 **VISIBILITY MODES--
 		private			-Only Accessible inside class
@@ -284,15 +328,37 @@ obj.display();
 				
 				Parent *p = new Child;		|creating pointer object p of class Parent and assigning address of obj of Child class
 				p -> fun(5);				|calling fuction fun from Parent class as p is obj(poiter obj) of Parent class
+				(*p).fun(5);
+				
+*Note*>	For constructor in inheritance, during exicution. first, constructor of Parent class gets exicuted and then constructor of child class
+		For destructor in inheritance, during exicution. first, destructor of child class gets exicuted and then destructor of parent class got call by destructor of child calss
 
 
 **FUNCTION OVERLOADING-- "Function is overloaded with multiple jobs (without same signature)(compile time polymorphism)"
 					  --  Functions must be in same scope(class) for function overloading
-					  --  Function must be in Parent-Child class with same signature for function overriding
+					  
 				void f1(int x) {...}			|Rules of Exicution of Function Call-- 
 				void f1(int x) {...}			|1. Exact Match with function signature
 				char k='5';						|2. Type pramotion [char>int & float>double]
 				f1(k)							|3. Type Conversion [premitive>premitive(char,int,float,double)]
+
+
+**FUNCTION OVERRIDING/HIDING--  
+					  --  Function must be in Parent-Child class with same signature for function overriding
+				class Parent
+				{
+				public:
+					void f1() {}	
+					void f2() {}
+				}
+				class Child:Public Parent
+				{
+				public:
+					void f1() {}				// function overriding
+					void f2(int a) {}			// function hiding i]f2 call with parameters-runs f2 in Child 
+				}												  ii]f2 call without arguments-gives error
+
+
 
 **OPERATOR OVERLOADING-- "operator is overloaded with multiple jobs(compile time polymorphism)"
 				Complex operator + (Complex c)		|Complex is User defined class data type having a & b attributes...
@@ -308,68 +374,181 @@ obj.display();
 			c3 = c1 + c2;		|c3=c1.operator+(c2)|Adding attributes in c1 & c2 objects,assigning them in c3 object's attributes
 			c2 = -c1			|c2=c1.operator-()	"For Unary opperators"
 
+
+**COPY [DEEP/SHALLOW]--
+	Shallow Copy 	> Creating an object by copying data of another object only the class attributes
+	Deep Copy		> Creating an object by copying data of another object along with the values of memory resources resides outside the 
+						object but handled by that object. Mainly, for pointer pointing any dynamic variable...
+
+
+**TYPE CONVERSION--
+	Primitive to Primitive	(char,int,float,double)		> automatically type conversion
+	Primitive to Derived Type							> by creating default & parameterised constructor
+																Compx_obj = x;					
+																Complex(int x) {a=x; b=0;}		//this 'a' & 'b' belongs of class
+	Derived to Premitive Type							> by creating casting opperator in class
+																int x = Compx_obj;				
+																operator int() {return(a)}		//this 'a' belongs of class
+	Derived to Premitive Type							> either by constructor or casting opperator													
+																Compx1_obj = Compx2_obj;		//For Constructor, must be defined in 1st class
+																Complex1(Complex2 x) {a = x.a; b = x.b;}	//a & b must not be private in 2nd class or 
+																Complex1(Complex2 x) {a = x.geta(); b = x.getb();}		public function defined with return value a & b
+																operator Complex1() {return(a,b)}		//For casting opperator, must be defined in 2nd class
+																
+
 **FILE HANDLING--
 		MODES--
-			r/rb> only able to read content
-			w/wb> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
-			a/ab> same as "w". besides, if file exists, append the content after old content of file.
-			r+/rb+	> r & w possible. Overwrite existing data, generally used for modifing existing data.
-			w+/wb+	> r & w possible, creates file if not exist. Eraze old content and write.
-			a+/ab+	> r & w possible, creates file if not exist. Append the content after old content of file.
+			ios::in			> only able to read content
+			ios::out		> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
+			ios::app		> same as "w". besides, if file already exists, this appends the content after old content of file.
+			ios::ate		> Seeks to end of file upon original open
+			ios::nocreate	> Open fails if file doesn't exists
+			ios::noreplace	> Open fails if file already exists
+			ios::binary		> for working in binary mode
 
+			tellg()			> Defined in istream. Returns position of get/reading pointer...
+			tellp()			> Defined in ostream. Returns position of put/writing pointer...
+			seekg(pos)					> Seeks get/reading poiter to position 'pos'
+			seekg(mov, ios_base::beg)	> ::beg / ::cur / ::end  //mov can be negative, & it is relative to 2nd argument
+			seekp(pos)					> Seeks put/writing poiter to position 'pos'
+			seekp(mov, ios_base::beg)	> ::beg / ::cur / ::end  //mov can be negative, & it is relative to 2nd argument
 
-	creating /			FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","w");	
-	overwriting file	fprintf(fpointer, "Jim > Nice\nAnkit > OP\n");
-						fclose(fpointer);
+	creating /				
+	overwriting file--	
+						ofstream fout;																// fstream object can be used...
+						fout.open("D:\\Anynomus\\Documents\\Programming\\C++\\text.txt");           //  "\\"="\"
+						fout<<"My name is Ankit";
+						fout.close();
+				
+	appending to		
+		file content--					
+						fstream fout;
+						fout.open("D:\\Anynomus\\Documents\\Programming\\C++\\text.txt", ios::app|ios::binary);
+						fout<<"My name is Nikita";
+						fout.close();
 
-
-	appending to 		FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","a");	
-		file content	fprintf(fpointer, "Johnny > Good\nRitesh > OvPwr\n");
-						fclose(fpointer);
-
-					
-	reading file		FILE *fpointer = fopen("/home/anynomus/Desktop/text.txt","r");
-		content			char line[200];
-						while(!feof(fpointer))						|strlen(fpointer)
+	reading 
+		file content--		
+						ifstream fin;
+						fin.open("D:\\Anynomus\\Documents\\Programming\\C++\\text.txt");
+						char ch1;
+						while(!fin.eof())
 						{
-							fgets(line, 200, fpointer);				|
-							printf("%s", line);						| # These only prints one line of file content
-						}
-						fclose(fpointer);
-						
-						>>	while(fgets(line,200,fpointer) != NULL)				|
-							{
-								printf("%s", line);
-							}
-						fscanf(fpointer, " %d,%d/%d,%d",&a,&b,&c,&d)	//file content-> 12,34/23,56 then a=12, b=34 and so on...
+							fin>>ch1;					//reads char-by-char without any space/tab...
+							cout<<ch1;
+						} 
+						fin.close();
 
-	for binary file
-					fwrite(&a, sizeof(a), 1, fpointer)	//'a' is the variable from which we want to write its content to binary file
-					fread(&a, sizeof(a), 1, fpointer) 	//fread() returns(0 or 1),by checking if file has content left(1), or not(0)
+						cout<<endl;
+
+						fstream fin;
+						fin.open("text.txt", ios::in);
+						char ch2;
+						while(!fin.eof())
+						{
+							ch2 = fin.get();			//reads char-by-char with spaces...
+							cout<<ch2;					//get() returns intiger values. For char it returns ASCII value, to avoid that use type-casting
+						}      
+						fin.close();  
 
 
+**EXCEPTION HANDLING--
+
+	try
+	{throw val;}
+	catch(type1 arg){}
+	catch(type2 arg){}
+			try
+			{
+				cout<<"Exicuted";
+				throw 22;					//throw is like return. ie, all lines after throw in try don't get exicuted
+				cout<<"NotExicuted";
+			}
+			catch(double x) {cout<<x;}
+			catch(int x) {cout<<x;}
+			catch(...) {cout<<"Runs for any type of throw(char/string/int/float/double/derived type )";}
 
 
 **DYNAMIC VARIABLES--
-MALLOC
-	float *p;
-	p = (float*)malloc(4);		// "malloc" Creates Dynamic Variable of size 4 bytes and returns "void type pointer" of 1st byte
-	*p = 3.4;					// so, " float* " used to type cast to "float type pointer" return type
-	printf(" %lf \n", *p);
+[C+CPP]
+	MALLOC
+		float *p;
+		p = (float*)malloc(4);		// "malloc" Creates Dynamic Variable of size 4 bytes and returns "void type pointer" of 1st byte
+		*p = 3.4;					// so, " float* " used to type cast to "float type pointer" return type
+		printf(" %lf \n", *p);
 
-CALLOC
-	int *q;
-	q = (int*)calloc(5,2);		// "malloc" Creates Dynamic Variable 'Array' of 5 items each of 2 bytes and returns "void type pointer" 
-							// of 1st byte of 1st item.
+	CALLOC
+		int *q;
+		q = (int*)calloc(5,2);		// "malloc" Creates Dynamic Variable 'Array' of 5 items each of 2 bytes and returns "void type pointer" 
+								// of 1st byte of 1st item.
 
-REALLOC
-	double r;
-	r = (double*)realloc(p,8);		// "realloc" re-sizes the block created by "malloc/calloc"
-	float r;
-	r = (float*)realloc(q,4);
+	REALLOC
+		double r;
+		r = (double*)realloc(p,8);		// "realloc" re-sizes the block created by "malloc/calloc"
+		float r;
+		r = (float*)realloc(q,4);
 
-FREE
-	free(p);				
-	free(q);				
-	free(r);			// releases memory used for dynamic variable created by "malloc/calloc/realloc"
+	FREE
+		free(p);				
+		free(q);				
+		free(r);			// releases memory used for dynamic variable created by "malloc/calloc/realloc"
 
+[CPP]
+	NEW
+	int *p = new int;				// Creates Dynamic Variable of type int(without name) and returns address of 1st byte in the pointer 'p'
+	int *p = new int[5];				// Creates Dynamic Array of type int(without name) and returns address of 1st byte in the pointer 'p'
+	float *p = new float;
+	Structure *p = new Structure;			// Creates Dynamic Object of type Structure(without name) and returns address of 1st byte in the pointer 'p'
+	Class *p = new Class;
+
+	DELETE
+	delete p;				// releases memory used for dynamic variable on address pointed by pointer 'p', else it'll get realease after programme's end-of-exicution.
+	delete []p;				// if we don't use to realease delete it causes Memory Leak.
+
+
+**TEMPLETS--
+	Function Template/Generic Function
+		template <class type1, class type2,...> type3 funct_name(type1 a, type2 b,...) { }
+
+	Class Template/Generic class
+		template <class type1, class type2,...> class ClassName { };			// we can give attributes type as type1 x; type2 y;....
+		    ClassName <int, float, char,...>obj;
+
+
+**STL (Standard Template Library)--		
+	-set of template classes
+	-Classes divided into 3 well-structured components
+		1] Containers	- Used to manage collection of object of certain kind. Holds elements of any data type...		array, link-list, tree, vectors(dynamic arrays),etc.
+		2] Algorithms	- Functions that performs complex algorithms on data of comtainers, ie. Acts on containers... 	initialisation, searching, sorting, transforming,etc.
+		3] Iterators	- Used to point/access the content of container one-by-one
+	
+	>Common Containers--
+		array
+		vector 			replicates arrays					array <{ObjType}, {ArraySize}>obj = {12,23,34,45,56,...};
+		queue 			replicates queues
+		stack 			replicates stack
+		priority_queue 	replicates heaps 
+		list 			replicates linked list
+		set 			replicates trees
+		map				associative arrays					map <{KeyType}, {ValueType}>obj; 
+										- Associative arrays means non-sequencial-numeric[0,1,2,...] indexes. ie, key-value pairs with unique & immutable keys.			
+										- these arrays are defaultly sorted by index values.
+		eg. 
+			#include<iostream>
+			#include<array>
+			#include<vector>
+			#include<map>
+			void main()
+			{
+				array <int,10>obj={12,23,32,4};					// array of int type having size 10
+
+				vector <int>obj;						// vector doesn't need size(zero lenght), it dynamically increases size itself, ie.1,2,4,8,16...
+				vector <int>obj{12,23,34,45,56,67}		// creating vector with values assigned, as for 6 values size of array is 8
+				vector <int>obj(4)						// vector doesn't need size, but we can give size. Here we given 4
+				vector <string>obj(10,"NA")				// creating string vector of size 10 with all 10 spaces	initialises with string "NA"
+
+				map <int, string>obj{	{11, "Raj"}
+										{7, "Nikita"},
+										{77, "Bharti"}	 };
+				obj[17] = "Ankit";
+			}	

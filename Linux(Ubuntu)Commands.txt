@@ -46,23 +46,30 @@ cd /home/anynomus/Downloads/Python
 		pip3 uninstall numpy
 		
 **Git:
-		sudo apt install git
+
 		git --version
 		git config --global user.name "Anynomus"
 		git config --global user.email "Ankit7887@git.com"
-		git status											-->Check working directory status
-		git diff file_name									-->to check-out the updations before adding to staging area
-> git diff file.txt
+		git remote add origin <SSH Key>							-->Connects Git repo to local path
+		git status										-->Check working directory status
+		git diff file_name								-->to check-out the updations before adding to staging area
+	>git branch master
+		git branch									-->gives list of all branches creaed, with current working branch highlighted.
+		git branch new_branch_name							-->creates new branch 'new_branch_name'
+		git checkout new_branch_name							-->switches current working branch to 'new_branch_name'
+		git merge new_branch_name							-->merge all changes commited on 'new_branch_name' to working branch
+	> git diff file.txt
 		git diff --staged file_name							-->to check-out the updations of files in staging area
-> git diff --staged file.txt
-		git init											-->Initialise empty Git repository in working directory
-		git add .											-->add all to the staging area				|
-		git reset .											-->unstage all the files from staging area	|at,<.> we can use <FileName>
-		gir checkout .										-->undo all updated content of file, before staging
-		git commit -m "CommitComments"						-->Commits to Git Repo
-> git commit -m "fix to minor login bug"
-		git log												-->Shows all commit history
+	> git diff --staged file.txt
+		git init									-->Initialise empty Git repository in working directory
+		git add .									-->add all to the staging area				|
+		git reset .										-->unstage all the files from staging area	|at,<.> we can use <FileName>
+		gir checkout .									-->undo all updated content of file, before staging
+		git commit -m "CommitComments"							-->Commits to Git Repo
+	> git commit -m "fix to minor login bug"
+		git log										-->Shows all commit history
 		git push origin master								-->Push to GitHub Repo from Git Repo
 		git pull origin master								-->Pull from Github Repo to the Git & Local Repo
-		git clone <SSH key>									-->Create/Download any public/private Repo
+		git clone <SSH key>								-->Create/Download any public/private Repo
 
+		

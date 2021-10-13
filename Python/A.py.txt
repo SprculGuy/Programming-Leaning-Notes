@@ -1,26 +1,90 @@
+Guido van Rossum (Netherlands as a successor to 'ABC programming language')
+		Python 0.9.0 in 1991's
+		Python 2.0 in 2000's|discontinued with version 2.7.18 in 2020's
+		Python 3.0 in 2008's 
 
 
 *To Compile & Run Python Program -->
-
 Exicute these in terminal of working directory...
 python3 (file name.py)										python3 hello.py
 
 
+**DATA TYPES--
+	None
+	boolean			var = True	, 	var = False
+	int/float		var = 34	,	var = 3.45
+	complex
+	string			str1 = 'a' 	, 	str = 'ank'				#String is immutable(unable to modify once defined). But ...
+					str2 = "Ankit"										partially accessible using indexing. eg, str[0] is 'A' ...
+					str3 = '''as			,str = """as							& str3[-1] is 't' & str3[1:-1] is 'nki' & str3[-4:-2] is 'nk'
+							you know'''          you know"""
+					str4 = str1 + str2 + " Patil"				# str4 = "aAnkit Patil"
+					str5 = str1 * 5								# str5 = "aaaaa"		
+	list			lst = ['Ank', ["A", 10]]					# lst[0] is 'Ank'  ||  lst[1] is ["A", 10]  ||  lst[1][0] is "A"
+	tuple			tpl = ('Ank', "A", 10)						# immutable
+	set				x = {1,2,3,3,2} ->becomes-> {1,2,3}			# mutable & duplicates get removed || x=frozenset({'a',2}) is immutable
+	directory		dict = {'key':"value", 12:21}				# values are accessed through keys || keys must be unique
+	indentation		"	" -> denotes block of code	
+	class		
+
+
+**ACCORDING TO ASCII
+	"A" = 65			ord("A")
+	"a" = 97			ord('a')
+
+
+**OPERATORS--(with precedence)
+		Operators in the same box have the same precedence
+		Operators in the same box group left to right
+		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
+
+
+	|***	OPERATORS(with precedence)								|	***		DESCRIPTION
+
+	|(expressions...), [expressions...],							|	Binding or parenthesized expression, list display,
+	|{key: value...}, {expressions...}							|	dictionary display, set display
+
+	|x[index], x[index:index],									|	Subscription, slicing,
+	|x(arguments...), x.attribute								|	call, attribute reference
+
+	|await x														|	Await expression
+	|**															|	Exponentiation 
+	|+x, -x, ~x													|	Positive, negative, bitwise NOT
+	|*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
+	|+, -														|	Addition and subtraction
+	|<<, >>														|	Shifts
+	|&															|	Bitwise AND
+	|^															|	Bitwise XOR
+	||															|	Bitwise OR
+	|in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
+	|not x														|	Boolean NOT
+	|and															|	Boolean AND
+	|or															|	Conditional expression
+	|lambda														|	Lambda expression
+	|:=															|	Assignment expression
+
 
 
 **PRINTING OUTPUT-- 
-		print("& this is Python...")			# new line defaultly. like, end="\n"
-		print(end="")							# without new line
+	print("& this is Python...")			# new line defaultly. like, end="\n"
+	print(end="")							# without new line
 
 
 **TAKING INPUT--
 		variable = input("Enter whatever brother :) ...")
 
 
+**EXCEPTION/ERROR HANDLING--
+	try:
+		_block_
+	except error_name:				error_name = SyntaxError / ValueError...
+		_block_
+
+
 **CONDITIONAL STATEMENT--
-	IF		if x < 5:
-				_block_
-			elif x == 5:
+	IF		if x < 5:			NESTED IF		if x<5:
+				_block_								if x<3:
+			elif x == 5:								print("x : ", 4)
 				_block_
 			else:
 				_block_
@@ -36,9 +100,31 @@ python3 (file name.py)										python3 hello.py
 					_block_
 
 
-**LOOPING STATEMENTS--
+**LOOPING(ITERATIVE) STATEMENTS--
+	FOR		for x in range(-10,11,2):    //x = -10,-8,...,-2,0,2,...,8,10
+				_block_
+
 	WHILE	while x == 5:
 				_block_
 
-	FOR		for x in range(0,11,2):    //x = 0,2,4,6,8,10
-				_block_
+	RANGE	range(0, 101, 2)	.\>0,2,4,...,98,100.
+			range(100, -1, -2)	.\>100,98,...,4,2,0.
+
+
+**JUMP STATEMENT
+	break		# terminates current/working loop and goes out of loop
+	continue	# terminates current/working loop and goes for next iteration of loop
+	pass		# Used where we don't want any operation to perform
+
+
+**FUNCTIONS--
+	def func_name(arg1, arg2,...):				# defining fuction
+		'DocString'								# DocString is the comment about defined function & it's optional
+		_block_
+
+	func_name(val1, val2,...)					# calling function
+
+
+**CLASS data type--
+**INHERITANCE
+**FILE HANDLING--

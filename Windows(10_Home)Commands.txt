@@ -70,9 +70,13 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 		gir checkout .									-->undo all updated content of file, before staging
 		git commit -m "CommitComments"							-->Commits to Git Repo
 		git commit -a -m "Direct commit"						-->Commits to Git Repo directly 
-		rm -rf <repo_folder>/.git							-->Deletes local GitHub repository, use command at the root of your Git repository.
+		git rm file_name								-->Removes the file_name file and move the chages to staged area
+		git rm --cached	file_name								-->Removes file from git repo and file becomes untracked for git
+		rm -rf repo_folder/.git								-->Deletes local GitHub repository, use command at the root of your Git repository.
+		git mv file_name file_name_renamed						-->Renames the file_name file to file_name_renamed and move the chages to staged area
 	> git commit -m "fix to minor login bug"
 		git log										-->Shows commits history
+		git log -p									-->Shows commits history with changes.
 		git push origin master								-->Push to GitHub Repo from Git Repo
 		git pull origin master								-->Pull from Github Repo to the Git & Local Repo
 		git clone <SSH key>								-->Create/Download any public/private Repo

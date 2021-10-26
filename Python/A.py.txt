@@ -9,6 +9,13 @@ Exicute these in terminal of working directory...
 python3 (file name.py)										python3 hello.py
 
 
+SPECIAL VARIABLE--
+	-> Used to run default code only from current module
+__name__		# This is variable contains '__main__' static point of exicution for current working module
+				# For imported module __name__ holds 'module_name' as static point of exicution from it is accessed...
+
+
+
 **DATA TYPES--
 	None
 	boolean			var = True	, 	var = False
@@ -58,11 +65,15 @@ python3 (file name.py)										python3 hello.py
 	||															|	Bitwise OR
 	|in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
 	|not x														|	Boolean NOT
-	|and															|	Boolean AND
+	|and														|	Boolean AND
 	|or															|	Conditional expression
 	|lambda														|	Lambda expression
 	|:=															|	Assignment expression
 
+	#					 - Comment
+	''' 				|- Multiline Comment 				
+	_block_				|
+	'''					|
 
 
 **PRINTING OUTPUT-- 
@@ -72,13 +83,6 @@ python3 (file name.py)										python3 hello.py
 
 **TAKING INPUT--
 		variable = input("Enter whatever brother :) ...")
-
-
-**EXCEPTION/ERROR HANDLING--
-	try:
-		_block_
-	except error_name:				error_name = SyntaxError / ValueError...
-		_block_
 
 
 **CONDITIONAL STATEMENT--
@@ -124,7 +128,45 @@ python3 (file name.py)										python3 hello.py
 
 	func_name(val1, val2,...)					# calling function
 
+**ANONYMOUS FUNCTIONS--	
+	- Functiopn without name
+	- Contains no of arguments but only one expression...
+	eg.	
+		x = lambda a, b: a**b
+		print(x(2, 3))					# 8 will be printed
+
+
+**MODULES--
+	We can use py files/modules created in working directory
+  examples-
+	#import module
+	#import module as obj
+	#from module import method								method can be Function, Class...
+	#from module import method as obj
+	#from module import method1, method2
+	#from module import *
+	
+**PACKAGES--
+	We can use modules/py files created in sub-folders/packages of current working directory
+  examples-
+	#import package											> package.module.method()
+	#import package.module									> module.method()
+	#import package.module as obj							> obj.method()
+	#from package.module import method_class as obj			> obj()
+
+
 
 **CLASS data type--
-**INHERITANCE
+
+
+**INHERITANCE--
+
+
 **FILE HANDLING--
+
+
+**EXCEPTION/ERROR HANDLING--
+	try:
+		_block_
+	except error_name:				error_name = SyntaxError / ValueError...
+		_block_

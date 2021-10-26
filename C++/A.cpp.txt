@@ -78,11 +78,12 @@ eg.
 	&&	- logical and								|
 	||	- logical or								|
 
-
+	//	- comment
+	/* . */ - multiline comment
 
 **DEFINING VARIABLES & POINTERS--
 		void
-PREMITIVE DATA TYPES
+	PREMITIVE DATA TYPES
 	2	int number = 34;							
 	8	int *pnumber = &number;					|	cout<< pnumber		= 76FG34H5
 	4	long									|	cout<< *pnumber		= 34

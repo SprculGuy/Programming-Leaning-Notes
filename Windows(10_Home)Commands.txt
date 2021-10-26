@@ -27,17 +27,24 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 	pip --version
 	python -m pip install --upgrade pip			-->updates pip installer
 	pip list
+	pip freeze
+	pip freeze > req.txt
+	pip install -r req.txt 
+	pip freeze pip uninstall -r requirements.txt -y
 	pip install numpy
+	pip install selenium==4.0.0
+	pip freez
 	pip install --upgrade numpy
 	pip uninstall numpy
 			pip --help
 			pip <command> --help
 			pip install --help
-
+**To get py->exe
+	pyinstaller --onefile .\app.py 						-->Uses pyinstaller package & for working dir file
 **Git:
 	Local Working Dir	    Modified	  Staging Area	      Origin
 	git add.|-------------------------------------->|		|
-		|			|<--------------|If file is mod-|
+		|git restrore --staged filename|<--------------|If file is mod-|
 		|			|		| -ified locally|
 		|		git add.|-------------->|		|
 		|			|     git commit|-------------->|
@@ -65,8 +72,9 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 		git diff --staged file_name							-->to check-out the updations of files in staging area
 	> git diff --staged file.txt
 		git init									-->Initialise empty Git repository in working directory
-		git add .									-->add all to the staging area				|
-		git reset .										-->unstage all the files from staging area	|at,<.> we can use <FileName>
+		git add .									-->add all to the staging area			|
+		git reset .									-->unstage all the files from staging area	|at,<.> we can use <FileName>
+		git restrore --staged filename							-->unstage the file 'filename' from staging area
 		gir checkout .									-->undo all updated content of file, before staging
 		git commit -m "CommitComments"							-->Commits to Git Repo
 		git commit -a -m "Direct commit"						-->Commits to Git Repo directly 
@@ -77,6 +85,10 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 	> git commit -m "fix to minor login bug"
 		git log										-->Shows commits history
 		git log -p									-->Shows commits history with changes.
+		git log -p -3									-->Shows 3 commits history with changes.
+		git log --since=2.days								-->Shows commits history of 2 last days with changes.
+				1.weeks								-->Shows commits history of 1 last weeks with changes.
+				2.months							-->Shows commits history of 2 last months with changes.
 		git push origin master								-->Push to GitHub Repo from Git Repo
 		git pull origin master								-->Pull from Github Repo to the Git & Local Repo
 		git clone <SSH key>								-->Create/Download any public/private Repo

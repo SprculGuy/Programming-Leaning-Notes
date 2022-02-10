@@ -305,7 +305,7 @@ Note:
 **ABSTRACT CLASS--		
 					- Class containing Pure Virtual function is Abstract Class, means- we can't create object/instance of Abstract class
 	void f1()=0;	- By assigning value zero a to function, we create 'DO NOTHING FUNCTION' which can't be accessed/called...
-					- Declearing Pure Virtual function in any class causes class 'A' to becomes Abstract Class
+					- Declearing Pure Virtual function in any class causes class to becomes Abstract Class
 
 
 **VISIBILITY MODES--
@@ -358,7 +358,6 @@ Note:
 					void f1() {}				// function overriding
 					void f2(int a) {}			// function hiding i]f2 call with parameters-runs f2 in Child 
 				}												  ii]f2 call without arguments-gives error
-
 
 
 **OPERATOR OVERLOADING-- "operator is overloaded with multiple jobs(compile time polymorphism)"

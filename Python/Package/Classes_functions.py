@@ -23,6 +23,8 @@ y = Mammal(1, 2)
 x.walk(5)
 print(x.name)
 print(x._name)
+print(type(x))      # -><class '__main__.Dog'> 
+                    #   because this object belongs to current working module of class name Dog
 
 # Private members are only be accessed inside that class
 # print(x.__name)

@@ -2,8 +2,8 @@
 
 void main()
 {
-    char name;
-    printf("Ankit :");
+    char name[10];
+    printf("Name : ");
     scanf("%s", name);
     printf("%s", name);
 }

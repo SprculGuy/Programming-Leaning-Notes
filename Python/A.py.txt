@@ -7,12 +7,13 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 *To Compile & Run Python Program -->
 Exicute these in terminal of working directory...
 python3 (file name.py)										python3 hello.py
-
+	SourceCode -> Compiler -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language
+	
 
 SPECIAL VARIABLE--
 	-> Used to run default code only from current module
 __name__		# This is variable contains '__main__' static point of exicution for current working module
-				# For imported module __name__ holds 'module_name' as static point of exicution from it is accessed...
+				# For imported module __name__ holds 'module_name' as static point of exicution from which it accessed...
 
 
 
@@ -46,15 +47,15 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
 
 
-	|***	OPERATORS(with precedence)								|	***		DESCRIPTION
+	|***	OPERATORS(with precedence)							|	***		DESCRIPTION
 
-	|(expressions...), [expressions...],							|	Binding or parenthesized expression, list display,
+	|(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
 	|{key: value...}, {expressions...}							|	dictionary display, set display
 
 	|x[index], x[index:index],									|	Subscription, slicing,
 	|x(arguments...), x.attribute								|	call, attribute reference
 
-	|await x														|	Await expression
+	|await x													|	Await expression
 	|**															|	Exponentiation 
 	|+x, -x, ~x													|	Positive, negative, bitwise NOT
 	|*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
@@ -70,10 +71,10 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 	|lambda														|	Lambda expression
 	|:=															|	Assignment expression
 
-	#					 - Comment
-	''' 				|- Multiline Comment 				
-	_block_				|
-	'''					|
+	#															|- Comment
+	''' 														|- Multiline Comment 				
+	_block_														|
+	'''															|
 
 
 **PRINTING OUTPUT-- 
@@ -107,6 +108,8 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 **LOOPING(ITERATIVE) STATEMENTS--
 	FOR		for x in range(-10,11,2):    //x = -10,-8,...,-2,0,2,...,8,10
 				_block_
+			else:
+				_block_					//will exicute only after last successful iteration of for loop.ie, without 'break'
 
 	WHILE	while x == 5:
 				_block_
@@ -122,11 +125,14 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 
 
 **FUNCTIONS--
-	def func_name(arg1, arg2,...):				# defining fuction
+	func_name():								#Declearing post-defined Function
+
+	def func_name(par1, par2,...):				# defining fuction.		parameter = place holder
 		'DocString'								# DocString is the comment about defined function & it's optional
 		_block_
+		return a, b								# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
 
-	func_name(val1, val2,...)					# calling function
+	x = func_name(val1, val2,...)				 # calling function.		argument = actual value  | here, x will be (2, 3)
 
 **ANONYMOUS FUNCTIONS--	
 	- Functiopn without name
@@ -139,34 +145,110 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 **MODULES--
 	We can use py files/modules created in working directory
   examples-
-	#import module
-	#import module as obj
-	#from module import method								method can be Function, Class...
-	#from module import method as obj
-	#from module import method1, method2
-	#from module import *
+	import module
+	import module as obj
+	from module import method								method can be Function, Class...
+	from module import method as obj
+	from module import method1, method2
+	from module import *
 	
 **PACKAGES--
 	We can use modules/py files created in sub-folders/packages of current working directory
   examples-
-	#import package											> package.module.method()
-	#import package.module									> module.method()
-	#import package.module as obj							> obj.method()
-	#from package.module import method_class as obj			> obj()
-
+	import package											> package.module.method()
+	import package.module									> module.method()
+	import package.module as obj							> obj.method()
+	from package.module import method_class as obj			> obj()
 
 
 **CLASS data type--
+	CLASS	class ClassName:
+				def __init__(self):								# Constructor function
+					_block_
+
+				_block_
+			obj = ClassName()
+
+			eg.
+
+				class Computer:
+					def __init__(self):
+
+					def config(self):							# 'self' is for individual instance/object we are calling method from...
+						print('i5, 16GB, 1TB')
+
+				obj1 = Computer()
+				obj2 = Computer()
+				Computer.config(obj1)							|
+				obj2.config()									| both the ways can be used
+
+**NESTED CLASS--
+	CLASS		class ClassName:
+					def __init__(self):									# Constructor function
+						self.NestedClass = self.NestedClassName()
+						print(self.NestedClass.any_nested_class_module())
+	NESTED CLASS	class NestedClassName:
+						def __init__(self):								# Constructor function
+							_block_
+
+				obj = ClassName()
+				obj1 = ClassName.NestedClassName()
 
 
 **INHERITANCE--
+	PARENT CLASS	class ClassName:
+						def __init__(self):									# Constructor function
+							_block_
+	CHILD CLASS		class ChildClassName(ClassName):
+							def __init__(self):								# Constructor function
+								super().__init__(self)						# to access entities of super/parent class
+								_block_
+
+				obj = ClassName()
+				obj1 = ChildClassName()						#calls constructor of parent class only if, child class doesn't had user defined constructor
+																otherwise, defaultly only child class constructor is exicuted
+
+
+**POLIMORPHISM--
+ways to implement polymorphism in python
+	-Duck Typing
+	-Operator Overloading
+	-Method Overloading 	- Method having same name but differnt parameters (implemented using, a = None, b = None & if conditions)
+	-Method Overriding  	- Method Overrides the parent method having same name, parameter (I have my parents phone, and I also have my phone)
 
 
 **FILE HANDLING--
+	MODES--
+				t				> text file handling mode (Default, if mode is unspecified)
+				r / rb			> only able to read content, gives error if file isn't available
+				w / wb			> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
+				a / ab			> same as "w". besides, if file already exists, this appends the content after old content of file.
+				b				> for working in binary mode
+
+	Creating /				
+	overwriting file--	
+						fo = open('filename.ext','w')
+						fo.write('My name is Ankit')
+	
+	Reading content 
+		from file--
+						fi = open('D:\\Anynomus\\Documents\\Programming\\C++\\text.txt', 'r')
+						for data in fo:
+							print(data)
+
+	Appending to		
+		file content--
+						fi = open('D:\\Anynomus\\Documents\\Programming\\C++\\text.txt', 'r')
+						fo = open('filename.ext','a')
+						for data in fi:
+							fo.write(data)
 
 
 **EXCEPTION/ERROR HANDLING--
 	try:
 		_block_
-	except error_name:				error_name = SyntaxError / ValueError...
+	except error_name as error_msg:				error_name = SyntaxError / ValueError... | defaultly you can leave that as, error_name = Exception
+		print(error_msg)
 		_block_
+	finally:						
+		_block_									# Executed in both cases, error as well as no-error

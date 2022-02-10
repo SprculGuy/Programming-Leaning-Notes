@@ -1,0 +1,19 @@
+James Gosling -> named Oak(Java)      (1991 - By Sun Microsystems(USA))
+    - java is purely object oriented
+*To Compile & Run C++ Program -->
+
+
+Java 17.0.2 (file name.py)										python3 hello.py
+	SourceCode -> Compiler -> ByteCode -> Interpreter -> Machine language
+
+
+**DATA TYPES--
+
+    bool
+    byte
+    char
+    int
+    short
+    long 
+    float
+    double

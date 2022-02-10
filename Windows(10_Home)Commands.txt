@@ -1,7 +1,37 @@
 cd C:\Users\ap788\Downloads
 cd D:\Anynomus\Documents\Programming\Python
 
-cls 	clears cmd screen	
+To tTurn Off Updates
+step 1: control Panel -> Administrative Tools -> Services -> Disable Windows Update
+Step 2: Edit Group Policy -> Administrative Templetes -> Windows Components -> Windows Update -> Configure Automatic Update
+
+
+cls 			> clears cmd screen
+
+win + I			> Open Setting
+win
+F11			> Toggle between full screen and exit full screen
+F6			> Cycle through browser elements(search bar/tabs/web page/Favorites bar/Certain popup dialogs)
+F7			> Toggle caret browsing(navigate with only using keyboard) on or off
+Tab			> Move focus to the next item
+Shift + Tab		> Move focus to the previous item
+Alt + Left arrow	> Go back
+Alt + Right arrow	> Go forward
+ **Browser-->
+Ctrl + T		> Open a new tab and switch to it
+Ctrl + Shift + T	> Reopen the last closed tab, and switch to it
+Ctrl + Tab		> Switch to the next tab
+Ctrl + 1,2,3...		> Switch to a specific tab
+Ctrl + Shift + Tab	> Switch to the previous tab
+**VScode-->
+Alt + up/down		> Move up/down current line
+Alt + Shift + up/down	> Move & Copy current line
+Ctrl + D		> Find all Matches
+Ctrl + D,D,D..		> Find all Matches and edit multiple
+Ctrl + /		> Toggle Comment 
+
+
+
 
 **Softwares--
 HWiNFO64		>gives all syste/sensors details for hardware components
@@ -13,11 +43,20 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 	dir -							>list out the all files in current working directory
 
 **C\C++ 
-	After installing Msys2
-	Msys2 64 bit -> type command "pacman -Syu"		>update all packages of msys2
+	After installing Msys2 from 'msys2.org'
+	Msys2 -> type command "pacman -Syu"			>update all packages of msys2
 	Msys2 -> type "pacman -Su"				>update all base packages
-	Msys2/Mingw64 -> type "pacman -Ss gcc"			>checking all available gcc/gdb(debugger) packages list for installation
-	Msys2/Mingw64 -> type "pacman -S choosen_package_name"		   
+	Installing required packages for C & CPP
+		Mingw64 -> type "pacman -Ss gcc"			>checking all available gcc packages list for installation for C and CPP --> mingw-w64-x86_64-gcc [GNU Compiler Collection (C,C++,OpenMP) for MinGW-w64]
+		Mingw64 -> type "pacman -S choosen_package_name"	eg. pacman -S mingw-w64-x86_64-gcc  
+			 
+		Mingw64 -> type "pacman -Ss gdb"			>checking all available gdb(debugger) packages list for installation for C and CPP --> mingw-w64-x86_64-gdb [GNU Debugger (mingw-w64)]
+		Mingw64 -> type "pacman -S choosen_package_name"	eg. pacman -S mingw-w64-x86_64-gdb   
+	Adding environment variable path of bin --> C:\msys64\mingw64\bin
+		Environment Variables -> System variables > Path > Edit > New -> 'C:\msys64\mingw64\bin'
+	Check version at random directories
+		gcc --version
+		gdb --version
 
 
 **Check Python version
@@ -30,7 +69,7 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 	pip freeze
 	pip freeze > req.txt
 	pip install -r req.txt 
-	pip freeze pip uninstall -r requirements.txt -y
+	pip freeze pip uninstall -r req.txt -y
 	pip install numpy
 	pip install selenium==4.0.0
 	pip freez
@@ -42,15 +81,15 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 **To get py->exe
 	pyinstaller --onefile .\app.py 						-->Uses pyinstaller package & for working dir file
 **Git:
-	Local Working Dir	    Modified	  Staging Area	      Origin
-	git add.|-------------------------------------->|		|
-		|git restrore --staged filename|<--------------|If file is mod-|
-		|			|		| -ified locally|
-		|		git add.|-------------->|		|
-		|			|     git commit|-------------->|
-	git commit -a -m "Direct commit"|------------------------------>|			
-		|			|git push origin|-------------->|
-		|<------------------------------------------------------|git pull origin
+	Local Working Dir	    Modified	  	Staging Area	      Origin
+	git add.|---------------------------------------------->|		|
+		|git restore --staged filename|<----------------|If file is mod-|
+		|			|			| -ified locally|
+		|		git add.|---------------------->|		|
+		|			|      git commit origin|-------------->|
+	git commit -a -m "Direct commit"|-------------------------------------->|			
+		|			|	 git push origin|-------------->|
+		|<--------------------------------------------------------------|git pull origin
 		
 	>Checking Version
 		git --version
@@ -64,18 +103,22 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 	>git branch master
 		git branch									-->gives list of all branches creaed, with current working branch highlighted.
 		git branch new_branch_name							-->creates new branch 'new_branch_name'
+		git branch --merged								-->shows already merged branches but are not deleted
+		git branch --no-merged								-->shows un-merged branches
 		git checkout new_branch_name							-->switches current working branch to 'new_branch_name'
 		git merge new_branch_name							-->merge all changes commited on 'new_branch_name' to working branch
-		git branch -d new_branch_name							-->deletes branch 'new_branch_name' locally
-		git push origin --delete new_branch_name					-->deletes branch 'new_branch_name' remotely
+		git branch -d new_branch_name							-->deletes branch 'new_branch_name' locally(Gives error for un-merged branches)
+		git branch -D new_branch_name							-->deletes branch 'new_branch_name' locally(For Un-merged branches)
+		git push -d origin branch_name  						|
+		git push origin --delete branch_name						|->deletes branch 'branch_name' remotely(from github)
 	> git diff file.txt
 		git diff --staged file_name							-->to check-out the updations of files in staging area
 	> git diff --staged file.txt
 		git init									-->Initialise empty Git repository in working directory
 		git add .									-->add all to the staging area			|
 		git reset .									-->unstage all the files from staging area	|at,<.> we can use <FileName>
-		git restrore --staged filename							-->unstage the file 'filename' from staging area
-		gir checkout .									-->undo all updated content of file, before staging
+		git restore --staged filename							-->unstage the file 'filename' from staging area
+		git checkout .									-->undo all updated content of file, before staging
 		git commit -m "CommitComments"							-->Commits to Git Repo
 		git commit -a -m "Direct commit"						-->Commits to Git Repo directly 
 		git rm file_name								-->Removes the file_name file and move the chages to staged area
@@ -89,6 +132,7 @@ HWiNFO64		>gives all syste/sensors details for hardware components
 		git log --since=2.days								-->Shows commits history of 2 last days with changes.
 				1.weeks								-->Shows commits history of 1 last weeks with changes.
 				2.months							-->Shows commits history of 2 last months with changes.
-		git push origin master								-->Push to GitHub Repo from Git Repo
-		git pull origin master								-->Pull from Github Repo to the Git & Local Repo
+		git push origin master								-->Push to master branch of GitHub Repo from master branch of Git Repo
+		git push origin branch_name
+		git pull origin master								-->Pull to master branch from Github Repo to the Git & Local Repo
 		git clone <SSH key>								-->Create/Download any public/private Repo

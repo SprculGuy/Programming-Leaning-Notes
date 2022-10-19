@@ -1,0 +1,74 @@
+
+** Time Complexity T(n)
+	- Study of efficiency of algoritms according to every indivisible opperations, considering values of n ⇒ ∞
+
+**Asymptotic Notations - 
+	- Used for analysis of runtime according to the input size...
+	- We can't define runtime in seconds because, for variable proccessing power of every individual...
+
+
+1] Big O
+		f(n)=O(g(n)) 	if f(n) <= c.g(n)
+
+		O(n^0) = O(1)	   	▲		
+		O(log n)			|
+		O(n^½)				|
+		O(n)				|
+		O(n log n)			|	 Common runtimes form worse to best 
+		O(n^2)				|
+		O(2^n)				|
+		O(n^n)				|
+		O(n!)				|
+
+2] Big ʊ
+		f(n)=ʊ(g(n)) 	if f(n) >= c.g(n)
+
+3] Big ʘ
+		f(n)=ʘ(g(n)) 	if c₁.g(n) <= f(n) <= c₂.g(n)
+
+properties->
+	O(f(n)) + O(g(n)) = | O(f(n))		if f(n) > g(n)
+						| O(g(n))		if g(n) > f(n)
+
+	O(f(n)) * O(g(n)) = O(f(n)*g(n))
+
+
+** ADTs(Abstract Data Types)
+	- Data types created(using some primitive data types) according to requied functionality, hiding implimentatiom of data types for user...
+
+1. Arrays - To store same type of elements/values in sequential mannar
+	+ Elements can be accessed using index and address of first element of array, {i+(n*sizeof(int))}
+	+ Searching in Arrays
+		+ linear Search_for unsorted arrays, O(n)
+		+ Binary Search_Only for sorted arrays using low-mid-high till (low<=high), O(log n)
+	- Insertion, deletion is tough as we need to shift all the elements.
+	- Increasing size of arrays is also only possible by creating new array and copy all elements of old array.
+
+2. Link Lists
+  * Singly link lists - Nodes having two elements, data and pointer pointing next element of list or null(In case of last node)
+  * Circular Link Lists - Last node pointing to head 
+  * Doubly Circular Link Lists - Nodes having three values, null(In case of head) or pointer pointing prev element of list, data and pointer pointing next element of list or null(In case of last node)
+	+ Insertion, deletion is easy, as there isn't any size constraints.
+	- extra memory is requied for every element for pointer
+	- random access is not possible, need to traverse every element from first to null pointing element
+	example - 
+			struct Node{
+				int data;
+				struct Node* prev;
+				struct Node* next;
+			};
+			struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+			struct Node* second = (struct Node*)malloc(sizeof(struct Node));
+			struct Node* third = (struct Node*)malloc(sizeof(struct Node));
+			
+			head->prev = NULL;			
+			head->data = 1;
+			head->next = second;
+
+			second->prev = head;
+			second->data = 2;
+			second->next = third;
+
+			third->prev = second;	
+			third->data = 3;	
+			third->next = NULL;	

@@ -1,9 +1,34 @@
+import java.util.Scanner;
+import java.lang.System;
 
-
-public class App                    // ClassName - PascalConvention
+public class App
 {
-    public static void main(String[] args)          // public - scope of function           // functionName - camelCaseConvention
-    {                                               // static - gives ability to get exicuted without creating any object of class
-        System.out.println("Hello World");                      // to treat the function as it is outside of class 
-    }                                               // args   - argument defining
-}                                                   // void   - return type of function
+    static int numOxygenCylinder(int[] oxyegen, int limit)
+    {
+        int sum = 0;
+        for(int i : oxyegen)
+        {
+            sum+=i;
+        }
+
+        if(sum % limit == 0) 
+            return sum/limit;
+        else 
+            return (sum/limit)+1;
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();               // 2
+        int limit = sc.nextInt();           // 1 
+
+        int[] oxygen = new int[n];
+        for(int i=0; i<n; i++) 
+        {
+           oxygen[i] = sc.nextInt();           // oxygen[0] = 1  ,  oxygen[1] = 2 
+        }
+        System.out.println(numOxygenCylinder(oxygen, limit));  
+    }
+}

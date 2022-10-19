@@ -1,7 +1,7 @@
 cd C:\Users\ap788\Downloads
 cd D:\Anynomus\Documents\Programming\Python
 
-To tTurn Off Updates
+To Turn Off Updates
 step 1: control Panel -> Administrative Tools -> Services -> Disable Windows Update
 Step 2: Edit Group Policy -> Administrative Templetes -> Windows Components -> Windows Update -> Configure Automatic Update
 
@@ -17,12 +17,15 @@ Tab			> Move focus to the next item
 Shift + Tab		> Move focus to the previous item
 Alt + Left arrow	> Go back
 Alt + Right arrow	> Go forward
+win + v		> clipboard + emoji + symbols
+
  **Browser-->
 Ctrl + T		> Open a new tab and switch to it
 Ctrl + Shift + T	> Reopen the last closed tab, and switch to it
 Ctrl + Tab		> Switch to the next tab
 Ctrl + 1,2,3...		> Switch to a specific tab
 Ctrl + Shift + Tab	> Switch to the previous tab
+
 **VScode-->
 Alt + up/down		> Move up/down current line
 Alt + Shift + up/down	> Move & Copy current line

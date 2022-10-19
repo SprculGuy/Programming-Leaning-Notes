@@ -22,7 +22,7 @@ a = a ^ b
 print("a2 : ", a)
 print("b4 : ", b)
 
-a,b = b,a                       # Flawlessly efficient
+a,b = b,a                       # Flawlessly efficient(for python)
 
 print("a4 : ", a)
 print("b2 : ", b)

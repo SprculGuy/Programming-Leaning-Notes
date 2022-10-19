@@ -6,13 +6,15 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 
 *To Compile & Run Python Program -->
 Exicute these in terminal of working directory...
-python3 (file name.py)										python3 hello.py
+python3 file_name.py										python3 hello.py
 	SourceCode -> Compiler -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language
 	
+> python is Interpreted language, 
+	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into bytecode) then get executed...	
 
 SPECIAL VARIABLE--
 	-> Used to run default code only from current module
-__name__		# This is variable contains '__main__' static point of exicution for current working module
+__name__		# __name__ = '__main__' for static point of exicution for current working module
 				# For imported module __name__ holds 'module_name' as static point of exicution from which it accessed...
 
 
@@ -21,19 +23,61 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 	None
 	boolean			var = True	, 	var = False
 	int/float		var = 34	,	var = 3.45
-	complex
-	string			str1 = 'a' 	, 	str = 'ank'				#String is immutable(unable to modify once defined). But ...
-					str2 = "Ankit"										partially accessible using indexing. eg, str[0] is 'A' ...
+	string			str1 = 'a' 	, 	str = 'ank'				#String is immutable(unable to modify once defined). But
+					str2 = "Ankit"										partially accessible using indexing. eg, str[0] is 'A' 
 					str3 = '''as			,str = """as							& str3[-1] is 't' & str3[1:-1] is 'nki' & str3[-4:-2] is 'nk'
 							you know'''          you know"""
 					str4 = str1 + str2 + " Patil"				# str4 = "aAnkit Patil"
 					str5 = str1 * 5								# str5 = "aaaaa"		
 	list			lst = ['Ank', ["A", 10]]					# lst[0] is 'Ank'  ||  lst[1] is ["A", 10]  ||  lst[1][0] is "A"
+																# every element is pointer-object of list class, 
+																  which results in more space/time complexity for woking on python lists, for efficiency we use Numpy arrays as it uses C/C++ arrays
 	tuple			tpl = ('Ank', "A", 10)						# immutable
 	set				x = {1,2,3,3,2} ->becomes-> {1,2,3}			# mutable & duplicates get removed || x=frozenset({'a',2}) is immutable
 	directory		dict = {'key':"value", 12:21}				# values are accessed through keys || keys must be unique
+	complex
 	indentation		"	" -> denotes block of code	
 	class		
+
+**List Operation
+	list = []
+	list[i:j]  # returns list subset
+	list[-1]   # returns last element
+	list[:-1]  # returns all but the last element
+	*list      # expands all elements in place  for; a=[1,2,3,4] | *a gives four distinct values *a= 1 2 3 4
+
+	list[i] = val
+	list[i:j] = otherlist  # replace ith to jth-1 elements with otherlist
+	del list[i:j]
+
+	list.append(item)
+	list.extend(another_list)
+	list.insert(index, item)
+	list.pop()        # returns and removes last element from the list
+	list.pop(i)       # returns and removes i-th element from the list
+	list.remove(x)    # removes the first item from the list whose value is x
+	list1 + list2     # combine two list    
+	set(list)         # remove duplicate elements from a list
+
+	list.reverse()    # reverses the elements of the list in-place
+	list.count(item)
+	sum(list)
+
+	zip(list1, list2)  # returns list of tuples with n-th element of both list1 and list2
+	list.sort()        # sorts in-place, returns None
+	sorted(list)       # returns sorted copy of list
+	",".join(list)     # returns a string with list elements seperated by comma
+
+**Dictionary operation
+	dict = {}
+	dict.keys()
+	dict.values()
+	"key" in dict    # let's say this returns False, then...
+		dict["key"]      # ...this raises KeyError
+		dict.get("key")  # ...this returns None
+	dict.setdefault("key", 1)
+	**dict           # expands all k/v pairs in place
+
 
 
 **ACCORDING TO ASCII
@@ -111,6 +155,24 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 			else:
 				_block_					//will exicute only after last successful iteration of for loop.ie, without 'break'
 
+			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]
+			list = [x**2 for x in lst if x > 0]
+			
+			list = map(function, lst)			//Function can be any operation to perform on every item of lst
+					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
+								//map fuction returns the iterator map object, so we need to convert it into the list,tuple,set...
+
+			list = filter(conditioned_function, iterator)			//conditioned_function returns True/False which 
+					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
+								//filter function returns iterator filter object, which contains all items for which conditioned_function returns True value 
+
+			for key, val in dict.items():
+				_block_
+
+			for index, item in enumerate(list):
+				_block_
+
+
 	WHILE	while x == 5:
 				_block_
 
@@ -153,20 +215,27 @@ __name__		# This is variable contains '__main__' static point of exicution for c
 	from module import *
 	
 **PACKAGES--
-	We can use modules/py files created in sub-folders/packages of current working directory
+	We can use modules/py files created in sub-folders/packages(collection of sub-packages & modules) of current working directory
   examples-
-	import package											> package.module.method()
-	import package.module									> module.method()
-	import package.module as obj							> obj.method()
-	from package.module import method_class as obj			> obj()
+	import package														> package.module.method()
+	import package.module												> module.method()
+	import package.sub-package.module									> module.method()
+	import package.module as obj										> obj.method()
+	from package.module import method_class as obj						> obj()
+	from package.sub-package.module import method_class as obj			> obj()
 
+Note -> Modules are defaultly searched in 'sys.path' list of directory by the python compiler
+		sys.path list has first item of list is current working directory
+	adding directory manually
+		in-code		sys.path.append('D:\Anynomus\Documents\Programming\Python\Package\Package1')
+		in-cmd		set PYTHONPATH=Sub-package0.sub-package1
 
 **CLASS data type--
 	CLASS	class ClassName:
 				def __init__(self):								# Constructor function
 					_block_
-
-				_block_
+				def function(self):
+					_block_
 			obj = ClassName()
 
 			eg.
@@ -242,13 +311,17 @@ ways to implement polymorphism in python
 						fo = open('filename.ext','a')
 						for data in fi:
 							fo.write(data)
+					eg. 
+						with open("welcome.txt", "r") as fi:
+   							data = fi.read()
 
 
-**EXCEPTION/ERROR HANDLING--
+**EXCEPTION/ERROR ANDLING--
 	try:
 		_block_
-	except error_name as error_msg:				error_name = SyntaxError / ValueError... | defaultly you can leave that as, error_name = Exception
-		print(error_msg)
+	except error_name as error_msg:				error_name = (ValueError, ...) | defaultly you can leave that as, error_name = Exception
+		print(error_msg)							error_msg can be accessed using str(error_msg) in print statement
 		_block_
+		raise 										raise shows full error msg from the Compiler
 	finally:						
 		_block_									# Executed in both cases, error as well as no-error

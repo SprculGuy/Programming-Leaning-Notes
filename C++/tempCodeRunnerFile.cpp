@@ -1,8 +1,3 @@
-#include <iostream>
-#include <array>
-#include<vector>
-
-using namespace std;
 vector <int>code;
 int N = 1;
 

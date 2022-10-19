@@ -15,10 +15,10 @@ Exicute these in terminal of working directory...
 
 Exicution of any C++ programme is defaultly from Main function...
 we can only pass arguments to main function(), while running code as .exe on command line...
-														  1   2 3	So, total no of arg = argno = 3 
-int main(int argno, char *argv[]){}							|>c:\user\anynomus\documents\test.exe 6 9
+																								1 2 3	So, total no of arg = argc = 3 
+int main(int argc, char *argv[]){}							|>c:\user\anynomus\documents\test.exe 6 9
 int main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] argv[2]
-															//argv is pointer array, so it's stoaring addresses of arguments
+															//argv is pointer array, so it's stoaring address of char type arguments
 
 
 **PREPROCESSOR--
@@ -63,23 +63,23 @@ eg.
 
 
 **OPRATERS---
-	& 	- address(referencing) opperator			|UNARY OPERATOR
-	* 	- indirectional(de-referencing) opperator	|
-	~ 	- bitwise complement						|
-	++ 	- increment					 				|
-	-- 	- decrement									|
-	! 	- logical negation							|
-
-	<< 	- shift left								|BINARY OPERATOR
-	>> 	- shift right								|
-	&	- bitwise and								|
-	|	- bitwise or								|
-	^	- bitwise xor								|
-	&&	- logical and								|
-	||	- logical or								|
-
+	& 	- address (referencing or address of) opperator			|UNARY OPERATOR
+	* 	- indirectional (de-referencing or value of) opperator	|
+	~ 	- bitwise complement									|
+	++ 	- increment					 							|
+	-- 	- decrement												|
+	! 	- logical negation										|
+			
+	<< 	- shift left											|BINARY OPERATOR
+	>> 	- shift right											|
+	&	- bitwise and											|
+	|	- bitwise or											|
+	^	- bitwise xor											|
+	&&	- logical and											|
+	||	- logical or											|
+			
 	//	- comment
-	/* . */ - multiline comment
+	/* ... */ - multiline comment
 
 **DEFINING VARIABLES & POINTERS--
 		void
@@ -288,12 +288,12 @@ obj.display();
 		class Name
 		{
 		 private:				// Default all defined attributes are private, doesn't matters we specify or not
-			Name(){}					//Default Constructor | Constructor doesn't have any return type & it never be static
+			Name(){}					//Default Constructor | Constructor never have any return type & it never be static
 			Name(int a){}				|
 			Name(int a,char a){}		|//Parameterized Constructor(Constructor Overloading)
 			Name(Name &a){}				//Copy Constructor | Reason of using reference variable is to avoid creation of object and 
 			~Name()							//again calling constructor function in infinite recursion...
-		};								//Destructor doesn't have any return type & doesn't takes arguments, it never be static 
+		};								//Destructor never have any return type & doesn't takes arguments, it never be static 
 
 	  >>Name obj1,obj2(4),obj3(4,'B'),obj4(obj1);
 				//creating instance or object variable & calling constructor functions...
@@ -479,7 +479,7 @@ Note:
 
 	CALLOC
 		int *q;
-		q = (int*)calloc(5,2);		// "malloc" Creates Dynamic Variable 'Array' of 5 items each of 2 bytes and returns "void type pointer" 
+		q = (int*)calloc(5,2);		// "calloc" Creates Dynamic Variable 'Array' of 5 items each of 2 bytes and returns "void type pointer" 
 								// of 1st byte of 1st item.
 
 	REALLOC

@@ -1,0 +1,23 @@
+Rasmus Lerdorf    (in 1994)
+
+
+- php is the server-side scripting language as well as general purpose programing language because php is object oriented. 
+    So, the php scripts are executed on web-server to create dynamic pages.
+
+*To Run Php Program -->
+-Download php zip from php.org and extract to 'C:\php' 
+    & set up this path to environment path variables to use executable files of C:\php from any directory we have our .php file situated
+-create a php-server from xampp or cmd using command >php -S localhost:4040  at the directory path of programme
+-go to browser and type > localhost:4040/                        - running apache server having port 4040    
+
+
+
+syntax:
+    <?php
+        // First php programme
+        # First php programme
+        /*  First
+            php
+            programme   */
+
+    ?>

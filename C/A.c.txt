@@ -42,20 +42,20 @@ main(3, "c:\user\anynomus\documents\test.exe", "6", "9")  argv[0]						argv[1] a
 #endif
 
 **OPRATERS---
-	& 	- address(referencing) opperator			|UNARY OPERATOR
-	* 	- indirectional(de-referencing) opperator	|
-	~ 	- bitwise complement						|
-	++ 	- increment					 				|
-	-- 	- decrement									|
-	! 	- logical negation							|
+	& 	- address (referencing or address of) opperator			|UNARY OPERATOR
+	* 	- indirectional (de-referencing or value of) opperator	|			
+	~ 	- bitwise complement									|
+	++ 	- increment					 							|
+	-- 	- decrement												|
+	! 	- logical negation										|
 
-	<< 	- shift left								|BINARY OPERATOR
-	>> 	- shift right								|
-	&	- bitwise and								|
-	|	- bitwise or								|
-	^	- bitwise xor								|
-	&&	- logical and								|
-	||	- logical or								|
+	<< 	- shift left											|BINARY OPERATOR
+	>> 	- shift right											|
+	&	- bitwise and											|
+	|	- bitwise or											|
+	^	- bitwise xor											|
+	&&	- logical and											|
+	||	- logical or											|
 
 
 **DEFINING VARIABLES & POINTERS--

@@ -1,3 +1,7 @@
-
-q = function(2,3)
-print(q[0])
+int(i)
+    v = next(i)
+    print(v)
+    v = next(i)
+    print(v)
+    for length in i:
+        v *= length

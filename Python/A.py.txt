@@ -79,7 +79,6 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	**dict           # expands all k/v pairs in place
 
 
-
 **ACCORDING TO ASCII
 	"A" = 65			ord("A")
 	"a" = 97			ord('a')
@@ -138,6 +137,8 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 			else:
 				_block_
 
+			resutl = "Even" if n%2==0 else "Odd"
+
 	MATCH	match var:
 				case "100":
 					_block_
@@ -186,15 +187,21 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	pass		# Used where we don't want any operation to perform
 
 
-**FUNCTIONS--
+**FUNCTIONS(Modules)--
 	func_name():								#Declearing post-defined Function
-
-	def func_name(par1, par2,...):				# defining fuction.		parameter = place holder
-		'DocString'								# DocString is the comment about defined function & it's optional
+												argtuple - holds tuple of any no. of arguments values passed while calling the func_name ; must be used before **kargdict
+												kargdict - holds dictionary of any no. of keyword arguments values passed while calling the func_name ; must be used as last parameter
+	def func_name(par1, par2, *argtuple, **kargdict):	# defining fuction.		parameter = place holder	
+		'DocString'										# DocString is the comment about defined function & it's optional
 		_block_
-		return a, b								# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
+		return a, b										# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
 
-	x = func_name(val1, val2,...)				 # calling function.		argument = actual value  | here, x will be (2, 3)
+	x = func_name(val1, val2,...)				 		# calling function.		argument = actual value  | here, x will be (2, 3)
+	
+	def func_name(*argtuple):				 
+		'DocString'								
+		_block_
+												
 
 **ANONYMOUS FUNCTIONS--	
 	- Functiopn without name
@@ -242,6 +249,9 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 
 				class Computer:
 					def __init__(self):
+						self.a											# public variable
+						self._b											# protected variable
+						self.__c										# private variable
 
 					def config(self):							# 'self' is for individual instance/object we are calling method from...
 						print('i5, 16GB, 1TB')

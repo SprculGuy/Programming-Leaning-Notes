@@ -3,23 +3,24 @@ James Gosling -> named Oak(Java)      (1991 - By Sun Microsystems(USA)) later (2
 
 *To Compile & Run Java Program -->
 Exicute these in terminal of working directory..
-java fileName.java										java app.java
-	SourceCode -> Compiler -> ByteCode -> Interpreter -> Machine language
+javac fileName.java                                     javac app.java            Compiles in JDK and .class file is generated
+java fileName.class										java app.class            Get executed on JRE(Java Runtime Environment in which JVM is embedded)
+	SourceCode -> Compiler -> ByteCode -> JRE(JVM) -> Machine language
 
 
 **DATA TYPES--
     Primitive->
     boolean Bool = true;                   -value can be true or false (size depends on JVM), default is false
    
-    char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value 0 // char in java supports Unicode unlike others which supports ASCII
+    char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII(Subset of Unicode)
    
     byte x;                                -value ranges from -128 to 127 (1 byte - 8 bits) with default value 0
     short small_number;                    -value ranges from 2^16/2 to [2^16/2]-1 (2 byte) with default value 0
     int Num1;                              -value ranges from 2^32/2 to [2^32/2]-1 (4 byte) with default value 0
-    long large_number = 356457578L;                     -value ranges from 2^64/2 to [2^64/2]-1 (8 byte) with default value 0l or 0L
+    long large_number = 356457578L;        -value ranges from 2^64/2 to [2^64/2]-1 (8 byte) with default value 0l or 0L
 
-    float $currency$ = 1.54f;              -takes 4 byte with default value is double, that's why we need to use f or F after floating constant...
-    double Pivalue = 1.54;                 -takes 8 bytes with default value 0.0d or 0.0D
+    float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f, we need to use f or F after floating constant...
+    double Pivalue = 1.54;                 -takes 8 bytes with default value 0.00d or 0.00D
 
 java.lang.String    
     String str = "this is string"          -strings are immutable, default value is null

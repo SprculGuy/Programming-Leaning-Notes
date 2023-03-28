@@ -30,3 +30,17 @@ class Stack:
         
     def isEmpty(self):
         return self.size() == 0
+
+stack = Stack()
+
+print(stack.isEmpty())
+
+stack.push(10)
+
+print(stack.isEmpty())
+print(stack.size())
+print(stack.top())
+
+stack.pop()
+
+print(stack.isEmpty())

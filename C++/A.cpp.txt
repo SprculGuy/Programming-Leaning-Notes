@@ -1,17 +1,18 @@
 Bjarne Stroustrup	(Denmark)	(1979-C_with_classes|1983-C++)
 
-#Compiler: SourceCode>Compiler>ObjectFile(ComputerLanguage)
-#CrossCompiler: SourceCode>CrossCompiler>ObjectFile(For Exicution on Other OS/Platform)
-#Transpiler: SourceCode>Transpiler>SourceCode
-#Interpreter: SourceCode>Interpreter(Takes 1st line)>SourceCode(Immediately Exicutes 1st line then goes for 2nd line)
-#Just-in-time-Compiler: SourceCode>Interpreter(Takes line-by-line and store in buffer)>SourceCode(Exicutes line-by-line from buffer)
+# Compiler: 	SourceCode>Compiler>ObjectFile(ComputerLanguage - compiles file is generated if code don't have any compilation error)
+# CrossCompiler: SourceCode>CrossCompiler>ObjectFile(For Exicution on Other OS/Platform)
+# Transpiler: 	SourceCode>Transpiler>SourceCode
+# Interpreter: 	SourceCode>Interpreter(Takes 1st line)>Machine code(Immediately Exicutes 1st line then goes for 2nd line - no compiled file is generated)
+# Just-in-time-Compiler: SourceCode>Interpreter(Takes line-by-line and store in buffer)>Machine code(Exicutes line-by-line from buffer)
 
 
 *To Compile & Run C++ Program -->
  app.cpp --> pre-processor(HeaderFiles) --> app.i --> compiler --> app.obj --> Linker(LibraryFiles) --> app.exe
-Exicute these in terminal of working directory...  
+Exicute these in terminal of working directory...
 ->gcc (file name.cpp) (binary file name)                      gcc hello.cpp -o hello		//this'll create obj file 'hello' in working directory
 ->./(binary file name)										  ./hello						//to exicute that obj file
+
 
 Exicution of any C++ programme is defaultly from Main function...
 we can only pass arguments to main function(), while running code as .exe on command line...
@@ -312,6 +313,22 @@ Note:
 		private			-Only Accessible inside class
 		Protected		-Accessible from inside & derived/child class, but not to Objects...
 		Public			-Accessible to objects, from inside & derived/child class.
+		Public Mode:-
+
+Private Mode:-
+Public members of base class become private in derived class
+Protected members of base class become private in derived class
+Private members are inaccessible in derived class
+
+Protected Mode:-
+Public members of base class become protected in derived class
+Protected members of base class become Protected in derived class
+Private members are inaccessible in derived class
+
+Public Mode:-
+Public members of base class become public in derived class
+Protected members of base class become Protected in derived class
+Private members are inaccessible in derived class
 				
 
 **INHERITANCE	
@@ -335,7 +352,7 @@ Note:
 		For destructor in inheritance, during exicution. first, destructor of child class gets exicuted and then destructor of parent class got call by destructor of child calss
 
 
-**FUNCTION OVERLOADING-- "Function is overloaded with multiple jobs (without same signature)(compile time polymorphism)"
+**METHOD OVERLOADING-- "Function is overloaded with multiple jobs (without same signature)(compile time polymorphism)"
 					  --  Functions must be in same scope(class) for function overloading
 					  
 				void f1(int x) {...}			|Rules of Exicution of Function Call-- 
@@ -344,7 +361,7 @@ Note:
 				f1(k)							|3. Type Conversion [premitive>premitive(char,int,float,double)]
 
 
-**FUNCTION OVERRIDING/HIDING--  
+**METHOD OVERRIDING/HIDING--  
 					  --  Function must be in Parent-Child class with same signature for function overriding
 				class Parent
 				{
@@ -458,6 +475,7 @@ Note:
 	{throw val;}
 	catch(type1 arg){}
 	catch(type2 arg){}
+		example - 
 			try
 			{
 				cout<<"Exicuted";
@@ -543,11 +561,11 @@ Note:
 				array <int,10>obj={12,23,32,4};					// array of int type having size 10
 
 				vector <int>obj;						// vector doesn't need size(zero lenght), it dynamically increases size itself, ie.1,2,4,8,16...
-				vector <int>obj{12,23,34,45,56,67}		// creating vector with values assigned, as for 6 values size of array is 8
-				vector <int>obj(4)						// vector doesn't need size, but we can give size. Here we given 4
-				vector <string>obj(10,"NA")				// creating string vector of size 10 with all 10 spaces	initialises with string "NA"
+				vector <int>obj{12,23,34,45,56,67};		// creating vector with values assigned, as for 6 values size of array is 8
+				vector <int>obj(4);						// vector doesn't need size, but we can give size. Here we given 4
+				vector <string>obj(10,"NA");				// creating string vector of size 10 with all 10 spaces	initialises with string "NA"
 
-				map <int, string>obj{	{11, "Raj"}
+				map <int, string>obj{	{11, "Raj"},
 										{7, "Nikita"},
 										{77, "Bharti"}	 };
 				obj[17] = "Ankit";

@@ -1,6 +1,7 @@
 from time import sleep
 from threading import *
 
+# Multi-threading - same code get divided into multiple pieces that runs simultaneously
 
 class Hello(Thread):
     def run(self):

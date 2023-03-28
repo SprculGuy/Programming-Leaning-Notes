@@ -4,13 +4,17 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 		Python 3.0 in 2008's 
 
 
+
 *To Compile & Run Python Program -->
 Exicute these in terminal of working directory...
 python3 file_name.py										python3 hello.py
-	SourceCode -> Compiler -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language
+	SourceCode -> syntax Checker & Translator -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language                " Compiler -> ByteCode "
 	
 > python is Interpreted language, 
 	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into bytecode) then get executed...	
+
+
+
 
 SPECIAL VARIABLE--
 	-> Used to run default code only from current module
@@ -21,9 +25,10 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 
 **DATA TYPES--
 	None
-	boolean			var = True	, 	var = False
+	bool			var = True	, 	var = False
 	int/float		var = 34	,	var = 3.45
-	string			str1 = 'a' 	, 	str = 'ank'				#String is immutable(unable to modify once defined). But
+	complex			complex(3,4)	3+4j
+	str				str1 = 'a' 	, 	string = 'ank'				#String is immutable(unable to modify once defined). But
 					str2 = "Ankit"										partially accessible using indexing. eg, str[0] is 'A' 
 					str3 = '''as			,str = """as							& str3[-1] is 't' & str3[1:-1] is 'nki' & str3[-4:-2] is 'nk'
 							you know'''          you know"""
@@ -34,10 +39,18 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 																  which results in more space/time complexity for woking on python lists, for efficiency we use Numpy arrays as it uses C/C++ arrays
 	tuple			tpl = ('Ank', "A", 10)						# immutable
 	set				x = {1,2,3,3,2} ->becomes-> {1,2,3}			# mutable & duplicates get removed || x=frozenset({'a',2}) is immutable
-	directory		dict = {'key':"value", 12:21}				# values are accessed through keys || keys must be unique
-	complex
-	indentation		"	" -> denotes block of code	
-	class		
+	dict			dictionary = {'key':"value", 12:21}			# values are accessed through keys || keys must be unique
+	
+	datetime
+	indentation		"	" -> denotes block of code
+	class
+
+
+**NUMBER BASE CONVERSION
+	bin(42):0b101010		int("0b101010", base=2):42			# base = 2 to 32
+	oct(42):0o52
+	hex(42):0x2a
+
 
 **List Operation
 	list = []
@@ -63,15 +76,19 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	list.count(item)
 	sum(list)
 
-	zip(list1, list2)  # returns list of tuples with n-th element of both list1 and list2
-	list.sort()        # sorts in-place, returns None
-	sorted(list)       # returns sorted copy of list
+	zip(list1, list2)  # returns list of tuples with n element of both list1 and list2
+	list.sort(key = lambda x:x["TotalMarks"], reverse=True)        	# sorts list, returns None
+	sorted(list, key = x:x["TotalMarks"], reverse = True)       	# returns sorted copy of list
 	",".join(list)     # returns a string with list elements seperated by comma
+
+
+
 
 **Dictionary operation
 	dict = {}
 	dict.keys()
 	dict.values()
+	dict.items()
 	"key" in dict    # let's say this returns False, then...
 		dict["key"]      # ...this raises KeyError
 		dict.get("key")  # ...this returns None
@@ -80,8 +97,9 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 
 
 **ACCORDING TO ASCII
-	"A" = 65			ord("A")
-	"a" = 97			ord('a')
+	"A" = 65			ord("A")		chr(65)
+	"a" = 97			ord('a')		chr(97)
+
 
 
 **OPERATORS--(with precedence)
@@ -95,7 +113,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	|(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
 	|{key: value...}, {expressions...}							|	dictionary display, set display
 
-	|x[index], x[index:index],									|	Subscription, slicing,
+	|x[index], x[startIndex:tillIndex:step],									|	Subscription, slicing,
 	|x(arguments...), x.attribute								|	call, attribute reference
 
 	|await x													|	Await expression
@@ -159,7 +177,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]
 			list = [x**2 for x in lst if x > 0]
 			
-			list = map(function, lst)			//Function can be any operation to perform on every item of lst
+			list = list(map(function, lst))			//Function can be any operation to perform on every item of lst
 					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
 								//map fuction returns the iterator map object, so we need to convert it into the list,tuple,set...
 
@@ -193,15 +211,82 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 												kargdict - holds dictionary of any no. of keyword arguments values passed while calling the func_name ; must be used as last parameter
 	def func_name(par1, par2, *argtuple, **kargdict):	# defining fuction.		parameter = place holder	
 		'DocString'										# DocString is the comment about defined function & it's optional
+			def local_func:								# python allows function in function
+				_block_
+				return x, y
 		_block_
 		return a, b										# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
 
 	x = func_name(val1, val2,...)				 		# calling function.		argument = actual value  | here, x will be (2, 3)
+
+
+**CLOSURES--
+			Maintains references to objects from enclosing scopes
+	--> The criteria that must be met to create closure in Python are summarized in the following points.
+			1.We must have a nested function (function inside a function).
+			2.The nested function must refer to a value defined in the enclosing function (nonlocal variable defined in parent function).
+			3.The enclosing function must return the nested function.
+
+	example-
+			def enclosing():
+				v = 10
+				w = 11
+				def local():
+					return v+w
+				return local                        # after returning the local function, all variables used in local function 
+															# are not discarded, Closure remembers the variables to use in local function
+
+			lf = enclosing()                        # after exicution of return statement of enclosing(), ideally all the members of enclosing() should be destroyed
+			lf()
+			print(lf.__closure__)                   # but closure is used to remember the references for the members of enclosing() that are being used in local()
+
+
+
+**FUNCTION DECORATOR--
+	Modify or enhance pre-defined function without changing their definition
 	
-	def func_name(*argtuple):				 
-		'DocString'								
-		_block_
-												
+	syntax-
+		def my_decorator(function):
+			def local(*argstuple, **kwargsdict):
+				x = function(*argstuple, **kwargsdict)
+				...														
+				return x
+			return local
+
+		@my_decorator
+		def my_function():
+			...
+			return my_decorator_return_value
+
+	Scope of variable:
+		global- 
+				global x
+				x=5
+		nonlocal-		
+				nonlocal y				
+				y=5
+	
+		example-
+				a = 0
+				def my_decorator(function):
+					b = 0
+					def local(*argstuple, **kwargsdict):
+						a += 1									| here, a & b are distinct variables than a & b defined outside of local function.
+						b += 1									| So these lines to increament the value of a & b will give error
+						global a
+						nonlocal b
+						a += 1									|
+						b += 1									| here, a & b of local function and a & b outside of local function are same
+						x = function(*argstuple, **kwargsdict)
+						return ascii(x)
+					return local
+
+				@my_decorator
+				def my_function():
+					...
+					return '$'
+
+
 
 **ANONYMOUS FUNCTIONS--	
 	- Functiopn without name
@@ -248,10 +333,21 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 			eg.
 
 				class Computer:
+					class_attribute = 0								
 					def __init__(self):
-						self.a											# public variable
-						self._b											# protected variable
-						self.__c										# private variable
+						self.a = 1											# public variable
+						self._b = 2											# protected variable
+						self.__c = 3										# private variable
+						self.instance_attribute = 1 
+						Computer.class_attribute += 1
+
+					@staticmethod
+					def staticMethod():
+						return "No arguments. Not class/instance method..."
+
+					@classmethod
+					def classMethod(cls):						# 'cls' is for individual class object(not instance object) we are calling method from...
+						cls.class_attribute += 1 	
 
 					def config(self):							# 'self' is for individual instance/object we are calling method from...
 						print('i5, 16GB, 1TB')
@@ -263,9 +359,11 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 
 **NESTED CLASS--
 	CLASS		class ClassName:
+					class_attribute = 10
 					def __init__(self):									# Constructor function
 						self.NestedClass = self.NestedClassName()
-						print(self.NestedClass.any_nested_class_module())
+						self.var = ClassName.class_attribute
+						print(self.NestedClass.any_nested_class_method())
 	NESTED CLASS	class NestedClassName:
 						def __init__(self):								# Constructor function
 							_block_

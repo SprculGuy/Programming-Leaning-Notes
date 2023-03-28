@@ -5,29 +5,79 @@ James Gosling -> named Oak(Java)      (1991 - By Sun Microsystems(USA)) later (2
 Exicute these in terminal of working directory..
 javac fileName.java                                     javac app.java            Compiles in JDK and .class file is generated
 java fileName.class										java app.class            Get executed on JRE(Java Runtime Environment in which JVM is embedded)
-	SourceCode -> Compiler -> ByteCode -> JRE(JVM) -> Machine language
+	SourceCode -> Compiler -> ByteCode -> Interpreter[JRE(JVM)] -> Machine language
+                                                JVM is Just in time compiler for fast exicution
 
 
 **DATA TYPES--
     Primitive->
-    boolean Bool = true;                   -value can be true or false (size depends on JVM), default is false
-   
-    char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII(Subset of Unicode)
-   
-    byte x;                                -value ranges from -128 to 127 (1 byte - 8 bits) with default value 0
-    short small_number;                    -value ranges from 2^16/2 to [2^16/2]-1 (2 byte) with default value 0
-    int Num1;                              -value ranges from 2^32/2 to [2^32/2]-1 (4 byte) with default value 0
-    long large_number = 356457578L;        -value ranges from 2^64/2 to [2^64/2]-1 (8 byte) with default value 0l or 0L
+        boolean Bool = true;                   -value can be true or false (size depends on JVM), default is false
+    
+        char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
 
-    float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f, we need to use f or F after floating constant...
-    double Pivalue = 1.54;                 -takes 8 bytes with default value 0.00d or 0.00D
+        byte x;                                -value ranges from -128 to 127 (1 byte - 8 bits) with default value 0
+        short small_number;                    -value ranges from -2^16/2 to [2^16/2]-1 (2 byte) with default value 0
+        int Num1;                              -value ranges from -2^32/2 to [2^32/2]-1 (4 byte) with default value 0
+        long large$number = 356_457_578L;      -value ranges from -2^64/2 to [2^64/2]-1 (8 byte) with default value 0l or 0L
+                                                    0b1010   binary 
+                                                    012      octal 
+                                                    10       decimal 
+                                                    0xA      hexadecimal
+
+        float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f or o.oF, we need to use f or F after floating constant...  +\-3.4E-38 to +/-3.4E38   ; 1.2E-2 = 1.2*10^(-2)
+        double Pivalue = 1.54;                 -takes 8 bytes with default value 0.00d or 0.00D                                                    +\-1.7E-308 to +/-1.7E308                                                          
+
 
 java.lang.String    
-    String str = "this is string"          -strings are immutable, default value is null
+    String str = "this is string"               -strings are immutable, default value is null
+
+
+**OPERATORS--(with precedence)
+		Operators in the same line have the same precedence
+		Operators in the same line group left to right
+		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
+
+
+	|***	OPERATORS(with precedence)							|	***		DESCRIPTION
+	
+    |(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
+	|x[index], x[index:index],									|	Subscription, slicing,
+    |x(arguments...), x.attribute								|	call, attribute reference
+	
+    Can be performed on all data types except Boolean
+    |++x, --x													|	pre-increament, pre-decrement 
+	|*, /, %		    										|	Multiplication, division, mod(remainder) 
+	|+, -														|	Addition and subtraction
+    |x++, x--                                                   |   post-increament, post-decrement
+	
+    Can only be performed on int
+    |<<, >>														|	Shifts - left{n*2^k}, right{n/2^k}     int x=10; x<<1; | here, n=10 k=1
+    |>>>                                                        |   unsigned right shift
+	|&															|	Bitwise AND
+	|^															|	Bitwise XOR
+	||															|	Bitwise OR
+    |~                                                          |   Bitwise Not
+
+	    |{key: value...}, {expressions...}							|	dictionary display, set display
+
+
+	    |+x, -x, ~x													|	Positive, negative, bitwise NOT
+	    |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
+	    |not x														|	Boolean NOT
+	    |and														|	Boolean AND
+	    |or															|	Conditional expression
+	    |lambda														|	Lambda expression
+	    |:=															|	Assignment expression
+
+	#															|- Comment
+	''' 														|- Multiline Comment 				
+	_block_														|
+	'''															|
+
 
 
 
 **PRINTING OUTPUT--
-        System.out.print("Hello ");                       
-        System.out.println(name);
+        System.out.print("Hello ");             -prints the statement            
+        System.out.println(name);               -prints the statement and goes for next line
 

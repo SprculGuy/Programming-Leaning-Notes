@@ -1,2 +1,2 @@
 
-for word in string:
+        #     return "None_for"

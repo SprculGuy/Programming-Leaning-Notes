@@ -12,4 +12,4 @@ print(r"Hello, \n nice to meet you")          # Raw string - '\n' is not conside
 print(rf"Hello {name}, \n nice to meet you")        # and we used more than 1 string type - r & f
 print('Hello, it\'s me')
 				# (') is treated as inside output string block
-print("Hello {}" ',\nnice to meet you'.format(name))
+print("Hello {} {}" ',\nnice to meet you'.format(name, "Patil"))

@@ -1,17 +1,36 @@
-James Gosling -> named Oak(Java)      (1991 - By Sun Microsystems(USA)) later (2010 - Sun Microsystems is aquired by 'Oracle Corp.' for $7.4 billion)
+James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2010 - Sun Microsystems is aquired by 'Oracle Corp.' for $7.4 billion)
     - java is purely object oriented
 
-*To Compile & Run Java Program -->
-Exicute these in terminal of working directory..
-javac fileName.java                                     javac app.java            Compiles in JDK and .class file is generated
-java fileName.class										java app.class            Get executed on JRE(Java Runtime Environment in which JVM is embedded)
-	SourceCode -> Compiler -> ByteCode -> Interpreter[JRE(JVM)] -> Machine language
-                                                JVM is Just in time compiler for fast exicution
+*JDK JRE JVM -->
+   +-------------------------+     *To Compile & Run Java Program -->                                                                                                                          
+   | JDK                     |      Exicute these in terminal of working directory..                                                                                                                         
+   |       +----------+      |      javac fileName.java                                     javac app.java            Compiles in JDK compiler and .class file is generated                                                                                                                         
+   |       | Compiler |      |      java fileName.class										java app.class            Get executed on JRE(Java Runtime Environment in which JVM is embedded)                                                                                                                         
+   |       | Debugger |      |           SourceCode -> Compiler -> ByteCode -> Interpreter[JVM(in JRE)] -> Machine language                                                                                                                         
+   |       | Javadoc  |      |          .java                     .class                                                                                                                                      
+   |       | keytool  |      |                                         
+   |       | jdk/bin  |      |                                                                                                                                       
+   |       +----------+      |                                                                                                                                         
+   |            +            |                                                                                                                                         
+   | +---------------------+ |                                                                                                                                         
+   | | JRE                 | |                                                                                                                                         
+   | |       +-----+       | |                                                                                                                                         
+   | |       | JVM |       | |                                                                                                                                         
+   | |       +-----+       | |                                                                                                                                         
+   | |          +          | |                                                                                                                                         
+   | | +-----------------+ | |                                                                                                                                         
+   | | | Class Libraries | | |
+   | | | dir; jre/lib    | | |                                                                                                                                        
+   | | +-----------------+ | |                                                                                                                                         
+   | +---------------------+ |                                                                                                                                         
+   +-------------------------+                                                                                                                                         
+
+
 
 
 **DATA TYPES--
     Primitive->
-        boolean Bool = true;                   -value can be true or false (size depends on JVM), default is false
+        boolean Bool = true;                   -value can be true or false (1 bit/size depends on JVM), default is false
     
         char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
 
@@ -27,9 +46,8 @@ java fileName.class										java app.class            Get executed on JRE(Java 
         float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f or o.oF, we need to use f or F after floating constant...  +\-3.4E-38 to +/-3.4E38   ; 1.2E-2 = 1.2*10^(-2)
         double Pivalue = 1.54;                 -takes 8 bytes with default value 0.00d or 0.00D                                                    +\-1.7E-308 to +/-1.7E308                                                          
 
-
-java.lang.String    
-    String str = "this is string"               -strings are immutable, default value is null
+    Non-Primitive->   
+        String str = "this is string"               -strings are immutable, default value is null
 
 
 **OPERATORS--(with precedence)

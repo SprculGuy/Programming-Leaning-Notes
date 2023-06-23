@@ -18,26 +18,23 @@ public class HelloWorld                    // ClassName - PascalConvention
         System.out.println(name);
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Your first name : ");
-        String Name = sc.next();
+
+        System.out.print("Enter Your full name : ");
+        String Name = sc.nextLine();
         System.out.print("Enter Your Age : ");
         int age = sc.nextInt();
+        System.out.print("Enter Your Hight(in cm) : ");
+        float height = sc.nextFloat();
+
         System.out.println("Hello " + Name + ", age " + age +", have a good day...");
 
-        int age1 = 0;
+        System.out.print("Enter Your first name : ");
+        String fullname = sc.next();
 
-        while(true){
-            if(sc.hasNextInt()){
-                age1 = sc.nextInt();
-                break;
-            }
-        }
-        System.out.print(age1);
-        
-        System.out.print("Enter Your full name : ");
-        String fullName = sc.nextLine();
-        System.out.println("Hello " + fullName + ", have a good day...");
-        // System.out.printf( %s"Hello <fullName>, have a good day...", fullName);
+        System.out.println("Hello " + fullname + ", have a good day...");
+        System.out.printf("Name: %s, Age: %d, Height: %.2f\n", name, age, height);
+        System.out.println(String.format("Name: %s, Age: %d, Height: %.2f", name, age, height));
+
         sc.close();
     }                                               
 }                                                   

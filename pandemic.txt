@@ -20,7 +20,7 @@ Vijayawada
 800000
 300000
 105
-AndhraPradesh 
+AndhraPradesh
 Vizag
 500000
 100000

@@ -1,4 +1,5 @@
 Guido van Rossum (Netherlands as a successor to 'ABC programming language')
+		first come in 1989
 		Python 0.9.0 in 1991's
 		Python 2.0 in 2000's|discontinued with version 2.7.18 in 2020's
 		Python 3.0 in 2008's 
@@ -26,7 +27,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 **DATA TYPES--
 	None
 	bool			var = True	, 	var = False
-	int/float		var = 34	,	var = 3.45
+	int/float		var = 34	,	var = 3.45					print(f"{var:.2f}")
 	complex			complex(3,4)	3+4j
 	str				str1 = 'a' 	, 	string = 'ank'				#String is immutable(unable to modify once defined). But
 					str2 = "Ankit"										partially accessible using indexing. eg, str[0] is 'A' 
@@ -141,6 +142,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 **PRINTING OUTPUT-- 
 	print("& this is Python...")			# new line defaultly. like, end="\n"
 	print(end="")							# without new line
+	print(x, y, sep=":")
 
 
 **TAKING INPUT--
@@ -174,23 +176,23 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 			else:
 				_block_					//will exicute only after last successful iteration of for loop.ie, without 'break'
 
-			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]
-			list = [x**2 for x in lst if x > 0]
-			
-			list = list(map(function, lst))			//Function can be any operation to perform on every item of lst
-					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
-								//map fuction returns the iterator map object, so we need to convert it into the list,tuple,set...
-
-			list = filter(conditioned_function, iterator)			//conditioned_function returns True/False which 
-					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
-								//filter function returns iterator filter object, which contains all items for which conditioned_function returns True value 
-
 			for key, val in dict.items():
 				_block_
 
 			for index, item in enumerate(list):
 				_block_
+				
+			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]
+			list = [x**2 for x in lst if x > 0]
+			
+			list = map(function, lst1, lst2,...)			//Function can be any operation to perform on every item of lst(s)
+					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
+								//map fuction returns the iterator map object, so we need to convert it into the list,tuple,set...
 
+			list = filter(conditioned_function, iterator)			//conditioned_function returns True/False for every item of iterator(s)
+					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
+								//filter function returns iterator filter object, which contains only items for which conditioned_function returns True value 
+							
 
 	WHILE	while x == 5:
 				_block_

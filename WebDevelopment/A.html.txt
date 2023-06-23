@@ -1,0 +1,7 @@
+Tim Berners-Lee in 1991
+    Hypertext Markup Language - Declarative Language
+    structure of web content
+
+UI(User Interface) interactions - It includes elements that allow the user to interact with the application or website.
+UX(User Experience) designs - It includes of the user's response, ease of use, and overall satisfaction with the product.
+DOM(Document object Model) - The hierachycal structure of HTML elements

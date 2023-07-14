@@ -16,7 +16,6 @@ python3 file_name.py										python3 hello.py
 
 
 
-
 SPECIAL VARIABLE--
 	-> Used to run default code only from current module
 __name__		# __name__ = '__main__' for static point of exicution for current working module
@@ -42,15 +41,23 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	set				x = {1,2,3,3,2} ->becomes-> {1,2,3}			# mutable & duplicates get removed || x=frozenset({'a',2}) is immutable
 	dict			dictionary = {'key':"value", 12:21}			# values are accessed through keys || keys must be unique
 	
+	range()			range(0, 101, 2)	.\>0,2,4,...,98,100
+					range(100, -1, -2)	.\>100,98,...,4,2,0
 	datetime
 	indentation		"	" -> denotes block of code
 	class
+
+
+Note-->
+		dir(x)						# returns list of attributes and method names for the instance
+		hasattr(x, 'items')			# returns True if variable is of dictionary type, else returns False
 
 
 **NUMBER BASE CONVERSION
 	bin(42):0b101010		int("0b101010", base=2):42			# base = 2 to 32
 	oct(42):0o52
 	hex(42):0x2a
+
 
 
 **List Operation
@@ -84,17 +91,18 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 
 
 
-
 **Dictionary operation
 	dict = {}
 	dict.keys()
 	dict.values()
 	dict.items()
-	"key" in dict    # let's say this returns False, then...
-		dict["key"]      # ...this raises KeyError
-		dict.get("key")  # ...this returns None
+	"key" in dict    # let's say this returns False(ie.there isn't key present named "key" in dictionary), then...
+		dict["key"]      	# ...this raises KeyError
+		dict.get("key")  	# ...this returns None
+		dict.get("key", 0)  # ...this returns 0
 	dict.setdefault("key", 1)
 	**dict           # expands all k/v pairs in place
+
 
 
 **ACCORDING TO ASCII
@@ -108,13 +116,12 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 		Operators in the same box group left to right
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
 
-
 	|***	OPERATORS(with precedence)							|	***		DESCRIPTION
 
 	|(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
 	|{key: value...}, {expressions...}							|	dictionary display, set display
 
-	|x[index], x[startIndex:tillIndex:step],									|	Subscription, slicing,
+	|x[index], x[startIndex:tillIndex:step],					|	Subscription, slicing,
 	|x(arguments...), x.attribute								|	call, attribute reference
 
 	|await x													|	Await expression
@@ -139,14 +146,17 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	'''															|
 
 
+
 **PRINTING OUTPUT-- 
 	print("& this is Python...")			# new line defaultly. like, end="\n"
 	print(end="")							# without new line
 	print(x, y, sep=":")
 
 
+
 **TAKING INPUT--
 		variable = input("Enter whatever brother :) ...")
+
 
 
 **CONDITIONAL STATEMENT--
@@ -168,6 +178,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 					_block_
 				case _:
 					_block_
+
 
 
 **LOOPING(ITERATIVE) STATEMENTS--
@@ -193,18 +204,16 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
 								//filter function returns iterator filter object, which contains only items for which conditioned_function returns True value 
 							
-
 	WHILE	while x == 5:
 				_block_
 
-	RANGE	range(0, 101, 2)	.\>0,2,4,...,98,100.
-			range(100, -1, -2)	.\>100,98,...,4,2,0.
 
 
 **JUMP STATEMENT
 	break		# terminates current/working loop and goes out of loop
 	continue	# terminates current/working loop and goes for next iteration of loop
 	pass		# Used where we don't want any operation to perform
+
 
 
 **FUNCTIONS(Modules)--
@@ -220,6 +229,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 		return a, b										# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
 
 	x = func_name(val1, val2,...)				 		# calling function.		argument = actual value  | here, x will be (2, 3)
+
 
 
 **CLOSURES--
@@ -298,6 +308,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 		print(x(2, 3))					# 8 will be printed
 
 
+
 **MODULES--
 	We can use py files/modules created in working directory
   examples-
@@ -308,6 +319,8 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 	from module import method1, method2
 	from module import *
 	
+
+
 **PACKAGES--
 	We can use modules/py files created in sub-folders/packages(collection of sub-packages & modules) of current working directory
   examples-
@@ -323,6 +336,8 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 	adding directory manually
 		in-code		sys.path.append('D:\Anynomus\Documents\Programming\Python\Package\Package1')
 		in-cmd		set PYTHONPATH=Sub-package0.sub-package1
+
+
 
 **CLASS data type--
 	CLASS	class ClassName:
@@ -358,6 +373,7 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 				obj2 = Computer()
 				Computer.config(obj1)							|
 				obj2.config()									| both the ways can be used
+
 
 **NESTED CLASS--
 	CLASS		class ClassName:
@@ -396,6 +412,7 @@ ways to implement polymorphism in python
 	-Method Overriding  	- Method Overrides the parent method having same name, parameter (I have my parents phone, and I also have my phone)
 
 
+
 **FILE HANDLING--
 	MODES--
 				t				> text file handling mode (Default, if mode is unspecified)
@@ -426,12 +443,24 @@ ways to implement polymorphism in python
    							data = fi.read()
 
 
+
+**CONTEXT-MANAGER PROTOCOL--
+	with expression as obj, expression1 as obj1, expression2 as obj2:				# expression is termed as context-manager, which returns an object
+		_block_
+	
+	with expression as obj:
+		with expression1 as obj1
+			with expression2 as obj2:				
+				_block_
+
+
+
 **EXCEPTION/ERROR ANDLING--
 	try:
 		_block_
 	except error_name as error_msg:				error_name = (ValueError, ...) | defaultly you can leave that as, error_name = Exception
 		print(error_msg)							error_msg can be accessed using str(error_msg) in print statement
 		_block_
-		raise 										raise shows full error msg from the Compiler
+		raise 										raise shows full error msg from the Compiler, will be executed after the finally block
 	finally:						
 		_block_									# Executed in both cases, error as well as no-error

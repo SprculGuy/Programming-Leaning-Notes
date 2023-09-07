@@ -1,0 +1,15 @@
+Hosts 
+    - Any devices that sends & receives trffic; eg. client, server.
+    - Any Host needs 4 things for Internet connectivity
+        1. IP address           - Identity (192.168.0.1)
+        2. Subnet Mask          - Defines size/scope of local network
+        3. Default Gateway      - Routers IP address
+        4. DNS server IP address- Gives domain names to IP address
+        - DHCP(Dynamic Host Configuration Protocol) server - provides configuration(IP,SM,DG,DNS) dynamically for host to connect to the Internet
+
+Protocols
+    - Set of rules & messages that forms internet standard
+        eg. ARP(Address Resolution Protocol) - Resolves IP to Mac address mapping
+            HTTP(Web server)
+            HTTPS(HTTP with SSL(SecureSocketLayer)/TSL(TransportLayerSecurity))
+            DNS(Domain Name System) server

@@ -6,7 +6,22 @@ Bjarne Stroustrup	(Denmark)	(1979-C_with_classes|1983-C++)
 # Interpreter: 	SourceCode>Interpreter(Takes 1st line)>Machine code(Immediately Exicutes 1st line then goes for 2nd line - no compiled file is generated)
 # Just-in-time-Compiler: SourceCode>Interpreter(Takes line-by-line and store in buffer)>Machine code(Exicutes line-by-line from buffer)
 
-
+*Compiler setup -->
+	After installing Msys2 from 'msys2.org'
+	Msys2 -> type command "pacman -Syu"			>update all packages of msys2
+	Msys2 -> type "pacman -Su"				>update all base packages
+	Installing required packages for C & CPP
+		Mingw64 -> type "pacman -Ss gcc"			>checking all available gcc packages list for installation for C and CPP --> mingw-w64-x86_64-gcc [GNU Compiler Collection (C,C++,OpenMP) for MinGW-w64]
+		Mingw64 -> type "pacman -S choosen_package_name"	eg. pacman -S mingw-w64-x86_64-gcc  
+			 
+		Mingw64 -> type "pacman -Ss gdb"			>checking all available gdb(debugger) packages list for installation for C and CPP --> mingw-w64-x86_64-gdb [GNU Debugger (mingw-w64)]
+		Mingw64 -> type "pacman -S choosen_package_name"	eg. pacman -S mingw-w64-x86_64-gdb   
+	Adding environment variable path of bin --> C:\msys64\mingw64\bin
+		Environment Variables -> System variables > Path > Edit > New -> 'C:\msys64\mingw64\bin'
+	Check version at random directories
+		gcc --version
+		gdb --version
+		
 *To Compile & Run C++ Program -->
  app.cpp --> pre-processor(HeaderFiles) --> app.i --> compiler --> app.obj --> Linker(LibraryFiles) --> app.exe
 Exicute these in terminal of working directory...

@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class HelloWorld                    // ClassName - PascalConvention
 {                                                   // void   - return type of function
-    public static void main(String[] args)          // public - scope of function           // functionName - camelCaseConvention
-    {                                               // static - gives ability to get exicuted without creating any object of class
+    public static void main(String args[])          // public - scope of function           // functionName - camelCaseConvention
+    {                                               // static - gives ability to get exicuted(called) without creating any object of class
         String name = "Ankit";                      // args   - argument defining
         System.out.println("Hello World");                      // to treat the function as it is outside of class 
         System.out.println(name);                               // println gives new line after execution of print

@@ -5,3 +5,47 @@ Tim Berners-Lee in 1991
 UI(User Interface) interactions - It includes elements that allow the user to interact with the application or website.
 UX(User Experience) designs - It includes of the user's response, ease of use, and overall satisfaction with the product.
 DOM(Document object Model) - The hierachycal structure of HTML elements
+
+
+
+**HTTP Web Server response Status Codes-->
+    200 - Success
+    300 - Redirects
+    400 - Client Side Error
+    500 - Server Side Error
+
+
+
+**Tags-->
+    Comment tag-
+            <!--This is the Comment-->
+
+    Paragraph tag-
+            <p>This is a paragraph</p>
+
+    Heading tags-
+            <h1>Largest</h1>,                          
+            <h2></h2>,
+            ...,
+            <h6>Smallest</h6>
+    
+    Image element-
+            <img src="redragon.jpg" alt="Redragon Icon">
+    
+    Division Tag
+    Anchor Tag
+    List tag
+    Unlorder list tag
+    ordered list tag
+    Head
+    body
+    main
+    nav
+    form
+    table
+    input
+    video
+    span
+    b
+    i
+    

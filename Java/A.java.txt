@@ -1,6 +1,7 @@
 James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2010 - Sun Microsystems is aquired by 'Oracle Corp.' for $7.4 billion)
     - java is purely object oriented
 
+
 *JDK JRE JVM -->
    +-------------------------+     *To Compile & Run Java Program -->                                                                                                                          
    | JDK                     |      Exicute these in terminal of working directory..                                                                                                                         
@@ -19,20 +20,27 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
    | |       +-----+       | |                                                                                                                                         
    | |          +          | |                                                                                                                                         
    | | +-----------------+ | |                                                                                                                                         
-   | | | Class Libraries | | |
-   | | | dir; jre/lib    | | |                                                                                                                                        
+   | | | Class Libraries | | |         
+   | | | dir; lib/src    | | |                                                                                                                                        
    | | +-----------------+ | |                                                                                                                                         
    | +---------------------+ |                                                                                                                                         
    +-------------------------+                                                                                                                                         
 
 
 
+**Featurs Of Java
+    Plateform(OS + H/W Architechture) Independent - Compile once and execute anywhere using platform specific JVM
+    Secure - No use of pointer(internal memory manipulation), Use of JVM as code monitoring system(avoids unsecured executing)
+    Satically typed - variables must be declared before using(runs faster as type is not need to decided during runtime)
+    Garbage collection - deallocation of dynamic allocated memory
+
+
 
 **DATA TYPES--
     Primitive->
-        boolean Bool = true;                   -value can be true or false (1 bit/size depends on JVM), default is false
+        boolean Bool = true;                    -value can be true or false (1 bit/size depends on JVM), default is false
     
-        char _myName = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
+        char _my$Name = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
 
         byte x;                                -value ranges from -128 to 127 (1 byte - 8 bits) with default value 0
         short small_number;                    -value ranges from -2^16/2 to [2^16/2]-1 (2 byte) with default value 0
@@ -76,21 +84,21 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
 	||															|	Bitwise OR
     |~                                                          |   Bitwise Not
 
-	    |{key: value...}, {expressions...}							|	dictionary display, set display
+            |{key: value...}, {expressions...}							|	dictionary display, set display
 
 
-	    |+x, -x, ~x													|	Positive, negative, bitwise NOT
-	    |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
-	    |not x														|	Boolean NOT
-	    |and														|	Boolean AND
-	    |or															|	Conditional expression
-	    |lambda														|	Lambda expression
-	    |:=															|	Assignment expression
+            |+x, -x, ~x													|	Positive, negative, bitwise NOT
+            |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
+            |not x														|	Boolean NOT
+            |and														|	Boolean AND
+            |or															|	Conditional expression
+            |lambda														|	Lambda expression
+            |:=															|	Assignment expression
 
-	#															|- Comment
-	''' 														|- Multiline Comment 				
-	_block_														|
-	'''															|
+	//															|- Comment
+	/* 														    |- Multiline Comment 				
+	    _block_													|
+	*/															|
 
 
 

@@ -4,7 +4,11 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 		Python 2.0 in 2000's|discontinued with version 2.7.18 in 2020's
 		Python 3.0 in 2008's 
 
-
+				**Featurs Of Java
+					Plateform(OS + H/W Architechture) Independent - Compile once and execute anywhere using platform specific VM
+					Secure - No use of pointer(internal memory manipulation), Use of JVM as code monitoring system(avoids unsecured executing)
+					Satically typed - variables must be declared before using(runs faster as type is not need to decided during runtime)
+					Garbage collection - deallocation of dynamic allocated memory
 
 *To Compile & Run Python Program -->
 Exicute these in terminal of working directory...
@@ -13,6 +17,29 @@ python3 file_name.py										python3 hello.py
 	
 > python is Interpreted language, 
 	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into bytecode) then get executed...	
+
+
+**PIP:
+	pip --version
+	python -m pip install --upgrade pip			-->updates pip installer
+	pip list
+	pip freeze
+	pip freeze > req.txt
+	pip install -r req.txt 
+	pip freeze pip uninstall -r req.txt -y
+	pip install numpy
+	pip install selenium==4.0.0
+	pip freez
+	pip install --upgrade numpy
+	pip uninstall numpy
+			pip --help
+			pip <command> --help
+			pip install --help
+
+
+
+**To get py->exe
+	pyinstaller --onefile .\app.py 						-->Uses pyinstaller package & for working dir file
 
 
 

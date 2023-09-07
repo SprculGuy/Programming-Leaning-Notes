@@ -1,0 +1,129 @@
+**GIT TERMINOLOGIES/COMMANDS-->
+	Working Directory	directory on your local machine where you create, edit, and delete files as part of your project
+	Staging area 		intermediary step between your working directory and the Git repository, temporary holding area for changes you want(selectively choosen) to include in your next commit
+    Git Repository	 	directory with .git folder, where all the contents are tracked.
+            		.gitignore : to ignore certain files/directories, name them in the .gitignore file, eg. text.txt, *.pdf, /Python/Package
+            		.gitkeep : to track empty directory we need to keep .gitkeep to that empty directory, as Git ignores empty directories by default
+	HEAD (~ / ^) 		referece variable that points to recent commit of current branch
+	init				adds .git folder to track its contents/changes
+	status				review the changes in staging area
+	diff				shows exact changes with line and column number of files in staging area
+					git diff HEAD~1 HEAD
+	log					list the commits for current branch
+					git log filename	list the commits for specific file
+	show				log with additional information about, authors name, timestamp, commit message, difference from prev commit
+	add 				adds files/folders to staging area for tracking modifications on that files
+					git add demo.txt
+					git add .
+	checkout			undo the modifications(uncommited) made in working directory(not staged) and switch to tha last commit version
+	branch			git branch
+					git checkout branch_name	
+    commit 				Used to switch between branches, commits and files.
+								1> with filename: creating new version to the local repository, all files in staging area are sent to Git repository
+								2> with commits: switch to the specific commit using perticular commitID
+								3> with branch: switch to the specific branch
+	amednd				fix previously commit without adding new commit
+					git commit -amend
+	revert				revert the commited changes by the specific commit id for which the changes need to be discarded
+					git revert e94df25
+	reset				discard all the commits from the local repository which are commited after the given commit id
+					git reset e94df25
+					git reset --hard    		deletes all unpublished git commits
+					git reset --soft			reset the current branch's HEAD to a previous commit while preserving the changes you made in your working directory and staging area
+					git reset --hard e94df25 	reset the current branch to a specific commit, discarding all changes in the working directory and staging area
+
+    remote 				refers to the server where project code is present, eg. GitHub, GitLab
+    origin 				variable having url value of remote repository, <remote url> eg. https://github.com/sprculguy/myrepo.git
+    push				send the changes of local to remote repository(server)
+	clone				fetches the entire repository from a remote source and sets up a local copy on your machine
+					git clone <remote url>
+	remote				link local repositorywith remote repository
+					git remote add <remote name> <remote url>
+	fetch				downloads the changes from remote source without changing working directory
+					git fetch <remote name> <branch name>		fetches contents of the specific branch
+	merge				merges the fetched remote contents to target branch
+	rebase				merges two branch and eliminates the original commits from the source branch and replaces them with new ones based on the target branch
+    pull				fetch and merge the changes from remote source to local working directory
+	Conflict 			when merging of two branches merge conflics can be seen when:
+								1> two separate branches have made edits to the same line in a file
+								2> when a file has been deleted in one branch but edited in the other
+	Fork				create a personal copy of someone else's public repository to contribute 
+					To fork a repository on GitHub:
+						1> Login to GitHub: If you haven't already, log in to your GitHub account
+						2> Find the Repository: Go to the GitHub repository that you want to fork, eg. https://github.com/original-owner/repo-name.git
+						3> Fork the Repository: Click the "Fork" button in the top-right corner of the repository's page. This action will create a copy of the repository in your GitHub account
+						4> Wait for Fork to Complete: You'll be redirected to your forked repository url like git clone https://github.com/your-username/repo-name.git
+						5> Clone Your Fork: create a local copy of your forked repository on your computer to contribute
+											git clone https://github.com/your-username/repo-name.git
+						6> Sync with the Original Repository: In your local clone of the forked repository, you can add the original repository as a remote. Conventionally, the original repository is often named "upstream," but you can choose any name you prefer.
+											git remote add upstream https://github.com/original-owner/repo-name.git
+						7> Fetch Changes from the Original Repository: Once you've added the original repository as a remote, you can fetch the latest changes from it
+											git fetch upstream
+						8> Update Your Local Branch with the Changes: After fetching the latest changes from the original repository, you can update your local branch (usually master or main) to include these changes.
+											git merge upstream/master
+						8> Commit and Push: Commit your changes using git commit and then push them to your fork on GitHub using git push
+											git push origin master
+						9> Create a Pull Request: If you want your changes to be considered for inclusion in the original repository, navigate to your fork on GitHub, and click the "New Pull Request" button. 
+
+
+	
+	
+	
+
+
+**Git+GitHub(Origin) Workflow-->
+
+        Working Dir				Staging Area	      		Git Repository(Local/.git)			Origin(GitHub, GitLab)
+        	|git add---------------->|git commit------------------->|git push origin----------------->|
+			|<--------------git reset|								|<-----------------git pull origin|
+			|<-----------------------|------------------------------|-----------------git clone origin|
+			|<-----------------------|------------------git checkout|
+		
+
+		
+	>Checking Version
+		git --version
+        git update-git-for-windows
+		git config --global user.name "Anynomus"
+		git config --global user.email "Ankit7887@git.com"
+		git remote add origin <SSH Key>							-->Connects Git repo to local path
+		git status										-->Check working directory status
+		git diff file_name								-->to check-out the updations before adding to staging area
+		git diff									-->cheks diiference in working dir and staging area
+		git diff --staged								-->cheks last commit with staging area
+	>git branch master
+		git branch									-->gives list of all branches creaed, with current working branch highlighted.
+		git branch new_branch_name							-->creates new branch 'new_branch_name'
+		git branch --merged								-->shows already merged branches but are not deleted
+		git branch --no-merged								-->shows un-merged branches
+		git checkout new_branch_name							-->switches current working branch to 'new_branch_name'
+		git merge new_branch_name							-->merge all changes commited on 'new_branch_name' to working branch
+		git branch -d new_branch_name							-->deletes branch 'new_branch_name' locally(Gives error for un-merged branches)
+		git branch -D new_branch_name							-->deletes branch 'new_branch_name' locally(For Un-merged branches)
+		git push -d origin branch_name  						|
+		git push origin --delete branch_name						|->deletes branch 'branch_name' remotely(from github)
+	> git diff file.txt
+		git diff --staged file_name							-->to check-out the updations of files in staging area
+	> git diff --staged file.txt
+		git init									-->Initialise empty Git repository in working directory
+		git add .									-->add all to the staging area			|
+		git reset .									-->unstage all the files from staging area	|at,<.> we can use <FileName>
+		git restore --staged filename							-->unstage the file 'filename' from staging area
+		git checkout .									-->undo all updated content of file, before staging
+		git commit -m "CommitComments"							-->Commits to Git Repo
+		git commit -a -m "Direct commit"						-->Commits to Git Repo directly 
+		git rm file_name								-->Removes the file_name file and move the chages to staged area
+		git rm --cached	file_name								-->Removes file from git repo and file becomes untracked for git
+		rm -rf repo_folder/.git								-->Deletes local GitHub repository, use command at the root of your Git repository.
+		git mv file_name file_name_renamed						-->Renames the file_name file to file_name_renamed and move the chages to staged area
+	> git commit -m "fix to minor login bug"
+		git log										-->Shows commits history
+		git log -p									-->Shows commits history with changes.
+		git log -p -3									-->Shows 3 commits history with changes.
+		git log --since=2.days								-->Shows commits history of 2 last days with changes.
+				1.weeks								-->Shows commits history of 1 last weeks with changes.
+				2.months							-->Shows commits history of 2 last months with changes.
+		git push origin master								-->Push to master branch of GitHub Repo from master branch of Git Repo
+		git push origin branch_name
+		git pull origin master								-->Pull to master branch from Github Repo to the Git & Local Repo
+		git clone <SSH key>								-->Create/Download any public/private Repo

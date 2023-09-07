@@ -1,7 +1,7 @@
-def character_count(s, t):
+def stringChallenge(sen, t):
     d = dict()
-    for w in s:
-        if w not in d and w.isalpha():
+    for w in sen:
+        if w not in d and w.isphanum():
             d[w] = 1
         elif w in d:
             d[w] += 1
@@ -17,7 +17,7 @@ def character_count(s, t):
 
     return string
 
-s="aa3b.bcd@e"
-t="fka7529d36"
-string = character_count(s, t)
+s="fun&!! time"
+t="t8h7904wc3"
+string = stringChallenge(s, t)
 print(string)

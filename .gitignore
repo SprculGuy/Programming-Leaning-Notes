@@ -2,7 +2,7 @@
 *.o
 *.exe
 *.class
-App.class
+tempCodeRunnerFile.*
 text.txt
 *.pdf
 /Python/Package

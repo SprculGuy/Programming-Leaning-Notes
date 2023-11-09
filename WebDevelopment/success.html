@@ -1,0 +1,25 @@
+<!doctype html>
+<html dir="ltr" lang="en-us">
+    <head>
+        <title>Success</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+  
+    <body>
+	    <main>
+		    <p> < <a href="form.html">Back to form</a></p>
+
+		    <h4>You have submitted following details</h4>
+		    <p id="submit"></p>
+			<script src="js/script.js"></script>   <!-- external JavaScript -->
+		    <script>	//internal JavaScript
+			    const resultsList = document.getElementById('submit')
+			    new URLSearchParams(window.location.search).forEach((value,name) => {
+				    resultsList.append(`${name}: ${value}`)
+				    resultsList.append(document.createElement('br'))
+			    })
+		    </script>
+        </main>
+    </body>
+</html>

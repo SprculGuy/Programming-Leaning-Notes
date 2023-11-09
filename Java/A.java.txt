@@ -36,38 +36,80 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
 
 
 
-**DATA TYPES--
-    Primitive->
-        boolean Bool = true;                    -value can be true or false (1 bit/size depends on JVM), default is false
+**DATA TYPES--(Statically typed language - variables must be specify/declare type for compiler before using)
+    Primitive-> stored in stack memory which is for function calls local variables
+        boolean $Bool = true;                    -value can be true or false (1 bit/size depends on JVM), default is false
     
-        char _my$Name = 'A';                    -value ranges from 0 to [2^16]-1 (2 byte) with default value \u00 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
+        char _my$Name = 'A';                    -value ranges from 0 to 2¹⁶(2 byte) with default hexadecimal value \u0000=0. \uffff=2¹⁶-1 // char in java supports Unicode unlike others which supports ASCII[0-127](Subset of Unicode)
 
-        byte x;                                -value ranges from -128 to 127 (1 byte - 8 bits) with default value 0
-        short small_number;                    -value ranges from -2^16/2 to [2^16/2]-1 (2 byte) with default value 0
-        int Num1;                              -value ranges from -2^32/2 to [2^32/2]-1 (4 byte) with default value 0
-        long large$number = 356_457_578L;      -value ranges from -2^64/2 to [2^64/2]-1 (8 byte) with default value 0l or 0L
+        byte x;                                -value ranges from -128 to 128-1 (1 byte - 8 bits) with default value 0    
+        short small_number;                    -value ranges from -2¹⁵ to 2¹⁵-1 (2 byte) with default value 0
+        int Num1;                              -value ranges from -2³¹ to 2³¹-1 (4 byte) with default value 0
+        long large$number = 356_457_578L;      -value ranges from -2⁶³ to 2⁶³-1 (8 byte) with default value 0l or 0L
                                                     0b1010   binary 
                                                     012      octal 
                                                     10       decimal 
                                                     0xA      hexadecimal
+            Note: negative numbers are stored in the twos complement representation
 
-        float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f or o.oF, we need to use f or F after floating constant...  +\-3.4E-38 to +/-3.4E38   ; 1.2E-2 = 1.2*10^(-2)
+        float $currency$ = 1.54f;              -takes 4 byte with default value is 0.0f or o.oF, we need to use f or F after floating constant...  +\-3.4E-38 to +/-3.4E38   ; 1.2E-2 = 1.2*10⁻²
         double Pivalue = 1.54;                 -takes 8 bytes with default value 0.00d or 0.00D                                                    +\-1.7E-308 to +/-1.7E308                                                          
 
-    Non-Primitive->   
+    Non-Primitive-> in java all non-primitive are references to the memory allocated in heap
         String str = "this is string"               -strings are immutable, default value is null
+
+        Wrapper class-
+            Boolean b = new Boolean(True);
+            Character x = new Character("A");
+            Integer i = new Integer(34);
+            .
+            .
+            .
+
+        import java.math.BigInteger;
+        BigInteger B = new BigInteger(“123456789123456789”);    -value ranges from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (8 byte) with default value 0
+            -reference variable B is created, allocate new memory in heap, put the given value there and memory location is stored in B
+
+        array
+        class
+
+
+**TYPE CONVERSION--
+    AutoBoxing/UnBoxing
+        boolean bool = false;
+        Boolean B = bool;   // AutoBoxing
+        boolean bool1 = B;  // UnBoxing
+
+    Widening/Implicit Conversion
+        byte->short|->int->long->float->double  ex. char c = 'A';
+               char|                                int i = c;      65 
+                                                    long l = i;     65
+                                                    float f = l;    65.0
+
+    Narrowing/Explicit Conversion
+        double d = 65.4;
+        int i = (int)d;     65
+        char c = (char)i;   A
+
+    Non-primitive Conversion
+        //Suppose the Dog class inherits Animal class then
+        Animal animal = new Animal();   
+        Dog dog = new Dog();
+        Animal animal1 = dog;   // allowd
+        Dog dog1 = animal;      // not allowed
+
 
 
 **OPERATORS--(with precedence)
 		Operators in the same line have the same precedence
-		Operators in the same line group left to right
+		Assignment expressions in the same line group follows left to right operations
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
 
 
 	|***	OPERATORS(with precedence)							|	***		DESCRIPTION
 	
     |(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
-	|x[index], x[index:index],									|	Subscription, slicing,
+    |x[index],              									|	Subscription, slicing,
     |x(arguments...), x.attribute								|	call, attribute reference
 	
     Can be performed on all data types except Boolean
@@ -77,23 +119,22 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
     |x++, x--                                                   |   post-increament, post-decrement
 	
     Can only be performed on int
-    |<<, >>														|	Shifts - left{n*2^k}, right{n/2^k}     int x=10; x<<1; | here, n=10 k=1
+    |<<, >>														|	Shifts - left{n*2ⁱ}, right{n/2ⁱ}     int x=10; x>>1; | here, n=10 i=1   // 10 = 1010 becomes 5 = 0101 // -2 = 1110 becomes -1 = 1111
     |>>>                                                        |   unsigned right shift
-	|&															|	Bitwise AND
-	|^															|	Bitwise XOR
-	||															|	Bitwise OR
     |~                                                          |   Bitwise Not
+	|&															|	Bitwise AND, bit-by-bit calculation.o/p. is '1' if both parallel bits are 1
+	|^															|	Bitwise XOR, o/p. is '1' if both parallel bits are diffrent and '0' both parallel bits are same
+	||															|	Bitwise OR
 
+    |+x, -x, ~x													|	Positive, negative, bitwise NOT
+    |!														    |	Boolean NOT
+    |&&														    |	Boolean AND
+    |||															|	Boolean OR
+    |==, !=, <, >, <=, >=                                       |   Comparison Opperators
+    |=, +=, -=, *=, %= 											|	Assignment expression
             |{key: value...}, {expressions...}							|	dictionary display, set display
-
-
-            |+x, -x, ~x													|	Positive, negative, bitwise NOT
             |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
-            |not x														|	Boolean NOT
-            |and														|	Boolean AND
-            |or															|	Conditional expression
             |lambda														|	Lambda expression
-            |:=															|	Assignment expression
 
 	//															|- Comment
 	/* 														    |- Multiline Comment 				
@@ -102,8 +143,63 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
 
 
 
-
 **PRINTING OUTPUT--
-        System.out.print("Hello ");             -prints the statement            
-        System.out.println(name);               -prints the statement and goes for next line
+    General print
+        System.out.print("Hello ");             -prints the strings, numbers and mixtures of both            
+        System.out.println(name);              -prints the statement/s and goes for next line
+                                                    "System" is class 
+                                                    "out" is object
+                                                    "print" is function
+
+
+    Formated Strings
+        System.out.printf(); or System.out.format();            -prints formated strings
+            System.out.printf("%n");                            -line break(goes to nest line)
+            System.out.format("bool: %b", false);                   >bool: false
+            System.out.printf("%c, %C", char);                      >a, A
+            System.out.format("%s, %S", "string");                  >string, STRING
+            System.out.printf("int: %d", %3d", 17);                 >int: 17,  17
+            System.out.format("%f, %.2f, %6.2f, %06.2f", 3.1456);   >3.1456, 3.14,   3.14, 003.14       // 6 is min characters including . to be printed
+            System.out.printf("100%%");                             >100%
+
+
+
+**Esacape sequences--
+    System.out.println("List of \"Esacape sequences\"");
+            \t      tab
+            \b      backspace
+            \n      new line
+            \r      caririage return
+            \f      form feed
+            \'      single quote
+            \"      double quote
+            \\      backslash
+
+
+
+**TAKING INPUT--
+    BufferredReader
+            -Faster(as not internal parcing)
+            -Synchrinized(Preffered for multi-threading)
+
+        import java.io.BufferedReader;
+        import java.io.InputStreamReader;
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));       // BufferedReader's object used to read a character or sequence of characters
+        char c = reader.read();
+        string c[] = reader.read();
+        string c = reader.readline();
+        int i = Integer.parceInt(reader.readline());
+
+
+    Scanner
+            -Easy
+        import java.util.Scanner;               
+        
+        Scanner sc = new Scanner(System.in);
+        String firstName = sc.nextLine();
+        int age = sc.nextInt();
+        float height = sc.nextFloat();
+        String address = sc.next();
+
 

@@ -1,2 +1,2 @@
-:
-	print("x")
+
+else:

@@ -1,23 +1,20 @@
-def stringChallenge(sen, t):
-    d = dict()
-    for w in sen:
-        if w not in d and w.isphanum():
-            d[w] = 1
-        elif w in d:
-            d[w] += 1
-        else:
-            pass 
-        
-    s1, string = "",""
-    for key, value in d.items():
-        s1 += str(value) + key
-    if len(s1) == len(t):
-        for i,j in zip(s1, t):
-            string += i + j
+def fibonacci(n):
+    if n <= 0:
+        return "Invalid input"
+    elif n == 1:
+        return 0
+    elif n == 2:
+        return 1
+    else:
+        a, b = 0, 1
+        for _ in range(2, n):
+            a, b = b, a + b
+        return b
 
-    return string
+n = input()
+result = fibonacci(int(n))
+if result != "Invalid input":
+    print(result)
+else:
+    print("Invalid input. Please enter a positive integer greater than 0.")
 
-s="fun&!! time"
-t="t8h7904wc3"
-string = stringChallenge(s, t)
-print(string)

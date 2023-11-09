@@ -1,3 +1,25 @@
-
+CSS
     Cascading Style Sheets
     Appearance/presentation for Web content
+
+Types to apply CSS/styles to webpage-
+    1> Inline -
+            <p style="font-size:50px; color: pink;"> Hello World! </p>
+    2> Internal -
+            <style>
+                p{                      /* selector */
+                    color: pink;        /* declarations - property(color) and property value(pink) */
+                    font-size:50px; 
+                }
+            </style>
+    3> External -
+            <link rel="stylesheet" href="css/style.css">
+
+ **Selectors-
+        * {}                            /* selector for everything in the html document
+        body {}
+        p {}
+        h1, h2 {}                       /* declarations will apply to all h1 and h2 */
+        h1 h2 {}                        /* declarations will apply to all h2 which are inside of h1 */
+        .class-name {}
+        #id-name {}

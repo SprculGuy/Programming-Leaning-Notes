@@ -1,0 +1,2 @@
+API - Application Programming Interface
+    Determines how one set of sofware communicates with another set of software

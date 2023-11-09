@@ -14,7 +14,14 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 Exicute these in terminal of working directory...
 python3 file_name.py										python3 hello.py
 	SourceCode -> syntax Checker & Translator -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language                " Compiler -> ByteCode "
-	
+Execution-->
+	1. cpython interpreter breaks code in-to tokens(variables, Operators, white-spaces)
+	2. Using tokens CST(Concreate Syntax Tree) is generated
+	3. Further by removing comment, white-spaces the AST(Abstract Syntax Tree) is generated
+	4. Form AST types of objects are deduced so that interpreter should know which fuction is being called. Eg. for {a=2, b=3}; for {a+b} add(int, int) is called rather than add(str, str) or add(float, float)
+	5. then the bytecode is generated
+	6. PVM will execute bytecode line by line
+
 > python is Interpreted language, 
 	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into bytecode) then get executed...	
 
@@ -50,7 +57,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 
 
 
-**DATA TYPES--
+**DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
 	None
 	bool			var = True	, 	var = False
 	int/float		var = 34	,	var = 3.45					print(f"{var:.2f}")
@@ -182,7 +189,7 @@ Note-->
 
 
 **TAKING INPUT--
-		variable = input("Enter whatever brother :) ...")
+		variable = input("Enter whatever brother :) ..."
 
 
 

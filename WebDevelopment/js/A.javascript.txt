@@ -1,2 +1,125 @@
-
+Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScript) (Europian Computer Manufacture Association) 
+                                                        ECMAScript is the specification describing how browsers should implement and interpret JavaScript.
     functionality/behavior for Components of webpage
+        High Level
+        Single threaded
+        garbage collected
+        Interpreted or Just in time compiled
+        Prototyped based oopl(has no class, object is created from another object)
+        multi paradigm
+        dynamic
+        non-blocking event loop
+
+JavaScripts superset with additional feature implementation(script.ts)
+    Typescript -  TypeScript adds static typing to JavaScript, which can help catch errors during development and improve code maintainability.
+               -  Needs TypeScript compiler (tsc) to transpile it into JavaScript.
+
+JavaScript framework
+    ReactJS - use JSX(JavaScript XML) which simplifies mixing of js and html
+    vueJS - 
+    AngularJS -
+
+JavaScript Build tools  - comes js framework with to convert/optimize the code back into js for current browser
+                        - converting ES6+ JavaScript to older versions for broader browser compatibility
+    npm - comes with Node.js    Node.js is to execute JavaScript code server-side
+    webpack
+    gulp    
+
+
+
+**Types to apply CSS/styles to webpage-    
+    1> Internal -   used anywhere inside the <html> and only applies to current html document
+            <script>
+                const allp = document.querySelectorAll("p")             // ; at ending is optional
+                                                                        // '' or " " either can be used according to our preference.
+                for(let item of allp){
+                    item.innerHTML = "item.innerHTML"
+                }
+            </script>
+
+    2> External -
+            <script src="js/script.js"></script>            // loads and exicuted in priority by halting the document(html/css) loading.
+        or  <script src="js/script.js" defer></script>      // loads parallel to document but exicuted only after loading of document is finished.
+        or  <script src="js/hello-world-alert.js" async> alert("Hi") </script>    // only the external js code will be exicuted, internal js will be ignored
+                                                            //loads parallel to document and exicuted after loading by halting the document loading.
+
+            <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
+
+**to access/manipulate DOM  -
+    document.getElementById('idName')                   // acess the matching first item
+    document.getElementByClassName('className')
+    document.getElementByTagName('p')
+
+    document.querySelector('cssSelector')
+    document.querySelectorAll('cssSelector')
+
+
+
+**DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
+            numbers
+            strings/characters
+            Boolean
+            objects
+            arrays(objects that trated differently)
+
+    Variable Declaration-
+            var name;
+            let name;
+            const name;
+
+    Object-
+            const backpack = {                                  // can change the properties of object but can't remove or replace object from backpack container/variable
+                                name: "Everyday Backpack",
+                                volume: 30,
+                                color: "grey",
+                                pocketNum: 15,
+                                strapLength: {
+                                    left: 26,
+                                    right: 26,
+                                },
+                                lidOpen: false,
+                                toggleLid: function (lidStatus) {
+                                    this.lidOpen = lidStatus;                              // "this" keyword refers to the current object(backpack)
+                                    updateBackpack(`Lid status changed.`);
+                                },
+                                newStrapLength: function (lengthLeft, lengthRight) {
+                                    this.strapLength.left = lengthLeft;
+                                    this.strapLength.right = lengthRight;
+                                    updateBackpack(`Strap lengths updated.`);
+                                },
+                            };
+
+
+**OPERATORS--(with precedence)
+		Operators in the same box have the same precedence
+		Operators in the same box group left to right
+		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
+
+                    |***	OPERATORS(with precedence)							|	***		DESCRIPTION
+
+                    |(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
+                    |{key: value...}, {expressions...}							|	dictionary display, set display
+
+                    |x[index], x[startIndex:tillIndex:step],					|	Subscription, slicing,
+                    |x(arguments...), x.attribute								|	call, attribute reference
+
+                    |await x													|	Await expression
+                    |**															|	Exponentiation 
+                    |+x, -x, ~x													|	Positive, negative, bitwise NOT
+                    |*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
+                    |+, -														|	Addition and subtraction
+                    |<<, >>														|	Shifts
+                    |&															|	Bitwise AND
+                    |^															|	Bitwise XOR
+                    ||															|	Bitwise OR
+                    |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
+                    |not x														|	Boolean NOT
+                    |and														|	Boolean AND
+                    |or															|	Conditional expression
+                    |lambda														|	Lambda expression
+                    |:=															|	Assignment expression
+
+	//															|- Comment
+	/* 														    |- Multiline Comment 				
+	_block_														|
+	*/															|

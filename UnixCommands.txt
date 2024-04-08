@@ -1,0 +1,87 @@
+Develeped by group of AT & T employees in 1969.
+Various unix(not open source) available; Solaris, HP, AIX and BSD. Linux(open source) is based on unix
+unix is more like OS and Linux is more like a language for unix to work
+
+⚫ Single User Single Tasking OS -  MS-DOS
+⚫ Single User Multitasking OS –  Windows
+⚫ Multiprogramming(multiple users) OS -  Unix
+
+Shell - Convert the instructions for the kernel
+        The shell is the utility that processes your requests. When you type in a command 
+            at your terminal, the shell interprets the command and calls the program that you want
+Kernel- It is a collection of programs written in C that runs directly on hardware.
+        It interacts with the hardware and most of the tasks like memory management, 
+            task scheduling and file management.
+
+Output
+    echo Hello World!
+
+Variable
+    a=355
+    b=355
+    echo $a         for printing variable value use '$'
+    echo $b
+
+File Commands -
+    1> touch filename - creates temporary file
+    
+    2> Concatination(cat)
+        cat > filename - to create a file and add the cotent simultaneously 
+        cat >> filename - append the content form input
+        cat filename - to view the content of file 
+    
+    3> copy(cp)
+        cp from.txt to.txt
+
+    4> move(mv) - also used for renaming file
+        mv temp.txt permanent.txt
+    
+    5> remove(rm)
+        rm delete.txt
+    
+    6> listing(ls) - list the directories/files in the current directory
+        ls          # list the directories in the current directory
+        ls -l       # gives extra details about the 
+        ls -a       # administration privileged
+
+Directories Commands - 
+    1> mkdir directoryName
+    2> mv temporary permanent
+    3> rmdir 
+
+Filter Commands-
+    1> word count(wc) - line/character count
+        wc filename         gives line count, words, byte count, file name
+        wc -l filename      gives line count file name
+        wc -c filename      gives byte count file name
+    2> Sort(sort) - 
+        sort filename       
+        sort -r filename    sort in dec
+    3> Cut(cut)
+        cut -b1 filename    gives 1st byte
+        cut -b5 name.txt    gives 5th byte
+        cut -b-5 name.txt   gives 1st to 5th bytes
+        cut -c-1 name.txt
+    4> unique(uniq)
+        uniq
+    5> head, tail - displays first and last n lines of the file
+        head -2 filename 
+        tail -5 filename
+    6> grep, egrep - search file using regular expression
+    7> sed - replace searched value
+        sed'/temporary/permanent/' file.txt             replaces first occurrence of 'temporary' to 'permanent'
+        sed 's/temporary/permanent/3' file.txt          replaces third occurrence of 'temporary' to 'permanent
+        sed 's/temporary/permanent/g' file.txt          replaces all the occurrence of 'temporary' to 'permanent' in file.txt
+        sed '3 s/temporary/permanent/' file.txt         for 3rd line 
+        sed '3 s/temporary/permanent/i'                 case insensitive search
+    8> awk - 
+        awk 'BEGIN{FS=","}
+            {} 
+            END{}' file.txt
+
+other - 
+    1> Pipe(|)
+        to combine the multiple commands
+            > echo My name is Nisha | cat > new.txt         # O/P of first command will be input for second command
+
+    2> date

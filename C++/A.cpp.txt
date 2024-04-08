@@ -210,7 +210,7 @@ ex.	register int a;		register char b;
 			{
 			}
 
-	SWITCH  switch(grade)
+	SWITCH  switch(grade)       // can't be strings, only character allowd
 			{
 				case 'A':
 					printf("You did great\n");

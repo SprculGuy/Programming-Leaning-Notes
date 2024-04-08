@@ -5,16 +5,26 @@
 <!-- dir attribute is used to specify the direction of text for reading -->
   <head>
     <meta charset="UTF-8">  <!-- charset attirbute specify the character encding for symbols in the HTML document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- viewport meta tag - so viewport specific information can be added in content attribute which allows responsive CSS styles and media queries to be applied -->
+    
     <link rel="stylesheet" href="css/style.css">    <!-- External css -->
-    <style>   /* internal css */
+    <style>                                         /* internal css */
       p{
         color:blueviolet;
       }
     </style>
+
+    <script type="module" src="js/hello-world-alert.js" async> alert("Hi") </script>    <!-- only the external js code will be exicuted, internal js will be ignored -->
+                        <!--default - js loads and exicuted in priority by halting the document(html/css) loading. -->
+                        <!--async - js loads parallel to document and exicuted after loading by halting the document loading. -->
+    <script defer>      //  defer - js loads parallel to document but exicuted only after loading of document is finished.
+        alert("Hi")
+    </script>
+
     <title>Hello, world!</title>
   </head>
 
-  <body>
+  <body>    
     <h1>H1 Heading</h1>
     <h2>H2 Heading</h2>
     <h5>H5 Heading</h5>
@@ -68,9 +78,9 @@ asd  asd      asd         asd
 
     <h1>Figure, Figcaption, Image</h1>
     <figure>
-      <img src="images/redragon.jpg" alt="Redragon Company Icon" width="100" height="100"> <!-- multiple declarations are seperated by colon(;) -->
-      <figcaption style="color: blueviolet; font-size: 19px;">Redragon &copy;</figcaption>     <!-- inline CSS -->
-    </figure>
+      <img src="images/redragon.jpg" alt="Redragon Company Icon" width="100" height="100"> 
+      <figcaption style="color: blueviolet; font-size: 19px;">Redragon &copy;</figcaption>  <!-- inline CSS -->  
+    </figure>                                                                                 <!-- multiple declarations are seperated by colon(;) -->
 
     <h1>Code</h1>
     <pre>
@@ -82,10 +92,6 @@ asd  asd      asd         asd
 &lt;/ul&gt;
       </code>
     </pre>
-
-    <script src="js/script1.js">      // only the external js code will be exicuted
-      alert("Hi")
-    </script>
 
   </body>
 </html>

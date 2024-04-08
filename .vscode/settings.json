@@ -1,7 +1,7 @@
 {
-    "java.configuration.runtimes": [],
     "livePreview.defaultPreviewPath": "/WebDevelopment/index.html",
     "livePreview.autoRefreshPreview": "On All Changes in Editor",
     "livePreview.customExternalBrowser": "Default",
-    "code-runner.clearPreviousOutput": true
+    "code-runner.clearPreviousOutput": true,
+    "editor.formatOnSave": true
 }

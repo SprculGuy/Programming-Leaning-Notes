@@ -1,10 +1,13 @@
-Tim Berners-Lee in 1991
-    Hypertext Markup Language - Declarative Language
+Tim Berners-Lee in 1991  <!-- also inventor of the World Wide Web -->
+    Hypertext Markup Language - Declarative Language(Markup language)
     structure of web content
+    Latest > HTML 5 in 2008
+
 
 UI(User Interface) interactions - It includes elements that allow the user to interact with the application or website.
 UX(User Experience) designs - It includes of the user's response, ease of use, and overall satisfaction with the product.
 DOM(Document object Model) - The hierachycal structure of HTML elements
+
 
 Web Development-->
 	FrontEnd
@@ -19,6 +22,15 @@ Web Development-->
 	DataBase
 		SQL(MySQL)
 		NoSQL(MongoDB, Redis) 
+
+
+
+**To make our website live-
+        domain name - address used to access the website
+        server - used to store our entire website and database
+        web hosts - provide access to server
+
+
 
 **HTTP Web Server response Status Codes-->
     Status 1__:Information
@@ -136,9 +148,14 @@ HTML
 		<span></span>		<!-- inline -->
 
     Image element-
-	    <img src="images/redragon.jpg" alt="Redragon Company Icon" width="400" height="400" srcset="images/redragon-960px.jpg 960w,
-                                                                                                	images/redragon-1440px.jpg 1440w,
-                                                                                                	images/redragon-1920px.jpg 1920w" />
+	    <img src="images/redragon-480px.jpg" alt="Redragon Company Icon" width="480" height="360" srcset="images/redragon-960px.jpg 960w,
+                                                                                                	    images/redragon-1440px.jpg 1440w,
+                                                                                                	    images/redragon-1920px.jpg 1920w" /> <!-- based on screen width layout -->
+	    
+        <img src="images/redragon-480px.jpg" alt="Redragon Company Icon" width="480" height="360" srcset="images/redragon-960px.jpg 2x,
+                                                                                                	    images/redragon-1440px.jpg 3x,
+                                                                                                	    images/redragon-1920px.jpg 4x" /> <!-- based on screen resolution -->
+
 
 	Picture element-
 		<picture>
@@ -154,6 +171,12 @@ HTML
   		                  images/redragon-cropped-960.jpg 960w" />
   		  <img src="images/redragon-480.jpg" width="480" height="360" alt="black dog lying in the sun" />
 		</picture>
+
+        <picture>
+            <source srcset="image.avif" type="image/avif">
+            <source srcset="image.webp" type="image/webp">
+            <img src="image.jpg" alt="A description of the image." width="300" height="200" loading="lazy" decoding="async">
+        </picture>
 
 	Figure element-
 		<figure>
@@ -185,9 +208,9 @@ HTML
 	    <a href="https://github.com/SprculGuy">Click here</a>
 	    <a href="mailto:ankitpatil@gmail.com">Email me</a>
 	    <a href="tel:9999999999">Call me</a>
-	    <a href="/pages/about-us.html">about us page</a>        reference from root directory
+	    <a href="/pages/about-us.html">about us page</a>        (default)reference from root directory
 	    <a href="pages/about-us.html">about us page</a>         going to pages folder which is in current directory
-	    <a href="../pages/about-us.html">about us page</a>      comming out of the current directory then goes to pages
+	    <a href="../pages/about-us.html">about us page</a>      (relative)comming out of the current directory then goes to pages
 
 	    <h1 id="other">Other</h1>
 	    <a href="#other">Go to other</a>    <!-- this links to the h1 tag with id attribute defined as other -->
@@ -223,21 +246,21 @@ HTML
     Table element-
 	    <table>
 	      <thead>
-		<tr>
-		  <th>First name</th>
-		  <th>Last name</th>
-		</tr>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
 	      </thead>
 
 	      <tbody>
-		<tr>
-		  <td>Ankit</td>
-		  <td>Patil</td>
-		</tr>
-		<tr>
-		  <td>Bharti</td>
-		  <td>Patil</td>
-		</tr>
+            <tr>
+                <td>Ankit</td>
+                <td>Patil</td>
+            </tr>
+            <tr>
+                <td>Bharti</td>
+                <td>Patil</td>
+            </tr>
 	      </tbody>
 	    </table>
     Quote inline element-
@@ -257,7 +280,7 @@ HTML
 	    <time datetime="2023-05-15 20:15:01.7+5:30"> 15 May 2023 8:15 pm in time zone of Kolkata +5:30GMT (Greenwich Mean Time) </time>
 
     Subscript element-
-	    <p>H<sub>2O<sub></p>    <!-- H₂O -->
+	    <p>H<sub>2<sub>O</p>    <!-- H₂O -->
 
     Superscript element-
 	    <p>3<sup>3<sup></p>     <!-- 3³ -->
@@ -282,7 +305,7 @@ HTML
 		<link rel="preload" href="fonts/my-font.woff2" as="font" type="font/woff2" />
 		<link rel="icon" href="favicons/favicon.ico" />
 
-	script tag- can be used at the end of head tag to load javascript
+	script tag- can be used at the end of body tag to load javascript
 		<script>
 
 	main element-
@@ -329,9 +352,12 @@ HTML
 **Attributes-->
 	**Global Attributes-->
 		class- Allow us to target all elements with specific class in our CSS/JS
+               Same class name can be used multiple times in the same html document.
 				<p class="introduction">This is the introduction.</p>
+				<p class="introduction intro">This is the introduction.</p>         <!-- 2 class names for single tag, introduction & intro -->
 
 		id(#)- Allow us to target a unique element with specific id in our CSS/JS
+               Id is a unique per html document.
 				<h1 id="other">Other</h1>
 				<a href="#other">Go to other</a>    <!-- this links to the h1 tag with id attribute defined as other -->
 
@@ -351,7 +377,7 @@ HTML
 				<span>l</span>
 				<span>o</span>
 
-				<span>w</span>
+				<span>w</span>  
 				<span>o</span>
 				<span>r</span>
 				<span>l</span>
@@ -364,6 +390,9 @@ HTML
 		datetime-
 				<time datetime="2023-05-15 20:15:01.7+5:30">15 May 2023 8:15 pm in time zone of Kolkata +5:30GMT (Greenwich Mean Time)</time>
 		Source-
-				<img src="redragon.jpg" alt="Redragon Company Icon">
+				<img src="redragon.jpg" alt="Redragon Company Icon">                relative path
+				<img src="./redragon.jpg" alt="Redragon Company Icon">              relative path
+				<img src="../images/redragon.jpg" alt="Redragon Company Icon">      absolute path -> resolves to current url, ie. https://current-domain-name/images/redragon.jpg or https://localhost:8000/images/redragon.jpg
+                <img src="https://picsum.photos/200" alt="outside source photo">         how absolute path should be used for the outside sources used in our website
 		contenteditable-
 			<blockquote contenteditable="true">add your own quote</blockquote>

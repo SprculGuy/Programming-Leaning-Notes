@@ -71,7 +71,33 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
             -reference variable B is created, allocate new memory in heap, put the given value there and memory location is stored in B
 
         array
+            int[] a = {1,2,3,4,5,6};
+            int a[] = new int[6];   a[0] = 1; a[1] = 2; a[2] = 3; a[3] = 4; a[4] = 5; a[5] = 6;
+            int a[], b;                         // only a is array and b is integer variable
+            int[] a, b;     int []a,b;          // both a and b is array variables
+
         class
+
+
+
+**VARIABLES TYPE--
+    Local Variables-    A variable defined within a block or method is called a local variable
+            - The scope of these variables exists only within the block in which the variables are declared and destroyed after exiting from the block
+
+    Instance Variables (Non-static Variables)-      declared in a class outside of any method or block
+            - created when an object of the class is created and destroyed when the object is destroyed, and accessed only by creating objects
+            - obj.variable      // accessed through object references
+
+    Class Variables (Static Variables)-     we can only have one copy of a static variable per class
+            - declared in a class outside of any method or block using the 'static' keyword with option access specifier
+            - created when the program starts and destroyed when the program stops
+            - ClassName.variable    // accessed through classname
+
+        eg. class name{
+                public static int a; // Class/Static variable
+                public int b;        // Instance/Non-static variable
+            } 
+
 
 
 **TYPE CONVERSION--
@@ -109,7 +135,7 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
 	|***	OPERATORS(with precedence)							|	***		DESCRIPTION
 	
     |(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
-    |x[index],              									|	Subscription, slicing,
+    |x[index],              									|	Subscription, 
     |x(arguments...), x.attribute								|	call, attribute reference
 	
     Can be performed on all data types except Boolean
@@ -130,11 +156,8 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
     |!														    |	Boolean NOT
     |&&														    |	Boolean AND
     |||															|	Boolean OR
-    |==, !=, <, >, <=, >=                                       |   Comparison Opperators
+    |==, !=, <, >, <=, >=                                       |   Relational Opperators
     |=, +=, -=, *=, %= 											|	Assignment expression
-            |{key: value...}, {expressions...}							|	dictionary display, set display
-            |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
-            |lambda														|	Lambda expression
 
 	//															|- Comment
 	/* 														    |- Multiline Comment 				
@@ -150,7 +173,6 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
                                                     "System" is class 
                                                     "out" is object
                                                     "print" is function
-
 
     Formated Strings
         System.out.printf(); or System.out.format();            -prints formated strings
@@ -203,3 +225,114 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
         String address = sc.next();
 
 
+
+**CONDITIONAL STATEMENT--
+	IF		if(x<5)			        NESTED IF		if(x<5)
+				_block_ ;							    if (x<3){
+			else if(x == 5){					            System.out.printf("x : %d", 4);
+				_block_ ;                                   System.out.printf("x : %d", 5);
+                _block_ ;                               }
+            }
+			else{
+				_block_
+				_block_
+            }
+
+    SWITCH	switch var:{
+				case "100":
+					_block_
+                    break;
+
+				case "200":
+					_block_
+                    break;
+				
+                case "300":
+					_block_
+                    break;
+				
+                default:
+					_block_
+            }
+
+
+
+**LOOPING(ITERATIVE) STATEMENTS--
+    FOR     for(int i; i<=0; i++){
+                System.out.printf("x : %d", 4);
+            }
+
+    WHILE   while(true){
+                System.out.printf("x : %d", 4);
+                if i++;
+                else i+=2;
+            }
+
+    DO WHILE    do{
+                    System.out.printf("x : %d", 4);
+                    i++;
+                }while(5<4);
+
+
+
+**JUMP STATEMENT
+	break		# terminates all current and nested loops and goes out of looping statements
+	continue	# terminates current loop and goes for next iteration of loop
+    return      # terminates the method and returns back to the caller method, may or may not return parameters to the caller method
+
+
+
+**ACCESS MODIFIRES/SPECIFIER--
+    Access Modifiers −  keywords that can be used to control the visibility of fields, methods, and constructors in a class
+        private     accessed only within the same class
+        default     accessed only within the same package/class folder. Defalut access modifier for unspecified access specifier
+        protected   accessed within the same package and also from outside the package with the help of the child class using inheritance
+        public      accessed from anywhere
+
+    Non-access Modifiers −  
+        static
+        final
+        abstract
+        synchronized
+        volatile
+        transient
+        native
+        strictfp
+
+
+
+**FUNCTIONS(Modules)--
+												                        argtuple - holds tuple of any no. of arguments values passed while calling the func_name ; must be used before **kargdict
+												                        kargdict - holds dictionary of any no. of keyword arguments values passed while calling the func_name ; must be used as last parameter
+	public static int func_name(int par1,float par2, *argtuple, **kargdict){		parameter = place holder	
+		//  public static void local_func(){								            // does not allows nested methods
+		//  	_block_
+		//  	return
+        //  }
+		_block_
+		return a											
+    }
+
+	x = func_name(val1, val2,...);		 		        // calling function		argument = actual value
+
+
+
+**ENUM--    Enums restrict a variable to have one of only a few predefined values
+
+        class FreshJuice {
+            enum FreshJuiceSize{ SMALL, MEDIUM, LARGE }         // This would make sure that it would not allow anyone to order any size other than small, medium, or large.
+            FreshJuiceSize size;
+        }
+
+        public class FreshJuiceTest {
+
+            public static void main(String args[]) {
+                FreshJuice juice = new FreshJuice();
+                juice.size = FreshJuice.FreshJuiceSize.MEDIUM ;
+                System.out.println("Size: " + juice.size);
+            }
+        }
+
+
+
+**

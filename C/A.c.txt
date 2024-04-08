@@ -155,7 +155,7 @@ ex.	register int a;		register char b;
 			{
 			}
 
-			switch(grade)
+			switch(grade)                           // can't be strings
 			{
 				case 'A':							// grade = A
 					printf("You did great\n");

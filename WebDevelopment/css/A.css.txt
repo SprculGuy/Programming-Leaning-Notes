@@ -1,6 +1,8 @@
-CSS
-    Cascading Style Sheets
-    Appearance/presentation for Web content
+In 1996
+    Cascading Style Sheets(stylesheet language)
+    Appearance/styling for Web content
+    Latest > CSS 3 in 1999
+
 
 Types to apply CSS/styles to webpage-
     1> Inline -
@@ -9,17 +11,149 @@ Types to apply CSS/styles to webpage-
             <style>
                 p{                      /* selector */
                     color: pink;        /* declarations - property(color) and property value(pink) */
-                    font-size:50px; 
+                    font-size:50px;
+                    padding: 10px 5px 20px 15px;    /*  one declaration(shorthand) specifies 4 properties(longhand) values
+                    padding: 10px 5px;              /*  padding-top:10px;
+                                                        padding-right:5px;
+                                                        padding-bottom:10px / 20px;
+                                                        padding-left:5px / 15px;    */
+                    background: url(../image.jpg) no-repeat center/cover;           /* shorthand background-size must be declared with background-position value seperated with slash(/) */
+                                                    /*  background-repeat: no-repeat;
+                                                        background-position: center;
+                                                        background-size: cover;     */
                 }
             </style>
+
     3> External -
             <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" media="screen and (max-width: 720px)" href="css/mobile-style.css">       /* css for viewport on mobile screen */
+
 
  **Selectors-
-        * {}                            /* selector for everything in the html document
-        body {}
-        p {}
-        h1, h2 {}                       /* declarations will apply to all h1 and h2 */
-        h1 h2 {}                        /* declarations will apply to all h2 which are inside of h1 */
-        .class-name {}
-        #id-name {}
+        * {}                                /* selector for everything in the html document(universal selector)
+        body {} 
+        p {}    
+        h1, h2 {}                           /* declarations will apply to all h1 and h2 */
+        body h1, #id, p.class {}    
+        h1 h2 {}                            /* declarations will apply to all child+decendent h2 which are only inside of h1 */
+        body figure img {}                  /* declarations will apply to all img which are only inside of figure which are only inside of body */
+        .class-name {}  
+        p.class-name {}                     /* declarations will apply to all p with class-name class */
+        .class-name1.class-name2 {}         /* declarations will apply to all elements that have both classes class-name1 and class-name2 */ ie. class = "class-name1 class-name2"
+        article > p {}                      /* declarations will apply to all direct child(not decendent) p elements inside of article element
+        #id-name {} 
+        p#id-name {}                        /* declarations will apply p with id-name id */
+        article p:first-of-type {}          /* Pseudo-class - declarations will apply to only first p in article */
+        article p::first-letter {}          /* Pseudo-element - declarations will apply to first letter of all p in article */
+        article p:first-of-type::first-letter {}         /* declarations will apply to only first letter of only first p in article */
+
+
+
+**Specificity- specifies how to determine which styles will take precedent when selectors conflict 
+                              (ID|Class|Element)
+        #id p                    (1 0 1) = 101                      Highest to Lowest Specificity:
+        #id                      (1 0 0) = 100                                                      1. ID selector
+        .class p a               (0 1 2) = 012                                                      2. Class, Attribute and Pseudo-class selector
+        a:visited                (0 1 1) = 011
+        .class                   (0 1 0) = 010                                                      3. Type/element and Pseudo-element selector
+        ul li a                  (0 0 3) = 003                                                      4. Universal selector
+        p::fist-of-type          (0 0 2) = 002
+        p                        (0 0 1) = 001
+        *                        (0 0 0) = 000
+        color: brown !important;    /* most precedent rule regardless of Specificity
+
+
+
+**declarations-
+        
+        font-size: 1.25rem;
+        width: 80%;
+        border-width: 5px;
+        height: 10em;
+        height: 1vh;
+        animation-duration: 750ms;
+        animation-iteration-count: 5;
+        transform: rotate(180deg);
+        display: flex;
+        justify-content: center;
+        aligh-items: center;
+
+
+
+**Property values and units-
+    types:
+    <color>
+            color: black;
+            color: #ff0000;                 /*  #rrggbb or #rgb where r, g & b is hexadecimal number(0,1,2,...,e,f)  */
+            color: #f00;
+            color: #ff000000;               /*  #rrggbbaa or #rgb where a is alpha channel hexadecimal value, 0=0% opacity(fully transparent) and ff=100% opacity(no transparency) */
+            color: #ff00001a;               /* #rrggbbaa , 10% 
+            color: rgb(255 255 255);
+            color: rgb(0% 50% 100%);
+            color: rgb(0 0 0 / 0.5);       /*  alpha channel(colour opacity). 0.5 = 50% opacity (50% transparency) */
+            color: rgb(0 0 0 / 50%);
+    <integer>               can be negative or positive
+    <number>                fraction with decimals
+    <percentage>
+    <time>                  1s, 10ms
+    <resolution>            96dpi, 3dppx
+    <length>
+            1. absolute(px, in, cm, mm, Q, pt)
+                -px pixel
+                -in inch
+                -cm centimeter
+                -mm milimeter
+                -Q quarter milimeter
+                -pt points
+            2. relative(em, rem, vw, vh)  /* values declared in parent elements have effects on current element
+                -em relative to ancestor element
+                -rem relative to root element
+                -vw relative to browsers viewport width     /* viewport is the visible portion of browser window. */
+                -vh relative to browsers viewport height
+    <keyword>           red, medium
+    <function>
+            transform: rotate(90deg);
+            width: calc(80% - 20px);
+            background: url(../images/redragon.jpg);
+
+
+
+**Units-
+    font-size: 1rem;        /* relative to root element
+    padding: 1em;           /* relative to paernt element
+    margin: 1em;
+
+**CSS Box model -
+    width
+    height
+    content
+    padding
+    border
+    margin
+
+
+**Stacking elements-
+            The stacking context is the order in which HTML elements are placed on the z-axis. 
+            z-index: 1;            The z-index property can be used to change the stacking order.
+
+**Layouts/Positioning Styles -
+            float: left;
+            position: sticky;
+            display: grid;
+
+**Queries(Responsive designs) - 
+            @media screen and (max-width: 720px) and (min-width: 360px) {          /* when the viewport is smaller than 720px and bigger than 360px, then only apply the css contained within the query
+                h2 {                            /* declaration apply only if the condition is true */
+                    font-size: 1.6rem;
+                }
+            }
+
+
+**Variables -
+            :root {  /* accessible in whole project */      body {  
+                --BGCOLOR: black;                               background-color: var(--BGCOLOR);
+            }                                               }
+
+
+**Transition & Animation -
+            

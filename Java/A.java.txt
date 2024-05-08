@@ -1,5 +1,7 @@
 James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2010 - Sun Microsystems is aquired by 'Oracle Corp.' for $7.4 billion)
     - java is purely object oriented
+    - bytecode language - SourceCode is first converted into bytecode, in-turns this is faster than purely interpreted languages like pythonn
+            other bytecode languages are C# and Kotlin
 
 
 *JDK JRE JVM -->
@@ -7,7 +9,7 @@ James Gosling -> named Oak(Java)      (1995 - By Sun Microsystems(USA)) later (2
    | JDK                     |      Exicute these in terminal of working directory..                                                                                                                         
    |       +----------+      |      javac fileName.java                                     javac app.java            Compiles in JDK compiler and .class file is generated                                                                                                                         
    |       | Compiler |      |      java fileName.class										java app.class            Get executed on JRE(Java Runtime Environment in which JVM is embedded)                                                                                                                         
-   |       | Debugger |      |           SourceCode -> Compiler -> ByteCode -> Interpreter[JVM(in JRE)] -> Machine language                                                                                                                         
+   |       | Debugger |      |           SourceCode -> Compiler -> ByteCode(pPatform Independent) -> Interpreter[JVM(in JRE)] -> Machine language
    |       | Javadoc  |      |          .java                     .class                                                                                                                                      
    |       | keytool  |      |                                         
    |       | jdk/bin  |      |                                                                                                                                       

@@ -4,16 +4,17 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 		Python 2.0 in 2000's|discontinued with version 2.7.18 in 2020's
 		Python 3.0 in 2008's 
 
-				**Featurs Of Java
-					Plateform(OS + H/W Architechture) Independent - Compile once and execute anywhere using platform specific VM
-					Secure - No use of pointer(internal memory manipulation), Use of JVM as code monitoring system(avoids unsecured executing)
-					Satically typed - variables must be declared before using(runs faster as type is not need to decided during runtime)
-					Garbage collection - deallocation of dynamic allocated memory
+
+
+**Featurs Of Python
+        Purely Interpreted language - gets exicuted line by line
+
+					
 
 *To Compile & Run Python Program -->
 Exicute these in terminal of working directory...
 python3 file_name.py										python3 hello.py
-	SourceCode -> syntax Checker & Translator -> ByteCode -> Interpreter(Python Vertual Machine) -> Machine language                " Compiler -> ByteCode "
+	SourceCode -> syntax Checker & Translator -> Interpreter(Python Vertual Machine) -> Machine language                " Compiler -> ByteCode "
 Execution-->
 	1. cpython interpreter breaks code in-to tokens(variables, Operators, white-spaces)
 	2. Using tokens CST(Concreate Syntax Tree) is generated
@@ -23,16 +24,16 @@ Execution-->
 	6. PVM will execute bytecode line by line
 
 > python is Interpreted language, 
-	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into bytecode) then get executed...	
+	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into machine code) then get executed...	
 
 
 **PIP:
 	pip --version
 	python -m pip install --upgrade pip			-->updates pip installer
-	pip list
-	pip freeze
-	pip freeze > req.txt
-	pip install -r req.txt 
+	pip list									-->list the packages with their installed version
+	pip freeze									-->
+	pip freeze > req.txt						-->gets the list into the req.txt file
+	pip install -r req.txt 						-->insatlls the all packages with their installed version from req.txt
 	pip freeze pip uninstall -r req.txt -y
 	pip install numpy
 	pip install selenium==4.0.0
@@ -43,6 +44,8 @@ Execution-->
 			pip <command> --help
 			pip install --help
 
+**Virtual Environment--
+	python venv -m venv_name
 
 
 **To get py->exe
@@ -158,8 +161,12 @@ Note-->
 	|x[index], x[startIndex:tillIndex:step],					|	Subscription, slicing,
 	|x(arguments...), x.attribute								|	call, attribute reference
 
+
 	|await x													|	Await expression
 	|**															|	Exponentiation 
+	|++x, --x													|	pre-increament, pre-decreament
+	|x++, x--												    |	post-increament, post-decreament
+	|x+=2, x*=5                                                 |   compound Assignment with augmented expression
 	|+x, -x, ~x													|	Positive, negative, bitwise NOT
 	|*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
 	|+, -														|	Addition and subtraction
@@ -174,10 +181,11 @@ Note-->
 	|lambda														|	Lambda expression
 	|:=															|	Assignment expression
 
-	#															|- Comment
-	''' 														|- Multiline Comment 				
-	_block_														|
-	'''															|
+	|\                                                          |  Escape character for escape seqences; \n,\',\",\\,\t,\b
+	|#															|- Comment
+	|''' 														|- Multiline Comment 				
+	|_block_													|
+	|'''														|
 
 
 
@@ -194,9 +202,9 @@ Note-->
 
 
 **CONDITIONAL STATEMENT--
-	IF		if x < 5:			NESTED IF		if x<5:
-				_block_								if x<3:
-			elif x == 5:								print("x : ", 4)
+	IF		if x < 5:				NESTED IF		if x<5:
+				_block_									if x<3:
+			elif x == 5:									print("x : ", 4)
 				_block_
 			else:
 				_block_
@@ -227,8 +235,10 @@ Note-->
 			for index, item in enumerate(list):
 				_block_
 				
-			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]
-			list = [x**2 for x in lst if x > 0]
+			list = [x**2 for x in lst]			lst = [1,2,3,4] | list = [1,4,9,16]				// list comprehension
+			list = [x**2 for x in lst if x > 0]												
+			dict = {k:v for k,v dictionary.items() if v>3}										// dictionary comprehension
+			set = {x for x in range(5)}															// set comprehension
 			
 			list = map(function, lst1, lst2,...)			//Function can be any operation to perform on every item of lst(s)
 					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
@@ -237,7 +247,10 @@ Note-->
 			list = filter(conditioned_function, iterator)			//conditioned_function returns True/False for every item of iterator(s)
 					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
 								//filter function returns iterator filter object, which contains only items for which conditioned_function returns True value 
-							
+
+			import functools 	// importing functools for reduce()
+			functools.reduce(lambda a, b: a if a > b else b, list)		// gives maximum element in list
+
 	WHILE	while x == 5:
 				_block_
 
@@ -449,11 +462,15 @@ ways to implement polymorphism in python
 
 **FILE HANDLING--
 	MODES--
-				t				> text file handling mode (Default, if mode is unspecified)
-				r / rb			> only able to read content, gives error if file isn't available
-				w / wb			> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
-				a / ab			> same as "w". besides, if file already exists, this appends the content after old content of file.
-				b				> for working in binary mode
+				t					> text file handling mode (Default, if mode is unspecified)
+				r / rb				> only able to read content, gives error if file isn't available
+				w / wb				> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
+				r+					> read and write file, Overrides the existing content. 		"My name is Ankit" > "Helloame is Ankit"
+										r+ gives error if file is not available, w+ creates new file
+				w+					> read and write file, Overrights the existing content. 	"My name is Ankit" > "Hello"
+				a / ab				> same as "w". besides, if file already exists, this appends the content after old content of file.
+				a+					> read and write file, Overrights the existing content.		"My name is Ankit" > "My name is AnkitHello"
+				b					> for working in binary mode
 
 	Creating /				
 	overwriting file--	
@@ -498,3 +515,50 @@ ways to implement polymorphism in python
 		raise 										raise shows full error msg from the Compiler, will be executed after the finally block
 	finally:						
 		_block_									# Executed in both cases, error as well as no-error
+
+
+
+**COLLECTIONS--
+    from collections import Counter, OrderedDict, defaultdict, UserDict, UserList, NamedTuple, deque, ChainMap
+
+        print(Counter("My name is Ankit".split()))
+
+        d = defaultdict(lambda:"Not available")
+        d[1] = "one"
+        d[2] = "two"
+        print(d[1])
+        print(d[3])
+
+
+
+**REGULAR EXPRESSION-
+	import re
+
+	var = re.compile("string")
+	match()
+	search()
+	findall()
+	sub()
+	split()
+
+		\		Used to drop the special meaning of character following it
+		[]		Represent a character class
+		^		Matches the beginning
+		$		Matches the end
+		.		Matches any character except newline
+		|		Means OR (Matches with any of the characters separated by it)
+		?		Matches zero or one occurrence
+		*		Any number of occurrences (including 0 occurrences)
+		+		One or more occurrences
+		{}		Indicate the number of occurrences of a preceding regex to match.
+		()		Enclose a group of Regex
+
+
+**GENERATOR - 
+**ITERATOR	- python object that allows you to traverse through a collection, one element at a time
+**ITERABLE	- any object that you can loop over. Yterables can produce iterators using - iter()
+
+ 
+ 
+OOP concepts - Classes and Objects
+SQL and MySql concepts - basics, joins, group by

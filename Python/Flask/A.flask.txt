@@ -1,0 +1,7 @@
+Armin Ronacher
+        - Flask Python is based on the WSGI(Web Server Gateway Interface) toolkit and Jinja2 template engine
+
+**VDI--
+		python.exe -m pip install --proxy=http://proxy.tcs.com:8080 --upgrade pip
+        pip install --proxy=http://proxy.tcs.com:8080 flask
+		

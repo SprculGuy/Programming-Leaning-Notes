@@ -15,14 +15,17 @@ Web Development-->
 		CSS - Design of webpage		(CSS Framework - Bootstrap, Tailwind CSS + tailblocks.cc(pre-created snippets of Tailwind CSS))
 		JavaScript - Logic for Components of webpage	(JS Framework - React[ReactJS], NextJS(Server Side for React UI), Angular, Vue.JS(Typescript's Framework-Angular))
 	BackEnd
-		JS(Node[Nodejs]) + MongoDB + Mongoose	(Easy to switch for React/Nextjs)
+		JS(Node[Nodejs]/ExpressJS) + MongoDB + Mongoose	(Easy to switch for React(FrontEnd)/Nextjs(BackEnd))
 		Python(Django/Flask) + MongoDB + Python based ORM
 		Java(Spring boot) + MongoDB
 		Headless CMS(Strapy, Sanity.io)		(Easiest Backend technology)
 	DataBase
 		SQL(MySQL)
 		NoSQL(MongoDB, Redis) 
-
+    Deployment
+        Linux VPS/Droplet based 
+        AWS
+        Digital Ocean(deploy from github repository)
 
 
 **To make our website live-

@@ -1,33 +1,38 @@
 Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScript) (Europian Computer Manufacture Association) 
                                                         ECMAScript is the specification describing how browsers should implement and interpret JavaScript.
-    functionality/behavior for Components of webpage
-        High Level
-        Single threaded
-        garbage collected
-        Interpreted or Just in time compiled
-        Prototyped based oopl(has no class, object is created from another object)
-        multi paradigm
-        dynamic
-        non-blocking event loop
-
-JavaScripts superset with additional feature implementation(script.ts)
-    Typescript -  TypeScript adds static typing to JavaScript, which can help catch errors during development and improve code maintainability.
-               -  Needs TypeScript compiler (tsc) to transpile it into JavaScript.
-
-JavaScript framework
-    ReactJS - use JSX(JavaScript XML) which simplifies mixing of js and html
-    vueJS - 
-    AngularJS -
-
-JavaScript Build tools  - comes js framework with to convert/optimize the code back into js for current browser
-                        - converting ES6+ JavaScript to older versions for broader browser compatibility
-    npm - comes with Node.js    Node.js is to execute JavaScript code server-side
-    webpack
-    gulp    
+            Js is functionality/behavior for Components of webpage
 
 
+    **Characteristics of Js
+            High Level
+            Synchronous
+            Single threaded
+            garbage collected
+            Just in time compiled or Interpreted 
+            Prototyped based oopl(has no class, object is created from another object)
+            multi paradigm
+            dynamic
+            non-blocking event loop
+            Everything in js happens inside an Execution Context
 
-**Types to apply CSS/styles to webpage-    
+    Typescript  - JavaScripts superset with additional feature implementation(script.ts)
+                - TypeScript adds static typing to JavaScript, which can help catch errors during development and improve code maintainability.
+                - Needs TypeScript compiler (tsc) to transpile it into JavaScript.
+
+    JavaScript framework
+            ReactJS - use JSX(JavaScript XML) which simplifies mixing of js and html
+            vueJS - 
+            AngularJS -
+
+    JavaScript Build tools  - comes js framework with to convert/optimize the code back into js for current browser
+                            - converting ES6+ JavaScript to older versions for broader browser compatibility
+            1. npm - comes with Node.js    Node.js is to execute JavaScript code server-side
+            2. webpack
+            3. gulp    
+
+
+
+**Types to apply JS/Script to webpage-    
     1> Internal -   used anywhere inside the <html> and only applies to current html document
             <script>
                 const allp = document.querySelectorAll("p")             // ; at ending is optional
@@ -45,49 +50,15 @@ JavaScript Build tools  - comes js framework with to convert/optimize the code b
 
             <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
 
-**to access/manipulate DOM  -
-    document.getElementById('idName')                   // acess the matching first item
-    document.getElementByClassName('className')
-    document.getElementByTagName('p')
-
-    document.querySelector('cssSelector')
-    document.querySelectorAll('cssSelector')
 
 
+** EXECUTION CONTEXT - 
+            Browser can't understand high-level JS so the js code from web pages is sent to Browsers JS Engine that creates Execution context for execution
+                during runtime, the code is parsed(by syntax parser), variables and functions are stored in memory, executable byte-code gets generated, and executed.
 
-**DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
-            numbers
-            strings/characters
-            Boolean
-            objects
-            arrays(objects that trated differently)
+        JS Engine: A JavaScript engine is simply a computer program that receives JavaScript source code and compiles it to the binary instructions (machine code) that a CPU can understand.
+                        JavaScript engines are typically developed by web browser vendors. Examples; V8 engine for Google chrome, SpiderMonkey for Firefox, and Chakra for Internet Explorer.
 
-    Variable Declaration-
-            var name;
-            let name;
-            const name;
-
-    Object-
-            const backpack = {                                  // can change the properties of object but can't remove or replace object from backpack container/variable
-                                name: "Everyday Backpack",
-                                volume: 30,
-                                color: "grey",
-                                pocketNum: 15,
-                                strapLength: {
-                                    left: 26,
-                                    right: 26,
-                                },
-                                lidOpen: false,
-                                toggleLid: function (lidStatus) {
-                                    this.lidOpen = lidStatus;                              // "this" keyword refers to the current object(backpack)
-                                    updateBackpack(`Lid status changed.`);
-                                },
-                                newStrapLength: function (lengthLeft, lengthRight) {
-                                    this.strapLength.left = lengthLeft;
-                                    this.strapLength.right = lengthRight;
-                                    updateBackpack(`Strap lengths updated.`);
-                                },
-                            };
 
 
 **OPERATORS--(with precedence)
@@ -95,31 +66,373 @@ JavaScript Build tools  - comes js framework with to convert/optimize the code b
 		Operators in the same box group left to right
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
 
-                    |***	OPERATORS(with precedence)							|	***		DESCRIPTION
+        |***	OPERATORS(with precedence)						        |	***		DESCRIPTION
 
-                    |(expressions...), [expressions...],						|	Binding or parenthesized expression, list display,
-                    |{key: value...}, {expressions...}							|	dictionary display, set display
+        |(expressions...), [expressions...],						    |	Binding or parenthesized expression, list display,
+        |{key: value...}                    							|	object display
 
-                    |x[index], x[startIndex:tillIndex:step],					|	Subscription, slicing,
-                    |x(arguments...), x.attribute								|	call, attribute reference
+        |x[index],                              					    |	Subscription,
+        |x(arguments...), x.attribute								    |	call, attribute reference
 
-                    |await x													|	Await expression
-                    |**															|	Exponentiation 
-                    |+x, -x, ~x													|	Positive, negative, bitwise NOT
-                    |*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
-                    |+, -														|	Addition and subtraction
-                    |<<, >>														|	Shifts
-                    |&															|	Bitwise AND
-                    |^															|	Bitwise XOR
-                    ||															|	Bitwise OR
-                    |in, not in, is, is not, <, <=, >, >=, !=, ==				|	Comparisons, including membership tests and identity tests
-                    |not x														|	Boolean NOT
-                    |and														|	Boolean AND
-                    |or															|	Conditional expression
-                    |lambda														|	Lambda expression
-                    |:=															|	Assignment expression
+        |x++, x--													    |	pre-increament, pre-decreament
+        |++x, --x													    |	post-increament, post-decreament
+        |x+=2, x*=5                                                     |   compound Assignment with augmented expression
+        |**															    |	Exponentiation 
+        |+x, -x, ~x													    |	Positive, negative, bitwise NOT
+        |*, /, //, %												    |	Multiplication, division, floor division, remainder 
+        |+, -														    |	Addition and subtraction
+        | &&													        |  	AND
+        | ||  												            |	OR
+        | !															    |	NOT
+        |<, <=, >, >=, !=, ==				                            |	Comparisons (does type conversion)
+        |===, !==                                                       |   strict equality opperator;  doesn't allows type conversion.eg, 3=='3' is true but 3==='3' is false
+        | ??														    |	Nullish Coalescing Operator, x1 ?? x2   // returns x2 if x1 is nullish(null or undefined)
+        | ...                                                           |   Spread opperator - [...arr] or rest opperator - function(...args){} // if, x = [1,2,3] then, ...x = 1, 2, 3 and [ , ...x] = [2, 3]
+        | ` Hi my name is ${name},                                      |   Multiline + Formated string
+        |   I am ${age} years old. `
 
-	//															|- Comment
-	/* 														    |- Multiline Comment 				
-	_block_														|
-	*/															|
+        |\                                                              |  Escape character for escape seqences; \',\",\\,\n,\t,\b
+        |//														        |- Comment
+        |/* 														    |- Multiline Comment 				
+        |_block_														|
+        |*/															    |    
+
+
+
+** DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
+            Primitive - gives duplicate when copied | stored in stack | no methods
+                number, string, boolean, symbol, null, and undefined
+
+            reference - [] () {} - gives reference when copied | stored in  heap | have methods
+                arrays, functions, collections, dates, and all other types of objects
+                - To copy the reference variables use spread(...) opperator
+                    arr = [1,2,3,4]
+                    arrCopy = [...arr]
+                    obj = {1:"One",2:"Two",3:"Three",4:"Four"}
+                    objCopy = {...obj}
+            Note - JavaSvript converts primitive strings to string objects, so that it is possible to use string object methods like, str.lenth
+
+
+        Variable Declaration-   
+                var name;                     // var has function/global scope      // can be redeclared and reinitialized multiple times
+                let name;                   |                                       // can't be redeclared
+                const name = "Ankit";       | // let and const has block scope      // must be initialized with declaration only, redeclaration is not allowed
+                typeof x;                     // Gives the type of the x variable/value
+                        for example;
+                                function Numbers(){
+                                    for(var i = 1; i < 11; i++){
+                                        console.log(i)
+                                    }
+                                    console.log(i)           // gives i = 11 as 'var' variable 'i' is scoped in parent function(Numbers()) block. 
+                                }                                 // ie, can be used anywhere inside Numbers() function.
+
+                                function Numbers(){
+                                    for(let i = 1; i < 11; i++){
+                                        console.log(i)
+                                    }
+                                    console.log(i)          // gives reference errors, as let variable 'i' is only scoped inside 'for' block
+                                }
+
+
+        Object-
+                var a = {};     // Blank Object
+                // Filled Object
+                const backpack = {                                  // can change the properties of object but can't reassign all properties of backpack container/variable
+                                name: "Everyday Backpack",                                      for ex. > const x = {'1':'One', '2':'two'}
+                                volume: 30,                                                             > x = {'1':'One', '2':'two'} // will give error
+                                color: ["grey", "blue"],
+                                "pocket Num": 15,
+                                strapLength: {
+                                    left: 26,
+                                    right: 26,
+                                },
+                                lidOpen: false,
+                                toggleLid: function (lidStatus) {                           // toggleLid is the method of backpack object
+                                    this.lidOpen = lidStatus;                               // "this" keyword refers to the current object(backpack)
+                                    updateBackpack(`Lid status changed.`);
+                                },
+                                newStrapLength(lengthLeft, lengthRight) {                   // same as; newStrapLength : fuction(lengthLeft, lengthRight) {}
+                                    this.strapLength.left = lengthLeft;
+                                    this.strapLength.right = lengthRight;
+                                    updateBackpack(`Strap lengths updated.`);
+                                },
+                            };
+
+                backpack.name
+                backpack["pocket Num"]                      // usable if object property has space in its name
+                backpack.color[0]
+                
+                backpack.hasOwnProperty("lidOpen")          // returns true
+                delete backpack.name
+
+            Delete Object Property - 
+                    var obj = { 1:"One", 2:"Two" }
+                    delete obj.2;           // obj becomes { 1:"One" }
+
+
+        Arrays (objects that trated differently)-
+                var a = [12,13];            a[0] = 12       a is converted to object;ie. a = {0:12, 1:13}
+                    so we can,
+                        a[-1] = 11
+
+                Array Methods
+                    a.push(14)          add at the end
+                    x = a.pop()         remove form the end and return last value
+                    a.unshift(11)       add at the start
+                    x = a.shift()       remove from the start and return first value
+                    a.splice(1, 2)      remove 2 values from 1st index of arrays
+
+
+        Truthy and Falsy values
+                Falsy values - 0, false, undefined, null, NaN(not a number), dicument.all
+                Truthy values - other than falsy values
+
+
+
+** Parsing - type conversion
+        parseInt("34")
+        parseInt("f")           returns NaN 
+
+
+
+**HOISTING - variables and functions are hoisted ie. only their declaration(var a;) is added to the execution context of script in memory
+        because of hoisting,
+            - 'var' and functions are hoised in global space and are assigned to "undefined"
+            - 'let' and 'const' are accessible only after initialization as they are hoisted in seperate memory(that is reserved for the block) space,
+                    so they will give "ReferenceError" if accessed before initialization
+
+        Exceptions
+            NullPointerException (NPE) is an error that occurs when a program tries to access or manipulate data
+                through a reference that points to a non-existent object or has a null value.
+            The equivalent error is a TypeError when accessing properties or methods of null or undefined objects.
+
+
+
+**Browser Context API - 
+        window - window is default gloabal object. (this === windows) gives true
+        stack
+        heap memory
+
+
+
+**Conditionals - 
+
+    if() {}
+    else if() {}
+    else{}
+
+    switch(char) {
+        case 'a':
+            break
+        case 'b':           // if the value is 'b' or 'c' code of c will be executed
+        case 'c':
+            break
+        default:
+            break
+    }
+
+
+
+**Ternary Operation - 
+
+        condition ? statement-if-ture : statement-in-false
+
+        condition1 ? statement1-if-ture : condition2 ? statement2-if-ture : statement-if-false
+
+
+
+**Loops - 
+    for
+        for(var i;i<=10;i++) {}
+
+    while
+        while() {}
+
+    for Arrays -    
+        forEach()                                          // changes done in temporary copy of arr
+            arr.forEach(function(x){console.log(x+2)})               // anonymous function - function without name
+    
+    for objects - 
+        for(x key in objName){console.log(objName[x])}
+    
+    forof
+
+    do-while
+        do{
+            console.log(a)
+            a++
+        }while(a<5)
+
+
+
+**Functions -
+        Function statement/declaration - way of creating a functon
+                function funcName(parameters) {}                
+
+                funcName(arguments);  
+
+        Rest opperator(...) - for variable number of arguments 
+                function funcName(...args) {            // if, x = [1,2,3]   then, ...x = 1, 2, 3   and [ , ...x] = [2, 3]
+                    return args.reduce((a,b) => a+b, 0)
+                }
+
+                funcName(arguments);  
+
+        Passing Object as arguments
+                function funcName(property1, property2) {}          // getting object properties as parameter
+
+                obj = {property1 : value1, property2 : value2}
+                funcName(obj)
+
+        Function Expression - Function acts like a value
+                var x = function() {}
+
+                x();    
+                    // function call, gives error when called before creation as var x is hoisted and assigned with Undefined
+
+        Named Function Expression
+                var x = function y() {}
+
+                x();    
+                y();                // gives reference error
+
+        Anonymous Function - function without name
+                var x = function() {}
+
+                x();    
+                    // function call, gives error when called before creation as var x is hoisted and assigned with Undefined
+            
+                function() {}        // gives syntax error
+
+        First class function/citizen - ability to use function as arguments, parameter or returning values for the function
+                fuction x(z){                   taking parameter as a function
+                    var a = 7;
+                    z();
+                    return function {           returning anonymous function from function x
+                        console.log(a);
+                    }
+                }
+                function y(){ }
+                var r = x(function z(){ });     |
+                var s = x(y)                    |passing function as argument            
+
+        Arrow Function - function behaving like a variable, short form for the funcion definition
+                const gerName = (arg1, arg2) => { }           // const gerNmae = function() {}
+                const x = arg => { }
+
+        callback function
+            setTimeout(function(){}, 2000)      // calls callback fuction after 2000 miliseconds(2 sec)
+
+
+
+**CLOSURES -        Function y() along with its lexical scope x() bundles together forms a closure
+
+            fuction x(){
+                var a = 7;
+                function y(){
+                    console.log(a);
+                }
+                y();
+                return y;
+            }
+            var r = x();       because to closure(x), even after x() is vanished, closure still remembers it for y()
+            r();                / will give output as "> 7" 
+
+
+        Uses of Closures
+            - Module design pattern
+            - currying
+            - Functions like once(function that only executes one time)
+            - memoize
+            - maintain state in async world
+            - setTimeouts
+            - Iterators
+
+
+
+**TO access/manipulate DOM  -
+        document.getElementById('idName')                   // acess the matching first item
+        document.getElementByClassName('className')
+        document.getElementByTagName('p')
+
+        document.querySelector('cssSelector')
+        document.querySelectorAll('cssSelector')
+
+
+
+
+
+**Exception handling
+
+        try{
+
+        } catch(exception){
+            console.log(exception)
+        }
+
+
+
+**Higher Order Function
+  
+    map, filter, reduce
+
+        let arr = [2, 5.4, -9.5, 3, 8.34, 12];
+        
+        const sqInt = arr.filter(num => Number.isInteger(num) && num > 0).map(x => x*x);
+        
+        args = [1,2,3]
+        sum = args.reduce((a,b) => a+b, 0)          // sum = 6
+
+
+
+**Destructuring Opperator - short form to assign object property values to the variable
+        obj = { 
+            property1 : {
+                property11 : value11,
+                property22 : value22
+            },
+            property2 : value2
+        }
+
+        const { property1 : {property11 : x}} = obj;      // x = value11
+        const { property2 : x } = obj;                    // x = value2
+
+
+
+**New object from object / Class / getter-setter-
+
+        var space = function(planet){
+            this.planet = planet;
+        }
+        var zeus = new space('Earth');       // zeus.planet = 'Earth'
+
+        class space {
+            constructor(planet, isWater){
+                this.planet = planet;
+                this._water = isWater           // private variable - only accessible within the class
+            }
+
+            // getter
+            get isWater(){
+                return this._water
+            }
+
+            // setter
+            set isWater(updatedStatus){
+                this._water = updatedStatus
+            }
+        }
+        var zeus = new space('Earth', true);        // zeus.planet = 'Earth'
+        let water_available = zeus.isWater          // getter is called, water_available = true
+        zeus.isWater = false                        // setter is called, water_available = false
+        water_available = zeus.isWater              // getter is called, water_available = false
+
+
+
+**Import/Export - only allows certain function and variables
+
+        import { funcname } from "./fuctionContainer"
+        import * as x from "./fuctionContainer"
+
+        export { funcName };
+        export const x = 10;

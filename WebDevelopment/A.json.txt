@@ -1,0 +1,33 @@
+JSON - Java Script object Notation
+        - Data Representation Format
+        - Commonly used for APIs and Configs
+        - Lightweight and easy to read/write
+        - integrates with most languages
+
+JSON Data Types
+        - string    "Hello"
+        - number    10 1.5 -3 1.2e10
+        - boolean   true false
+        - null      null
+        - array     ["Hello", "World"]
+        - object    {   
+                        "Key": "Value", 
+                        "name": "Ankit", 
+                        "age": 30, 
+                        "isOld": false, 
+                        "hobbies": ["playing", "eating"],
+                        "friends": [{
+                                "name": "Ankit",
+                                "age": 60,
+                                "isOld": true
+                            },
+                                {
+                                "name": "Ankit",
+                                "age": 60,
+                                "isOld": true
+                            }
+                        ]
+                    }
+
+Note
+    - " " are mandatory

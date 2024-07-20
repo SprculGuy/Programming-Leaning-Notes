@@ -4,6 +4,7 @@ In 1996
     Latest > CSS 3 in 1999
 
 
+
 Types to apply CSS/styles to webpage-
     1> Inline -
             <p style="font-size:50px; color: pink;"> Hello World! </p>
@@ -27,6 +28,7 @@ Types to apply CSS/styles to webpage-
     3> External -
             <link rel="stylesheet" href="css/style.css">
             <link rel="stylesheet" media="screen and (max-width: 720px)" href="css/mobile-style.css">       /* css for viewport on mobile screen */
+
 
 
  **Selectors-
@@ -123,23 +125,39 @@ Types to apply CSS/styles to webpage-
     padding: 1em;           /* relative to paernt element
     margin: 1em;
 
+
+
 **CSS Box model -
-    width
-    height
-    content
-    padding
-    border
-    margin
+	leaving content areas default height and width everything(padding, border, margin) is optional
+        content - 
+            text, image, etc.s
+            
+        padding - 
+            transparent area around content, inside the box
+            
+        border - 
+            around padding and content
+            
+        margin - 
+            space outside of box
+            
+        fill area - 
+            area that gets filled by background color/picture, including padding and border but excluding margin
+
 
 
 **Stacking elements-
             The stacking context is the order in which HTML elements are placed on the z-axis. 
             z-index: 1;            The z-index property can be used to change the stacking order.
 
+
+
 **Layouts/Positioning Styles -
             float: left;
             position: sticky;
             display: grid;
+
+
 
 **Queries(Responsive designs) - 
             @media screen and (max-width: 720px) and (min-width: 360px) {          /* when the viewport is smaller than 720px and bigger than 360px, then only apply the css contained within the query
@@ -149,10 +167,12 @@ Types to apply CSS/styles to webpage-
             }
 
 
+
 **Variables -
             :root {  /* accessible in whole project */      body {  
                 --BGCOLOR: black;                               background-color: var(--BGCOLOR);
             }                                               }
+
 
 
 **Transition & Animation -

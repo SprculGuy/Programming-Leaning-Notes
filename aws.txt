@@ -1,0 +1,147 @@
+AWS Cloud Practitioner > CLF-C02
+
+
+AWS Cloud History -
+    2002 - internally launched
+    2004 - publicly launched SQS (simple queue services)
+    2006 - relaunched publicly SQS, S3, EC2
+
+
+
+types of cloud services
+    
+    private - distributed systems that work on private infrastructure and provide the users with dynamic provisioning of computing resources Rackspace
+    public - managed by third parties which provide cloud services over the internet to the public, AWS EC2
+    hybrid - 
+
+
+
+types of cloud computing services model
+    On-premises >                                                                                   - Everything is managed by us
+    IAAS        >                                        Virtualization|Servers|Storage|Networking  - Managed by cloud;AWS EC2
+    PAAS        >                  Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Managed by cloud;AWS Elastic Beanstalk
+    SAAS        > Application|Data|Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Everything is managed by cloud;AWS Rekognition for ML
+
+
+
+AWS Global infrastructure - 
+    AWS Regions [ Asia Pacific(Mumbai) : ap-south-1, Asia Pacific(Sydney) : ap-southeast-2, US East(Ohio) : us-east-2 ]
+        - clusters of data centers 
+        - most AWS services are region scoped(service behaves as new if region is changed)
+        For launching new application, how should you choose the region?
+            - compliance : with gov and legal requirements
+            - reduced latency : according to users' locations to give them min latency
+            - service availability
+            - pricing : vary from region to region
+
+    AWS Availability zones [ ap-south-1 : ap-south-1a, ap-south-1b ap-south-1c ]
+        - Each region has at least 3 isolated availability zones connected with high bandwidth ultra-low latency network
+        - linked altogether forming a region
+
+    AWS Data Centers
+    AWS Edge Locations/ Points of Presence - Amazon has 400+ Points of presence
+
+
+
+Ways to Access AWS
+    1. AWS management Console (protected by password + MFA) - Web Interface
+    2. AWS CLI (Protected by Access Keys) - access keys are single time given credentials(id and secret key) to access AWS services from terminal of our PC
+    3. AWS SDK (for application code(coding language specific): protected by access keys) - access and manage AWS services programmatically embedded within application
+
+Note - Access keys are generated through AWS Management Console
+        Access Key Id (like username)
+        Access Key (like secret password)
+
+
+
+VPC(virtual private cloud) is a virtual network dedicated to your AWS account.
+
+
+AWS Services
+    IAM(IAM Identity and Access Management) - Global service
+            - create users(of your org) and assign them to user access groups(according to department)
+            - JSON document called policies are used to define the permissions for users/group/role.
+
+            IAM Policy structure - 
+                - consists of -
+                    "Version": policy language version, generally we use "2012-10-17"
+                    "Id": an identifier for the policy(optional)
+                    "Statement" : one or more individual statements (required)
+                        Statement consist of - 
+                            "Sid" : identifier for statement(optional)
+                            "Effect" : "Allow" or "Deny", defines the statement whether it allows of denies access to certain APIs
+                            "Principal" : account/user/role to which this policy applied to
+                            "Action" : list of actions this policy allows or denies
+                            "Resource" : list of resources to which the action applied to 
+                            "Condition" : condition for when this policy is in effect(optional)
+
+                - example policy;
+                    {
+                        "Version" : "2012-10-17",
+                        "Id" : "S3-Account-Permissions",
+                        "Statement" : [
+                            {
+                                "Sid" : "1",
+                                "Effect" : "Allow",
+                                "Principal" : {
+                                    "AWS" : ["arn:aws:iam::123456789012:root"]
+                                },
+                                "Action" : [
+                                    "s3:GetObject",
+                                    "s3:PutObject",
+                                    "iam:List*"         // allows all list___ operations on IAM using this policy
+                                ],
+                                "Resource" : ["arn:aws:s3::mybucket/*"],
+                                "Condition" : 
+                            }
+                        ]
+                    }
+            
+            IAM Roles -
+                - Assigning specific permissions for the AWS services/accounts/external Web Identity for accessing AWS resources
+                - Roles provide temporary security credentials(not userid/pass) to whomever has the ability to assume that role
+
+            IAM Security Tools(Audit permissions of accounts)
+                IAM Credentials Report (account-level)
+                    - a report that lists all your account's users and the status of their various credentials
+
+                IAM Access Advisor (user-level)
+                    - Access advisor shows the service permissions granted to a user and when those services were last accessed by users.
+
+
+    EC2(Elastic Compute Cloud) - IAAS / Local Service (region specific)
+            - Rent virtual machines (EC2)
+            - Storing data on virtual drives (EBS)
+            - Distributing load across machines (ELB)
+            - Scaling services using auto-scaling group (ASG)
+
+            EC2 sizing/configuration options -
+                - OS (Linux, Windows or Mac OS)
+                - CPU (Computer Power and Cores) 
+                - RAM
+                - Storage Space 
+                    - Network Attached (EBS & EFS)
+                    - Hardware Attached (EC2 instance store)
+                - Network Card
+                - Firewall rules (Security group)
+                - Bootstrap Script (configure at only first launch - EC2 user data)      
+                        // Bootstrapping means launching commands in root access when the machine starts to handle boot tasks which includes   
+                                            - installing updates/software
+                                            - downloading common files from internet
+            EC2 Instances Type
+                - 
+            Security Groups
+                - network security of EC2(s) which controls how traffic is allowed inbound or outbound of our EC2 instances
+                - by default, all INBOUND traffic is BLOCKED, and all OUTBOUND traffic is AUTHORISED
+                - it's good to maintain one separate security group for SSH access.
+                - we can refer another/multiple security group in new/one security group
+
+                note - if application is not accessible due to (time out), then it's a security group issue
+
+Classic ports to know  
+    21 = FTP(File Transfer Protocol) - upload files into a file share
+    22 = SFTP(Secure File Transfer Protocol)
+    80 = HTTP(Hypertext Transfer Protocol) - access unsecured websites
+    433 = HTTPS(Hypertext Transfer Protocol Secure) - access secured websites
+    22 = SSH(Secure Shell) - log into a Linux instance
+    3389 = RDP(Remote Desktop Protocol) - log into a windows instance

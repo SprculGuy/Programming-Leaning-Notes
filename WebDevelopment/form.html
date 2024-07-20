@@ -1,56 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-</head>
-<body>
-    <form action="success.html" method="get">
-        <label for="name">Name</label> <input id="name" name="name" type="text"> <hr />
-        
-        <label>
-            Email
-            <input name="email" type="email" placeholder="example@tcs.com" pattern=".+@tcs\.com" required>
-        </label> <hr />
-        
-        <label for="date">Date</label> <input id="date" name="date" type="date"> <hr />
-        
-        <label for="color">Colour</label> <input id="color" name="color" type="color"> <hr />
-        
-        <label for="file">File</label> <input id="file" name="file" type="file" accept="image/*" multiple> <hr />
-        
-        <label for="textarea">Text Area</label> <textarea id="textarea" name="textarea" cols="15" rows="4"></textarea> <hr />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Form</title>
+	</head>
+	<body>
+		<form action="success.html" method="get">
+			<label for="name">Name</label>
+			<input id="name" name="name" type="text" />
+			<hr />
 
-        <label for="select-list">Choose One or more by pressing ctrl</label>
-        <select name="select-list" id="select-list" multiple>
-            <option value="">--Please select an option--</option>
-            <option value="first">First</option>
-            <option value="second">Second</option>
-            <option value="third">Third</option>
-        </select> <hr />
+			<label>
+				Email
+				<input
+					name="email"
+					type="email"
+					placeholder="example@tcs.com"
+					pattern=".+@tcs\.com"
+					required
+				/>
+			</label>
+			<hr />
 
-        <label for="range">Range</label> <input id="range" name="Range" type="range" min="0" max="100" value="90" /> <hr />
+			<label for="date">Date</label>
+			<input id="date" name="date" type="date" />
+			<hr />
 
-        <label for="chekbox">Checkbox</label> <input id="chekbox" name="simple-checkbox" type="checkbox"> <hr />
-        <label for="chekbox">Checkbox</label> <input id="chekbox" name="simple-checkbox" value="The Checkbox is Checked" type="checkbox" checked> <hr />
+			<label for="color">Colour</label>
+			<input id="color" name="color" type="color" />
+			<hr />
 
-        <fieldset>
-            <legend>Checkbox in fieldset</legend>
-            <input id="first" name="first" type="checkbox" value="first"> <label for="first">First</label> <br>
-            <input id="second" name="second" type="checkbox" value="second"> <label for="second">Second</label> <br>
-            <input id="third" name="third" type="checkbox" value="third"> <label for="third">Third</label> <br>
-        </fieldset> <hr />
-        
-        <fieldset>
-            <legend>Radio buttons in fieldset</legend>
-            <input id="first" name="first" type="radio" value="first"> <label for="first">First</label> <br>
-            <input id="second" name="second" type="radio" value="second"> <label for="second">Second</label> <br>
-            <input id="third" name="third" type="radio" value="third"> <label for="third">Third</label> <br>
-        </fieldset> <hr />
+			<label for="file">File</label>
+			<input
+				id="file"
+				name="file"
+				type="file"
+				accept="image/*"
+				multiple
+			/>
+			<hr />
 
-        <input type="submit" value="Submit" />
-        <!-- <button type="submit">Submit</button> -->
-    </form>
-</body>
+			<label for="textarea">Text Area</label>
+			<textarea
+				id="textarea"
+				name="textarea"
+				cols="15"
+				rows="4"
+			></textarea>
+			<hr />
+
+			<label for="select-list">Choose One or more by pressing ctrl</label>
+			<select name="select-list" id="select-list" multiple>
+				<option value="">--Please select an option--</option>
+				<option value="first">First</option>
+				<option value="second">Second</option>
+				<option value="third">Third</option>
+			</select>
+			<hr />
+
+			<label for="range">Range</label>
+			<input
+				id="range"
+				name="Range"
+				type="range"
+				min="0"
+				max="100"
+				value="90"
+			/>
+			<hr />
+
+			<label for="chekbox">Checkbox</label>
+			<input id="chekbox" name="simple-checkbox" type="checkbox" />
+			<hr />
+			<label for="chekbox">Checkbox</label>
+			<input
+				id="chekbox"
+				name="simple-checkbox"
+				value="The Checkbox is Checked"
+				type="checkbox"
+				checked
+			/>
+			<hr />
+
+			<fieldset>
+				<legend>Checkbox in fieldset</legend>
+				<input id="first" name="first" type="checkbox" value="first" />
+				<label for="first">First</label> <br />
+				<input
+					id="second"
+					name="second"
+					type="checkbox"
+					value="second"
+				/>
+				<label for="second">Second</label> <br />
+				<input id="third" name="third" type="checkbox" value="third" />
+				<label for="third">Third</label> <br />
+			</fieldset>
+			<hr />
+
+			<fieldset>
+				<legend>Radio buttons in fieldset</legend>
+				<input id="first" name="first" type="radio" value="first" />
+				<label for="first">First</label> <br />
+				<input id="second" name="second" type="radio" value="second" />
+				<label for="second">Second</label> <br />
+				<input id="third" name="third" type="radio" value="third" />
+				<label for="third">Third</label> <br />
+			</fieldset>
+			<hr />
+
+			<input type="submit" value="Submit" />
+			<!-- <button type="submit">Submit</button> -->
+		</form>
+	</body>
 </html>

@@ -1,21 +1,27 @@
-Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScript) (Europian Computer Manufacture Association) 
+Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScript) (European Computer Manufacture Association) 
                                                         ECMAScript is the specification describing how browsers should implement and interpret JavaScript.
+            ES 5 -> 2009
+            ES 6 -> 2015   Biggest update after which every year JS gets updates
+            JS is Backword compatible, even with ES1(1997)
+
             Js is functionality/behavior for Components of webpage
+            
 
 
-    **Characteristics of Js
-            High Level
+**Characteristics of Js
+            High Level - no need to manage memory with variable definition as c/c++
+            garbage collected
+            Just in time compiled (compiles and executed immediately)
+            multi paradigm (can be imperative or declarative paradigm) - supports procedural/function/object-oriented paradigm
             Synchronous
             Single threaded
-            garbage collected
-            Just in time compiled or Interpreted 
             Prototyped based oopl(has no class, object is created from another object)
-            multi paradigm
-            dynamic
-            non-blocking event loop
+            dynamically typed
+
+            with first-class function(function can be treated as variable) and non-blocking event loop concurrency model(executes time-consuming tasks in background and takes them back in main thread as they finished)
             Everything in js happens inside an Execution Context
 
-    Typescript  - JavaScripts superset with additional feature implementation(script.ts)
+    Typescript  - JavaScript's superset with additional feature implementation(script.ts)
                 - TypeScript adds static typing to JavaScript, which can help catch errors during development and improve code maintainability.
                 - Needs TypeScript compiler (tsc) to transpile it into JavaScript.
 
@@ -23,8 +29,13 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
             ReactJS - use JSX(JavaScript XML) which simplifies mixing of js and html
             vueJS - 
             AngularJS -
+        native mobile applications    
+            React Native - 
+            Ionic -        
+        Native Desktop Application
+            Electron - Electron embeds Chromium and Node.js to enable web developers to create Cross Platform desktop applications.
 
-    JavaScript Build tools  - comes js framework with to convert/optimize the code back into js for current browser
+    JavaScript Build tools - comes js framework with to convert/optimize the code back into js for current browser
                             - converting ES6+ JavaScript to older versions for broader browser compatibility
             1. npm - comes with Node.js    Node.js is to execute JavaScript code server-side
             2. webpack
@@ -33,7 +44,7 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
 
 
 **Types to apply JS/Script to webpage-    
-    1> Internal -   used anywhere inside the <html> and only applies to current html document
+    1> Internal - used anywhere inside the <html> and only applies to current html document
             <script>
                 const allp = document.querySelectorAll("p")             // ; at ending is optional
                                                                         // '' or " " either can be used according to our preference.
@@ -43,21 +54,118 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
             </script>
 
     2> External -
-            <script src="js/script.js"></script>            // loads and exicuted in priority by halting the document(html/css) loading.
-        or  <script src="js/script.js" defer></script>      // loads parallel to document but exicuted only after loading of document is finished.
-        or  <script src="js/hello-world-alert.js" async> alert("Hi") </script>    // only the external js code will be exicuted, internal js will be ignored
-                                                            //loads parallel to document and exicuted after loading by halting the document loading.
+            <script src="js/script.js"></script>            // loads and executed in priority by halting the document(html/css) loading.
+        or  <script src="js/script.js" defer></script>      // loads parallel to document but executed only after loading of document is finished.
+        or  <script src="js/hello-world-alert.js" async> alert("Hi") </script>    // only the external js code will be executed, internal js will be ignored
+                                                            //loads parallel to document and executed after loading by halting the document loading.
 
             <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
 
 
 
-** EXECUTION CONTEXT - 
-            Browser can't understand high-level JS so the js code from web pages is sent to Browsers JS Engine that creates Execution context for execution
-                during runtime, the code is parsed(by syntax parser), variables and functions are stored in memory, executable byte-code gets generated, and executed.
+Execution of JS-->                                                
+	SourceCode -> Parsing & syntax Checker -> AST -> Just in-Time Compilation(BrowserEngine/node) -> Machine language -> Execution(using call stack) -> Global Execution Context + EC of function as they were called + EC of callback function after  using event loop             
+                                                    ^ >     gives unoptimized version as fast as possible then          |
+                                                    |  in background the code is optimized(recompiled) while execution  |               // these 3 threads are completely separate from the main thread that
+                                                    |<    uses 3 separate threads(Parcing,compilation,optimization)    <|                               is running into the call stack executing code
+    1. Parsed(reading of code) into a data structure called AST(Abstract Syntax Tree)
+                    AST example for code; const x = 23;
+                        VariableDeclaration { 
+                            start: 0
+                            end: 13
+                            declarations: [
+                                variableDeclarator {
+                                    start: 6
+                                    end: 12
+                                    id: Identifier {
+                                        start:6
+                                        end: 7
+                                        name: "x"
+                                    }
+                                    init: Literal = $node {
+                                        start: 10
+                                        end: 12
+                                        value: 23
+                                        raw: "23"
+                                    }
+                                }
+                            ]
+                            kind: "const"
+                        }
+	2. AST is compiled and converted as well as executed immediately, an unoptimized version of machine code for fast execution.
+	3. Then the unoptimized machine code is recompiled again and again without stopping already running execution to make the machine code optimized.
+	4. Parsing, Compilation/Recompilation & and Optimization is done on separate threads which is completely separate from the main thread
+	5. Main thread swept away old unoptimized code and re-executes new optimized machine code again and again
+    6. After getting the Machine Code, one "Global Execution Context" is created(for code outside of any Function) and JS code is executed inside of execution
+    7. as the function call is executed, new function specific execution context is created and added to call stack of JS engine.
+    8. After execution of top-level JS code, for all the callback functions execution contexts are created and those functions are executed inside of particular execution contexts
+    9. Global Execution Context remains in call stack as long as browser is running.
 
-        JS Engine: A JavaScript engine is simply a computer program that receives JavaScript source code and compiles it to the binary instructions (machine code) that a CPU can understand.
-                        JavaScript engines are typically developed by web browser vendors. Examples; V8 engine for Google chrome, SpiderMonkey for Firefox, and Chakra for Internet Explorer.
+
+** JavaScript Runtime in Browser -
+
+    +---------------------------------------------------------------------------+
+    |                           JS Runtime in Browser                           |
+    |                                                                           |
+    | +---------------------------+   +---------------------------------------+ |
+    | |         JS Engine         |   |              Web APIs                 | |       - Web APIs is the functionalities provided to the JS engine accessible on windows object  
+    | |                           |   |  +---+   +------+   +---------+       | |       - Web APIs are not the part of JS language, but the part of JS Runtime
+    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |Fetch API|  ...  | |
+    | | |          | |          | |   |  +---+   +------+   +---------+       | |
+    | | |          | |  CALL    | |   +---------------------------------------+ |
+    | | |   HEAP   | |  STACK   | |                                             |
+    | | |       *  | |          | |      +---------------------------------+    |
+    | | | *        | | __F2EC__ | |      |            Callback Queue       |    |       - Callback queue is a data structure that contains all the callback functions that are ready to be executed
+    | | |    *  *  | | __F1EC__ | |      |  +-----+  +-----+  +----+       |    |          example; eventHandlerFunction - callback function from DOM event listener
+    | | |  *   *   | | __GEC___ | |      |  |click|  |timer|  |data|  ...  |    |                      as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
+    | | +----------+ +----------+ |      |  +-----+  +-----+  +----+       |    |                      then when the call stack is empty the callback queued function passed to call stack for execution, this happens using 'Event Loop'
+    | +---------------------------+      +---------------------------------+    |
+    |                                                                           |
+    +---------------------------------------------------------------------------+
+
+
+** JS Engine: A JavaScript engine is simply a computer program that receives JavaScript source code and compiles it to the binary instructions (machine code) that a CPU can understand.
+                    JavaScript engines are typically developed by web browser vendors. Examples: V8 engine for Google chrome, SpiderMonkey for Firefox, and Chakra for Internet Explorer.
+
+            Contains; 
+                    1. call stack - responsible for code execution using "Execution Context", gets the stack of Execution Contexts
+                    2. heap - unstructured memory pool to store the objects memory
+
+
+** EXECUTION CONTEXT - 
+            Browser can't understand high-level JS so the js code from web pages is sent to Browsers JS Engine that creates Execution context(environment) for execution
+                during runtime, it's like a box where all the necessary information(local variables) for code execution is stored
+            Execution Context consists of;
+                    1. Variable Environment
+                            - let, const, and var declarations
+                            - Function
+                            - argument object(arguments that were passed to the function that the current execution context belongs to)
+                    2. Scope chain - lexical 
+                    3. 'this' keyword  
+                            - method -> 'this' = <object that is calling the method>       
+                            - function expression -> 'this' keyword refers to the global object(windows in browser). that is problematic, 
+                                    so to avoid this 'use strict' should be used so that 'this' object for function expression will point to undefined
+                                        'this' = undefined  // in 'use strict' mode 
+                                    otherwise;
+                                        'this' = <windows>  // without strict mode, (in the browser)
+                            - arrow functions -> doesn't get argument object and 'this' keyword in their execution context rather they can use this functionality from their closest regular function parent
+                                        'this' = <this of parent scope (lexical 'this')>
+                            - eventHandlerFunction() -> 'this' = <DOM element that event is attached to>
+                            - new, call, apply, bind -> 'this' = _____
+
+
+
+'use strict';   // literal expression used at most start of the script to execute that script in strict mode which provide highlighting and prevention of errors
+debugger;       // keyword used to add breakpoint for the debugging
+
+
+
+Statement vs Expression:
+        code that doesn't produce/return any value on successful execution is statement(s)
+            e.g. const x = `this variable declaration is statement as it doesn't return any value`
+
+        code produces/return a value is expression(s)
+            e.g. `this is an expression`
 
 
 
@@ -66,7 +174,7 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
 		Operators in the same box group left to right
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
 
-        |***	OPERATORS(with precedence)						        |	***		DESCRIPTION
+        |***	OPERATORS (with precedence)						        |	***		DESCRIPTION
 
         |(expressions...), [expressions...],						    |	Binding or parenthesized expression, list display,
         |{key: value...}                    							|	object display
@@ -74,24 +182,44 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
         |x[index],                              					    |	Subscription,
         |x(arguments...), x.attribute								    |	call, attribute reference
 
-        |x++, x--													    |	pre-increament, pre-decreament
-        |++x, --x													    |	post-increament, post-decreament
+        |x++, x--													    |	pre-increment, pre-decrement
+        |++x, --x													    |	post-increment, post-decrement
         |x+=2, x*=5                                                     |   compound Assignment with augmented expression
         |**															    |	Exponentiation 
         |+x, -x, ~x													    |	Positive, negative, bitwise NOT
         |*, /, //, %												    |	Multiplication, division, floor division, remainder 
-        |+, -														    |	Addition and subtraction
-        | &&													        |  	AND
-        | ||  												            |	OR
-        | !															    |	NOT
+        |+, -														    |	Addition/concatenation and subtraction
+        | &&													        |  	Logical AND // used on any data type and returns any data type
+        |                                                                       // 3 &&'A'      returns 'A'       // returns last truthy value
+        |                                                                       // 2 && 3 && 1  returns 1
+        |                                                                       // ''&& 0       returns 0         // returns first Falsey value 
+        |                                                                       // 1 && '' && 2 returns '' 
+        | ||  												            |	Logical OR  // used on any data type and returns any data type
+        |                                                                       // 3||'A'    returns 3       // returns first truthy value
+        |                                                                       // ''||'A'   returns 'A'     
+        |                                                                       // ''||0||1  returns 1
+        |                                                                       // ''||0     returns 0       // returns last Falsey value
+        | !															    |	Logical NOT
         |<, <=, >, >=, !=, ==				                            |	Comparisons (does type conversion)
-        |===, !==                                                       |   strict equality opperator;  doesn't allows type conversion.eg, 3=='3' is true but 3==='3' is false
-        | ??														    |	Nullish Coalescing Operator, x1 ?? x2   // returns x2 if x1 is nullish(null or undefined)
-        | ...                                                           |   Spread opperator - [...arr] or rest opperator - function(...args){} // if, x = [1,2,3] then, ...x = 1, 2, 3 and [ , ...x] = [2, 3]
-        | ` Hi my name is ${name},                                      |   Multiline + Formated string
+        |===, !==                                                       |   strict equality operator;  doesn't allows type coercion.eg, 3=='3' is true but 3==='3' is false
+        | ??														    |	Nullish Coalescing Operator, x1 ?? x2   // returns x2 if x1 is nullish(null or undefined) Nullish values are null and undefined (not "" or 0)
+        |                                                                       // const guest = 0;         Nullish Coalescing operator is same as or(||) operator
+        |                                                                       // noOfGuestPresent = guest || 10   // this gives 10 even if the number of guest is 0
+        |                                                                       // noOfGuestPresent = guest ?? 10   // this solves above problem and gives value zero, not 10
+        |?.                                                             |   Optional chaining operator;  // returns nullish values if doesn't find value to left else executes right-side expression(obj?.property or arr[0]?.property)   
+        |                                                                       // obj.property1?.property11  // checks if property1 exists then executes expression otherwise returns nullish value(undefined)
+        |                                                                       // obj.method?.() ?? 'method not exist'  // if method doesn't exists then it was returning undefined(nullish value), to avoid this we use nullish Coalescing operator
+        |                                                                       // arr[0]?.property ?? 'object array is empty'   
+        | ...                                                           |   Spread operator(seperate away - used RHS of '=')(for iterables(string, arrays, maps, sets) but NOT OBJECTS) eg. ...arr
+        |                                                                       // x = [1,2,3]  then, ...x = 1, 2, 3 and [1, ...x] = [1, 2, 3]
+        |                                                                       // s = "Ank"    then, ...s = 'A', 'n', 'k' and [...s] = ['A', 'n', 'k']
+        |                                                                   Rest Operator(groups together - used LHS of '=') eg. function(...args){}    // args = [parameters seperated by commas]
+        |                                                                       // x = [1,2,3,4]  then, const [a, ,...remaining] = x; a=1, remaining=[3,4] 
+        |                                                                       // obj = {'mon':1,'tue':2,'wed':3}      then, const {mon, ...otherDays} = obj; mon=1, otherDays = {'tue':2,'wed':3}
+        | ` Hi my name is ${name},                                      |   Template Literal - Multiline + Formatted string
         |   I am ${age} years old. `
 
-        |\                                                              |  Escape character for escape seqences; \',\",\\,\n,\t,\b
+        |\                                                              | Escape character for escape sequences; \',\",\\,\n,\t,\b
         |//														        |- Comment
         |/* 														    |- Multiline Comment 				
         |_block_														|
@@ -99,26 +227,49 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
 
 
 
+** DATA SOURCES --
+        1. Source Code  - written in source code (eg. status messages)
+        2. UI           - user input from DOM (eg. tasks from TODO, etc.)
+        3. Web API      - data fetched from web API (e.g. whether data, data about movies, currency conversion rates, etc.) // generally in JSON
+        
+        JS has total of 6 built-in data structures,
+            Array - ordered data, easy manipulation/fetching
+            Set - unique items(removes dublicates), high-performance(as searching/deleting is faster than arrays)
+            Object - keys must be strings, easy to write and access, used when want to include methods(and has 'this') or working with JSON
+            Map - better performance(than objects), easy to iterate & compute size, keys can have any data type value
+            Weak-maps 
+            Weak-sets
+
+
+
 ** DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
             Primitive - gives duplicate when copied | stored in stack | no methods
-                number, string, boolean, symbol, null, and undefined
+                number  (NaN is also of number type)
+                string
+                boolean
+                null
+                undefined(undefined is both value and type of value)
+                symbol(values that are unique and unchanged)
+                BigInt(larger values than number type can hold)
 
-            reference - [] () {} - gives reference when copied | stored in  heap | have methods
+            reference - [] () {} - gives reference when copied | stored in heap | have methods
                 arrays, functions, collections, dates, and all other types of objects
-                - To copy the reference variables use spread(...) opperator
-                    arr = [1,2,3,4]
-                    arrCopy = [...arr]
-                    obj = {1:"One",2:"Two",3:"Three",4:"Four"}
-                    objCopy = {...obj}
-            Note - JavaSvript converts primitive strings to string objects, so that it is possible to use string object methods like, str.lenth
+                    - To copy the reference variables, use spread(...) operator - spread operator gives all the elements without creating new variable
+                        arr = [1,2,3,4]
+                        arrCopy = [0, ...arr, 5]                       // ...arr = 1, 2, 3, 4      ||      arrCopy = [0, 1, 2, 3, 4, 5]
+                        obj = {1:"One",2:"Two",3:"Three",4:"Four"}
+                        objCopy = {...obj}  || 
+                        objCopy = Object.assign({}, obj)         // gives shallow copy, as only first level properties are copied, 
+                                                                        if any property is object, that property will be pointing to the same memory location for both the obj and objCopy
+            Note - JavaScript converts primitive strings to string objects, so that it is possible to use string object methods like, str.length
 
 
         Variable Declaration-   
-                var name;                     // var has function/global scope      // can be redeclared and reinitialized multiple times
+                var name;                     // var has function scope             // can be redeclared and reinitialized multiple times
                 let name;                   |                                       // can't be redeclared
                 const name = "Ankit";       | // let and const has block scope      // must be initialized with declaration only, redeclaration is not allowed
                 typeof x;                     // Gives the type of the x variable/value
-                        for example;
+                        for example.
                                 function Numbers(){
                                     for(var i = 1; i < 11; i++){
                                         console.log(i)
@@ -132,6 +283,31 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
                                     }
                                     console.log(i)          // gives reference errors, as let variable 'i' is only scoped inside 'for' block
                                 }
+
+        String -
+                const s = "string" / 'string'
+                const s = `this is ${expression}
+                            string`
+                
+                String Methods - strings are immutable so all methods returns new strings 
+                    s.length;
+                    s.indexOf("g")      -> 5    for s="string"      // gives first occured characters index
+                    s.lastIndexOf("ng")                             // gives last occurence character index
+                    s.includes("string")    -> true/false
+                    s.startsWith("s")       -> true/false
+                    s.endsWith("g")         -> true/false
+                    s.slice(1, -1)                                  // return the string from index 1st till second last character(as 2nd index is exclusive)
+                    arr = s.split(" ")      -> array of s words spitted by " "
+                    new_s = arr.join(" ")   -> all elements from arr joined by " " to create a string         
+                    s.toLowerCase()
+                    s.toUpperCase()
+                    s.trim()                                        // trims the white spaces both from start and end
+                    s.trimStart() s.trimEnd()
+                    s.replace(" ", "space")                         // replaces first occurence of " " to "space" and returns string
+                    s.replaceAll(" ", "space")                      // replaces all occurences of " " to "space" and returns string
+
+                    Regular Expression - 
+                        s.replace(/" "/g, "space")                     // regular Expression with Global Flag so All the Occurrences Are Targeted           
 
 
         Object-
@@ -148,130 +324,220 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
                                 },
                                 lidOpen: false,
                                 toggleLid: function (lidStatus) {                           // toggleLid is the method of backpack object
-                                    this.lidOpen = lidStatus;                               // "this" keyword refers to the current object(backpack)
+                                    this.lidOpen = lidStatus;                               // 'this' keyword refers to caller object
                                     updateBackpack(`Lid status changed.`);
                                 },
                                 newStrapLength(lengthLeft, lengthRight) {                   // same as; newStrapLength : fuction(lengthLeft, lengthRight) {}
                                     this.strapLength.left = lengthLeft;
                                     this.strapLength.right = lengthRight;
                                     updateBackpack(`Strap lengths updated.`);
+                                    console.log(this);                                         // logs whole object from which the 
                                 },
                             };
 
                 backpack.name
-                backpack["pocket Num"]                      // usable if object property has space in its name
+                backpack["pocket Num"]                      // usable if object property has space in its name, same as 'backpack.pocket Num'
                 backpack.color[0]
-                
+
                 backpack.hasOwnProperty("lidOpen")          // returns true
                 delete backpack.name
 
-            Delete Object Property - 
+                Object Method/Properties - 
                     var obj = { 1:"One", 2:"Two" }
                     delete obj.2;           // obj becomes { 1:"One" }
+                    Object.keys(obj)            // gives all keys array
+                    Object.values(obj)          // gives all values array
+                    Object.entries(obj)         // gives all keys and values arrays     // this methods converts objects to maps 
 
 
-        Arrays (objects that trated differently)-
+        Arrays (objects that treated differently)-
                 var a = [12,13];            a[0] = 12       a is converted to object;ie. a = {0:12, 1:13}
-                    so we can,
-                        a[-1] = 11
+                                                            so we can assign negative index mannualy, a[-1] = 11
+                a.length                                    // length property gives number of elements in array
+                const a = new Array(1,2,3,4)    // using array function
 
                 Array Methods
+                    a.includes(12)   -> true/false
                     a.push(14)          add at the end
                     x = a.pop()         remove form the end and return last value
                     a.unshift(11)       add at the start
                     x = a.shift()       remove from the start and return first value
                     a.splice(1, 2)      remove 2 values from 1st index of arrays
 
+                const a1 = [1,2,3,4]
+                
+                a1[0]    // gives 1(first element)
+                a1[a1.length - 1]    // gives 4(last element)
+                a1[0] = 5    // allowed as changing element is possible for non-primitive variables
+                a1 = [6,7,8,9]    // not allowed as a1 is const
+                
+                const a3 = [a1, `Ankit`, lastName, 2024-2001]
+                
+                a3.indexOf(`Ankit`)     // returns 1
+                a3.indexOf(`Ankita`)     // returns -1
+                
+                a3.includes(`Ankit`)     // returns true    uses strict equality (===)
+                a3.includes(`Ankit`)     // returns false
 
-        Truthy and Falsy values
-                Falsy values - 0, false, undefined, null, NaN(not a number), dicument.all
-                Truthy values - other than falsy values
+
+        Sets (iterable) - collection of unique values // no way to retrieve value using index/method but can be iterated
+                const set = new Set("Any iterable ")                     iterables are - string, arrays, maps, sets
+                        // set = {'A','n','y',' ','i','t','e','r','a','b','l','e'}
+                
+                Set Methods -
+                    set.size        gives length of set values
+                    set.has('A') -> true/false
+                    set.add('A')
+                    set.delete('A')
+                    for(const item of set) console.log(item)
+
+
+        Maps - key-value pairs where the keys can be any datatype(for objects, must be strings) and ordered by intersection
+                const fruits = new Map([                            fruits = {                                                            }
+                                            ["apples", 500],                    "apples" => 500,
+                                            [[1,2,3], 300],                     [1,2,3] => 300,
+                                            [{1:'a'}, 200]                      {1:'a'} => 200
+                                        ]);  {                               }
+                Map Methods -
+                    fruits.set(arr, "Test"); => whole map    //adding or changing existing map value
+                    fruits.get(arr)
+                    fruits.has("apples")  => true/false
+                    fruits.delete("apples")
+                    [...fruits]                     // convert map to array
+                    [...fruits.keys()]              // convert map to map keys array
+                    [...fruits.values()]            // convert map to map values array
+
+
+        Truthy, Falsey and Nullish values
+                Falsey values - 0, false, undefined, null, NaN(invalid number/not a number), ``, document.all
+                Truthy values - other than Falsey values
+                Nullish values - undefined, null     // used with Nullish Operator(??). i.e. (x ?? y) -> returns y if x is nullish otherwise returns x
 
 
 
-** Parsing - type conversion
-        parseInt("34")
-        parseInt("f")           returns NaN 
+** Parsing - Type conversion (explicit with functions)
+        parseInt("34")      Number("34")        "34".toString()         returns 34
+        parseInt("f")       Number("f")                                 returns NaN 
+        String(12)                                                      returns "12"
+        Boolean("0")                                                    returns true
+        Boolean(0)                                                      returns false
 
 
 
-**HOISTING - variables and functions are hoisted ie. only their declaration(var a;) is added to the execution context of script in memory
+** Type Coercion - Js implicit type conversion
+        Unary Operator 
+            let y = "5"         string
+            let x = +y          number
+            let z = "A"         string
+            let x = +z          invalid number(NaN)  
+
+        Binary Operator
+            all expression rather than +(concatenation) Operator converts strings into number
+                e.g. x = 5 + "7"     "57"
+                    x = 5 - "7"     -2
+                    x = 5 * "7"     35
+
+
+
+**HOISTING - variables and functions are hoisted i.e. only their declaration (var a;) is added to the execution context of script in memory
         because of hoisting,
-            - 'var' and functions are hoised in global space and are assigned to "undefined"
-            - 'let' and 'const' are accessible only after initialization as they are hoisted in seperate memory(that is reserved for the block) space,
-                    so they will give "ReferenceError" if accessed before initialization
+            - 'var' and functions are hoisted in global space and are assigned to "undefined"
+            - 'let' and 'const' are accessible only after initialization as they are hoisted in separate memory(that is reserved for the block) space,
+                    so they will give "ReferenceError" if accessed before initialization, before initialization they are in TDZ(Temporal Dead Zone)
 
         Exceptions
             NullPointerException (NPE) is an error that occurs when a program tries to access or manipulate data
                 through a reference that points to a non-existent object or has a null value.
             The equivalent error is a TypeError when accessing properties or methods of null or undefined objects.
 
+                                    |    Hoisted     |             Initial value               |     Scope     |
+        ----------------------------|----------------|-----------------------------------------|---------------|
+        Function Declaration        |      Yes       |            Actual Function              |     Block     |                                  
+        var variable                |      Yes       |               undefined                 |    Function   |                          
+        let, const variable         |       No       |   <uninitialized>, Temporal Dead Zone   |     Block     |                                  
+        function expression/arrows  |cant use before initialization as variable is hoisted with value undefined|
 
 
-**Browser Context API - 
-        window - window is default gloabal object. (this === windows) gives true
-        stack
-        heap memory
+
+O/P-I/P
+    console.log(`outputs to console`)
+    console.warn()              
+    console.error()                 
+    console.table(object)                       // gives key-value rows in table on console
+    alert(`browser provided notification window`);
+    prompt(`// gives pop-up windows with input field and returns input string`);
 
 
 
 **Conditionals - 
 
-    if() {}
-    else if() {}
-    else{}
+        IF
+            if() {}
+            else if() {}
+            else{}
 
-    switch(char) {
-        case 'a':
-            break
-        case 'b':           // if the value is 'b' or 'c' code of c will be executed
-        case 'c':
-            break
-        default:
-            break
-    }
+        SWITCH
+            switch(char) {           
+                case 'a':           
+                    __statement__       // multiple statements can be used without {}.
+                    __statement__
+                    break
+                case 'b':               // if the value is 'b' or 'c' code of c will be executed.
+                    __statement__
+                case 'c':
+                    __statement__
+                    break
+                default:
+                    console.log(`Not a valid character!`)
+            }
 
 
 
 **Ternary Operation - 
 
-        condition ? statement-if-ture : statement-in-false
+        condition ? statement-if-true : statement-in-false
 
-        condition1 ? statement1-if-ture : condition2 ? statement2-if-ture : statement-if-false
-
-
-
-**Loops - 
-    for
-        for(var i;i<=10;i++) {}
-
-    while
-        while() {}
-
-    for Arrays -    
-        forEach()                                          // changes done in temporary copy of arr
-            arr.forEach(function(x){console.log(x+2)})               // anonymous function - function without name
-    
-    for objects - 
-        for(x key in objName){console.log(objName[x])}
-    
-    forof
-
-    do-while
-        do{
-            console.log(a)
-            a++
-        }while(a<5)
+        condition1 ? statement1-if-true: condition2 ? statement2-if-true: statement-if-false
 
 
 
-**Functions -
-        Function statement/declaration - way of creating a functon
-                function funcName(parameters) {}                
+**Loops -
+        FOR
+            for(var i;i<=10;i++) {}
 
-                funcName(arguments);  
+        FOR Arrays 
+            forEach                                             // changes done in temporary copy of arr
+                arr.forEach(function(i){console.log(i+2)})               // anonymous function - function without name
 
-        Rest opperator(...) - for variable number of arguments 
+            for-of
+                for(const i of arr) console.log(i);
+                for(const [index, item] of arr.entries()) console.log(`${index + 1} : ${item}`);            // object is first converted in map using entries method 
+            
+            for-in
+                for(const i in arr) console.log(arr[i]);
+
+        FOR objects
+            for-in
+                for(let key in obj){ console.log(`${key} : ${obj[key]}); }
+
+        WHILE
+            while() {}
+
+        DO-WHILE
+            do{
+                console.log(a)
+                a++
+            }while(a<5)
+
+
+
+**Functions - Block Scoped in 'use strict' mode
+        Function statement/declaration - way of creating a function
+                function funcName(parameters, a=10, b=a+1) {}           // default parameter            
+                                                    
+                funcName(arguments, undefined, 100);  // a=1, b=100     // can be called before declaration of function because of hoisting
+
+        Rest operator(...) - for variable number of arguments 
                 function funcName(...args) {            // if, x = [1,2,3]   then, ...x = 1, 2, 3   and [ , ...x] = [2, 3]
                     return args.reduce((a,b) => a+b, 0)
                 }
@@ -280,11 +546,11 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
 
         Passing Object as arguments
                 function funcName(property1, property2) {}          // getting object properties as parameter
-
+                            // if we change the properties in function, obj aslo changes as reference is passed which points to same object
                 obj = {property1 : value1, property2 : value2}
                 funcName(obj)
 
-        Function Expression - Function acts like a value
+        Function Expression - Function acts like a value | can't be called before declaration of function
                 var x = function() {}
 
                 x();    
@@ -296,13 +562,32 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
                 x();    
                 y();                // gives reference error
 
-        Anonymous Function - function without name
-                var x = function() {}
+        Arrow Function - function behaving like a variable, short form for the function definition | 
+                            doesn't get argument object and 'this' keyword in their execution context, rather they can use this functionality from their closest regular function parents 'this' keyword
+                const gerName = (arg1, arg2) => { }           // const gerNmae = function() {}
+                const x = arg => { }
 
-                x();    
-                    // function call, gives error when called before creation as var x is hoisted and assigned with Undefined
+        Anonymous Function - function without name. can have multiple arguments, but only one expression
             
-                function() {}        // gives syntax error
+                function() {}           // gives syntax error
+
+                var greet = function (parameters){                                  //using function expression
+		            console.log(`Welcome to ${parameters}`);        // parameters is function scoped variable
+	            }
+
+	            let greet = () => console.log("Welcome to GeeksforGeeks!");         // using arrow function
+	            
+                greet();            // as we have only one expression in function so we can ignore the {}
+                                    // function call, gives error when called before creation as var greet is hoisted and assigned with Undefined
+
+        Self Executing Function -
+            (function (parameters){                                                 //using function expression
+                console.log(`Welcome to ${platform}`);
+            })();
+            
+            (() => {                                                                // using arrow function
+                console.log("GeeksforGeeks"); 
+            })();
 
         First class function/citizen - ability to use function as arguments, parameter or returning values for the function
                 fuction x(z){                   taking parameter as a function
@@ -316,18 +601,22 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
                 var r = x(function z(){ });     |
                 var s = x(y)                    |passing function as argument            
 
-        Arrow Function - function behaving like a variable, short form for the funcion definition
-                const gerName = (arg1, arg2) => { }           // const gerNmae = function() {}
-                const x = arg => { }
-
         callback function
             setTimeout(function(){}, 2000)      // calls callback fuction after 2000 miliseconds(2 sec)
+                        eg. function x() {                  // this function will print 1 after 1 second, 2 after 2 seconds and so on till 5
+                                for(let i = 1; i <= 5; i++) {
+                                    setTimeout( function () {
+                                                                console.log(i);
+                                                            }, i*1000);
+                                }
+                            }
+                            x();
 
 
 
 **CLOSURES -        Function y() along with its lexical scope x() bundles together forms a closure
 
-            fuction x(){
+            function x(){
                 var a = 7;
                 function y(){
                     console.log(a);
@@ -343,22 +632,63 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
             - Module design pattern
             - currying
             - Functions like once(function that only executes one time)
-            - memoize
+            - memorize
             - maintain state in async world
             - setTimeouts
             - Iterators
+        
+        Advantages of Closures
+            - Function currying
+            - Data Hiding
+            - Encapsulation
+            - Module Partition
+
+        Disadvantages of Closures
+            - Overconsumption of Memory as closure variables are not garbage collected
+            - Memory Leak possibility
 
 
 
-**TO access/manipulate DOM  -
+**TO access/manipulate DOM - ability to change HTML text, attributes or CSS styles
+    'document' is special object given by web api(browser implimented libraries written in js) that accessed using js
+    
+    - Selecting and Manipulating web content -
+
         document.getElementById('idName')                   // acess the matching first item
-        document.getElementByClassName('className')
+        document.getElementByClassName('className')         
         document.getElementByTagName('p')
 
-        document.querySelector('cssSelector')
+        document.querySelector('cssSelector')       // console.log(document.querySelector(".my-name").textContent);  // only selects first matched element
         document.querySelectorAll('cssSelector')
 
+            eg. console.log(document.querySelector(".my-name").textContent);
+                document.querySelector(".my-name").textContent = `This is text from any tag except input`;
 
+                console.log(document.querySelector(".my-name").value);      // for input element
+                document.querySelector(".my-name").value
+
+    - Handling Events
+        document.querySelector('.btnCheck').addEventListener('click', function(){ })        // eventHandlerFunction()
+
+    - Changing CSS(appling inline styles)
+        document.querySelector('.btnCheck').width = '20rem';        // property value should be string including unit
+        document.querySelector('body').backgroundColor = 'red';     // in css we use background-color but in js we use camelCase 
+    
+    - Manpulating classes of HTML elements
+        document.querySelector('p').classList.remove('className');  
+        
+        let p = document.querySelectorAll('p')              // gives the array of all p elements
+        for(let i=0;i < p.length; i++){
+            p[i].classList.add('className');
+            p[i].addEventListener('click);
+        }      
+    
+    - Handling keyboard events  // global event(should be called on document)
+        document.addEventListener('keydown', function(event){       // addEventListener gives the event object which can be used in event handler function
+            if (event.key === 'Enter'){                             // event object will have key property which stores the value of key pressed from the keyboard
+                
+            }
+        });
 
 
 
@@ -378,14 +708,21 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
 
         let arr = [2, 5.4, -9.5, 3, 8.34, 12];
         
-        const sqInt = arr.filter(num => Number.isInteger(num) && num > 0).map(x => x*x);
+        const sqInt = arr.filter(num => Number.isInteger(num) && num > 0)
+                         .map(x => x*x);
         
         args = [1,2,3]
         sum = args.reduce((a,b) => a+b, 0)          // sum = 6
 
 
 
-**Destructuring Opperator - short form to assign object property values to the variable
+**Destructuring Operator - short form to assign object property values to the variable
+        [y, x] = [x, y]             // swapping values of two variable
+
+        const arr = [1, 2, [3, 4]];
+        const [x, , y=0, z=0] = arr;        // x=1, y=[3, 4], z=0       // with default value
+        const [x, , [y, z]]                 // x=1, y=3, z=4
+
         obj = { 
             property1 : {
                 property11 : value11,
@@ -393,9 +730,10 @@ Brenden Ike in 1995 (Internationally standardized name is ECMAScript = JavaScrip
             },
             property2 : value2
         }
-
-        const { property1 : {property11 : x}} = obj;      // x = value11
-        const { property2 : x } = obj;                    // x = value2
+        const { property2 } = obj;                                                      // property2 = value2
+        ({ property2 } = obj)                                                           // property2 = value2
+        const { property2 : x=[], property1 : {property11 : y, property22} } = obj;     // x = value2, y = value11, property22 = value22
+        const { property3 : z=[] }                                                      // z = []           // with default value
 
 
 

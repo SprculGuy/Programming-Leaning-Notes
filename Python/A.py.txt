@@ -213,12 +213,12 @@ Note-->
 
 	MATCH	match var:
 				case "100":
-					_block_
+					_block_             # no need of break statement
 				case "200":
 					_block_
 				case "300":
 					_block_
-				case _:
+				case _:                 # default case 
 					_block_
 
 

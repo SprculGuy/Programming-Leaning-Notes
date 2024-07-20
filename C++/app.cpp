@@ -1,6 +1,6 @@
 #include <iostream>
 #include <array>
-#include<vector>
+#include <vector>
 
 using namespace std;
 vector <int>code;

@@ -2,7 +2,9 @@
 ** Time Complexity T(n)
 	- Study of efficiency of algoritms according to every indivisible opperations, considering values of n ⇒ ∞
 
-**Asymptotic Notations - 
+
+
+** Asymptotic Notations - 
 		- Used for analysis of runtime according to the input size...
 		- We can't define runtime in seconds because, for variable proccessing power of every individual...
 	
@@ -30,6 +32,7 @@ properties->
 						| O(g(n))		if g(n) > f(n)
 
 	O(f(n)) * O(g(n)) = O(f(n)*g(n))
+
 
 
 ** ADTs(Abstract Data Types)
@@ -78,5 +81,5 @@ properties->
 	1. Linear Search - Search for elements one by one
 		- time complexity: O(n)
 
-	2. Binary Search - Go to middle of the sorted array and neglect 1/2 array elements at every step
+	2. Binary Search - Go to middle of the sorted array and discard 1/2 array elements at every step
 		- needs sorted data

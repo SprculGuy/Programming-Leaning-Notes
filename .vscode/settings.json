@@ -3,6 +3,6 @@
     "livePreview.autoRefreshPreview": "On All Changes in Editor",
     "livePreview.customExternalBrowser": "Default",
     "code-runner.clearPreviousOutput": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "files.autoSave": "onFocusChange"
 }

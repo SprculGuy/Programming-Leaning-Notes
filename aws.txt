@@ -1,6 +1,7 @@
 AWS Cloud Practitioner > CLF-C02
 
 
+
 AWS Cloud History -
     2002 - internally launched
     2004 - publicly launched SQS (simple queue services)
@@ -24,6 +25,24 @@ types of cloud computing services model
 
 
 
+Shared Responsibility Model
+    Cloud Responsibility
+        - Infrastructure(Global Network(data centers) Security)
+        - Isolation on physical hosts(for dedicated hosts)
+        - Replacing faulty hardware, Backup & Replication
+        - compliance validation(regulations)
+        
+    Users Responsibility
+        - Security Groups rules
+        - OS patches and updates
+        - software &  utilities installed
+        - IAM roles assigned
+        - IAM user access management
+        - data Security(encryption)
+        - data Backup & Replication(snapshot) procedure
+
+
+
 AWS Global infrastructure - 
     AWS Regions [ Asia Pacific(Mumbai) : ap-south-1, Asia Pacific(Sydney) : ap-southeast-2, US East(Ohio) : us-east-2 ]
         - clusters of data centers 
@@ -34,7 +53,7 @@ AWS Global infrastructure -
             - service availability
             - pricing : vary from region to region
 
-    AWS Availability zones [ ap-south-1 : ap-south-1a, ap-south-1b ap-south-1c ]
+    AWS Availability zones(AZ) [ ap-south-1 : ap-south-1a, ap-south-1b ap-south-1c ]
         - Each region has at least 3 isolated availability zones connected with high bandwidth ultra-low latency network
         - linked altogether forming a region
 
@@ -48,13 +67,36 @@ Ways to Access AWS
     2. AWS CLI (Protected by Access Keys) - access keys are single time given credentials(id and secret key) to access AWS services from terminal of our PC
     3. AWS SDK (for application code(coding language specific): protected by access keys) - access and manage AWS services programmatically embedded within application
 
-Note - Access keys are generated through AWS Management Console
+  Note - Access keys are generated through AWS Management Console
         Access Key Id (like username)
         Access Key (like secret password)
 
 
 
 VPC(virtual private cloud) is a virtual network dedicated to your AWS account.
+
+
+
+Classic ports to know  
+    21 = FTP(File Transfer Protocol) - upload files into a file share
+    22 = SFTP(Secure File Transfer Protocol)
+    80 = HTTP(Hypertext Transfer Protocol) - access unsecured websites
+    433 = HTTPS(Hypertext Transfer Protocol Secure) - access secured websites
+    22 = SSH(Secure Shell) - log into a Linux instance
+    3389 = RDP(Remote Desktop Protocol) - log into a windows instance
+
+
+Agility - Cloud concept that gives ability make users work faster as creation and deletion happens qickly
+
+Scalability - ability to accommodate a larger load
+    1. Vertical Scalability 
+        - flexible size/capacity of instance
+        - scale up/down
+    2. Horizontal Scalability 
+        - flexible number of instances 
+        - scale out/in using ASG and ELB
+        - High Availability is must, run instances of same application across multi AZ
+
 
 
 AWS Services
@@ -109,7 +151,7 @@ AWS Services
                     - Access advisor shows the service permissions granted to a user and when those services were last accessed by users.
 
 
-    EC2(Elastic Compute Cloud) - IAAS / Local Service (region specific)
+    EC2(Elastic Compute Cloud) - IAAS / Local Service (AZ specific)
             - Rent virtual machines (EC2)
             - Storing data on virtual drives (EBS)
             - Distributing load across machines (ELB)
@@ -117,9 +159,9 @@ AWS Services
 
             EC2 sizing/configuration options -
                 - OS (Linux, Windows or Mac OS)
-                - CPU (Computer Power and Cores) 
+                - CPU (Computer Power and Cores)
                 - RAM
-                - Storage Space 
+                - Storage Space
                     - Network Attached (EBS & EFS)
                     - Hardware Attached (EC2 instance store)
                 - Network Card
@@ -129,19 +171,153 @@ AWS Services
                                             - installing updates/software
                                             - downloading common files from internet
             EC2 Instances Type
-                - 
+                - General Purpose (M T) e.g. m5.2xlarge   - m(General Purpose Instance Class), 5(generation), 2xlarge(memory, CPU of Instance)
+                - Compute Optimized (C)
+                - Memory Optimized (R U X)
+                - Accelerated Computing (DL F G P)
+                - Storage Optimized (D H I)
+                - High-performance computing (HPC)
+
             Security Groups
                 - network security of EC2(s) which controls how traffic is allowed inbound or outbound of our EC2 instances
                 - by default, all INBOUND traffic is BLOCKED, and all OUTBOUND traffic is AUTHORISED
                 - it's good to maintain one separate security group for SSH access.
                 - we can refer another/multiple security group in new/one security group
 
-                note - if application is not accessible due to (time out), then it's a security group issue
+              note - if application is not accessible due to (time out), then it's a security group issue
 
-Classic ports to know  
-    21 = FTP(File Transfer Protocol) - upload files into a file share
-    22 = SFTP(Secure File Transfer Protocol)
-    80 = HTTP(Hypertext Transfer Protocol) - access unsecured websites
-    433 = HTTPS(Hypertext Transfer Protocol Secure) - access secured websites
-    22 = SSH(Secure Shell) - log into a Linux instance
-    3389 = RDP(Remote Desktop Protocol) - log into a windows instance
+            SSH(Secure Shell/Secure Socket Shell) 
+                - refers to the cryptographic network protocol and to the suite of utilities that implement that protocol.
+                - used to connect inside of your servers to perform some maintenance or action.
+                - SSH is widely used by network administrators to manage systems and applications remotely using cmd
+
+                Command to enter SSH in AWS EC2 Instance -
+                > ssh -i <ppm file location> ec2-user@<Public IPv4 address>            // > ssh -i .\first-instance.pem ec2-user@35.154.197.67
+
+            EC2 Purchasing Option
+                - On-Demand - short-term un-interrupted workload, predictable pricing, pay by second
+                - Reserved(1 to 3 years) 
+                    1. Reserved Instance - long workload, reserve a specific instance attribute(i.e. instance type, Region, OS, tenancy(Host,Dedicated,default))
+                    2. Convertible Reserved Instance - long workload with flexible instances, change instance attributes
+                - Saving Plans - minimum committed amount of usage, locked instance family & AWS region but size flexible(micro,small)
+                - Spot Instances - cheapest, lose instance because of bid, short & failure resilient workload
+                - Dedicated Hosts - most expensive, books entire physical server, gives lower level hardware access
+                - Dedicated Instances - instance running on dedicated hardware, no control over instance placement 
+                - Capacity Reservation - reserved in specific AZ for any duration, no matter you use or not you have to pay all, short-term un-interrupted workload
+
+            EC2 Storage
+                Elastic Block Store(EBS) Volumes (AZ specific - using snapshot(back-up + restore) we can move to another AZ)
+                    - network drive(not physical) attached to instance when they run
+                    - persists data even after instance termination
+                    - mounted to one EC2 instance at a time (Foundational Practitioner level) (for associate level - "multi-attach" feature for io1 and io2 EBS Volumes)
+                    - multiple EBSs can be attached to single instance, as well as EBS can be left unattached
+                    - have provisioned capacity - size in GB and IOPS(I/O operation per second) 
+                    - EBS Snapshot
+                        - moved to EBS Snapshot Archive(75% cheaper) according to setting assigned to archive tier or manual moving but restoring archive to EBS will takes 24 to 72 hours
+                        - Recycle Bin for EBS snapshot with specified retention(from 1 day to 1 year)
+
+                Local EC2 Instance Store
+                    - better I/O performance and high disk performance as High performance disk attached to Instance
+                    - if instance with instance store stopped/terminated, storage is lost 
+                            therefore cannot be used as long term storage of data, e.g. buffer, cache, temp data
+                    - Risk of data loss if H/W fails, so Backup and Replication should be done 
+
+                Elastic File System(EFS) - managed network file system (multi-Availability Zone storage)
+                    - can be mounted on 100s of instances using EFS Mount Target unlike EBS
+                    - scalable, highly expensive, pay per use
+                    EFS-IA(Infrequent Access) - cost-optimized storage class to save cost according to Lifecycle Policy for files not accessed
+
+                FSx(File System x) - 
+                        - Fully managed third-party file system service optimized for high-performance file systems on AWS
+                        - Two most important offerings
+                            1. FSx for Windows file server(for windows EC2 instances)
+                                - supports windows NTFS and SMB protocol(to access externally)
+                                - integration with MicroSoft Active Directory for user security
+                            2. FSx for Lustre (Linux + cluster)
+                                - scalable file storage for High Performance Computing
+                                - In backend, storing data on AWS S3
+
+            AMI(Amazon Machine Image) (region specific) e.g. Amazon Linux 2 AMI
+                - create ready to use EC2 instance with customization(can add software, configuration, os, monitoring...)
+                - for faster boot/configuration time because all software will be available pre-packaged on instance through AMI
+                EC2 Image Builder' AWS service used to automatically build, test & distribute AMI
+
+            ELB(Elastic Load Balancing)    
+                - AWS managed servers that forward traffic to multiple EC2 instances(servers)
+                - used across multiple AZ
+                - Types 
+                    1. Application Load Balancer(HTTP/HTTPS/gRPC only traffic, static DNS) - Layer 7
+                    2. Network Load Balancer( TCP/UDP/TLS traffic with ultra high performance, static IP) - Layer 4
+                    3. Gateway Load Balancer(Route traffic to firewalls, GWLB protocol) - Layer 3 
+                        - inspect traffic via 3rd party virtual appliances before taking response to instance
+
+            ASG(Auto Scale Group) 
+                - implement elasticity(auto scale up and down based on demand) for application across multiple AZ  
+                - integrates with ELB(automatically register new instances to load balancer) as well as replace unhealthy instances
+                - Scaling Strategies
+                    - Manual 
+                    - Dynamic
+                        1. Simple/Step Scaling - according to CloudWatch alarm trigger (CPU > 70% -> add instance | CPU < 30% -> remove instance)
+                        2. Target Tracking Scaling - defined target avg ASG CPU to stay around 60%
+                        3. Scheduled Scaling - increase min/max capacity to 9AM to 12 AM on Sat-Sun
+                    - Predictive - uses ML to predict future traffic ahead of time
+    
+    S3(infinitely scaling storage) (region specific)
+        - Used for 
+            - Backup and storage
+            - Disaster recovery
+            - Archive 
+            - Hybrid Cloud Storage
+            - Application Hosting
+            - Media Hosting
+            - Big Data Analytics
+
+        - S3 allows to store objects(files) in Buckets(directories)
+            Bucket(directory)
+                - Buckets have globally unique name across all regions accounts
+                - Bucket Naming convention
+                    - no uppercase letter
+                    - no '_'
+                    - 3-63 character long
+                    - should not be IP
+                    - must start with letter or number
+                    - must not start with prefix 'xn--' and not end with suffix '-s3alias'
+            Object(files)
+                - Consists of 
+                    Key(full path with filename)    eg. s3://my-bucket/my_file.txt
+                    Object Value
+                        - max size is 5TB
+                        - if object is greater than 5GB, must use 'multi-part upload' for several parts
+                    Metadata(list of key-value pairs, set by system/user)
+                    Tags(Unicode key-value pair) 
+                        - useful for security/lifecycle
+                    Version Id(if versioning enabled)
+
+                - S3 presigned url - signature to verify the request which has credentials encoded
+            
+            Security
+                User Based 
+                    IAM Policies - which API call should be allowed for a specific user form IAM
+
+                Resource Based 
+                    Bucket Policies (to grant public access to bucket)
+                        - to grant Public Access to bucket 
+                        - Force objects to be encrypted
+                        - allows cross account(IAM user in another AWS account)
+                        - JSON based
+                    Object Access Control  
+                    Bucket Access Control
+
+                Encryption using encryption keys
+
+                Note -     
+                    IAM users(Acc) -> IAM Policy
+                    EC2(services) -> IAM Role 
+                    Cross-Account -> Bucket Policy
+                
+            Versioning 
+                - for object but enabled at bucket level
+                - Easy rollback and avoid unintended deletion
+                - Files prior to enabling versioning we have version 'null'
+                - Suspending versioning doesn't delete previous versions
+                

@@ -2,7 +2,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
                                                         ECMAScript is the specification describing how browsers should implement and interpret JavaScript.
             ES 5 -> 2009
             ES 6 -> 2015   Biggest update after which every year JS gets updates
-            JS is Backword compatible, even with ES1(1997)
+            JS is Backward compatible, even with ES1(1997)
 
             Js is functionality/behavior for Components of webpage
             
@@ -18,7 +18,8 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             Prototyped based oopl(has no class, object is created from another object)
             dynamically typed
 
-            with first-class function(function can be treated as variable) and non-blocking event loop concurrency model(executes time-consuming tasks in background and takes them back in main thread as they finished)
+            First-class function(function can be treated as variable) 
+            Non-blocking event loop concurrency model(executes time-consuming tasks in background and takes them back in main thread as they finished)
             Everything in js happens inside an Execution Context
 
     Typescript  - JavaScript's superset with additional feature implementation(script.ts)
@@ -43,7 +44,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
 
 
 
-**Types to apply JS/Script to webpage-    
+**Types to apply JS/Script to webpage -    
     1> Internal - used anywhere inside the <html> and only applies to current html document
             <script>
                 const allp = document.querySelectorAll("p")             // ; at ending is optional
@@ -54,21 +55,27 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             </script>
 
     2> External -
-            <script src="js/script.js"></script>            // loads and executed in priority by halting the document(html/css) loading.
-        or  <script src="js/script.js" defer></script>      // loads parallel to document but executed only after loading of document is finished.
-        or  <script src="js/hello-world-alert.js" async> alert("Hi") </script>    // only the external js code will be executed, internal js will be ignored
-                                                            //loads parallel to document and executed after loading by halting the document loading.
+            <script src="js/script.js"></script>            // scripts fetched and executed in priority by halting the document(html/css) loading. i.e why should be used at the end of Body tag/element
+
+        or  <script defer src="js/script.js"></script>      // scripts are fetched parallel to document but executed only after loading of document is finished. 
+                                                            // 'DOMContentLoaded' event only fires after script execution(even if document fetched completely before script fethed/executed), 
+                                                            // scripts are executed in order they are declared in code
+
+        or  <script async src="js/hello-world-alert.js"> alert("Hi") </script>      // only the external js code will be executed, internal js will be ignored
+                                                            // scripts fetched parallel to document and executed after fetched by halting the document loading. 
+                                                            // 'DOMContentLoaded' event fires as soon as document fetched completely(even if script fethed/execution is not complete)
+                                                            // scripts not guaranteed to execute in order they are declared in code, scripts gets executed in the oreder it fetched
 
             <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
 
 
 
-Execution of JS-->                                                
-	SourceCode -> Parsing & syntax Checker -> AST -> Just in-Time Compilation(BrowserEngine/node) -> Machine language -> Execution(using call stack) -> Global Execution Context + EC of function as they were called + EC of callback function after  using event loop             
+**Execution of JS-->                                                
+	SourceCode -> Parsing & syntax Checker -> AST -> Just in-Time Compilation(BrowserEngine/node) -> Machine language -> Execution(using call stack) -> Global Execution Context + EC of function as they were called + EC of callback function after using event loop             
                                                     ^ >     gives unoptimized version as fast as possible then          |
                                                     |  in background the code is optimized(recompiled) while execution  |               // these 3 threads are completely separate from the main thread that
-                                                    |<    uses 3 separate threads(Parcing,compilation,optimization)    <|                               is running into the call stack executing code
-    1. Parsed(reading of code) into a data structure called AST(Abstract Syntax Tree)
+                                                    |<    uses 3 separate threads(Parsing,compilation,optimization)    <|                               is running into the call stack executing code
+    1. Parsed(analyzing and converting a program into an internal format that a runtime environment can actually run) into a data structure called AST(Abstract Syntax Tree)
                     AST example for code; const x = 23;
                         VariableDeclaration { 
                             start: 0
@@ -102,6 +109,7 @@ Execution of JS-->
     9. Global Execution Context remains in call stack as long as browser is running.
 
 
+
 ** JavaScript Runtime in Browser -
 
     +---------------------------------------------------------------------------+
@@ -124,12 +132,14 @@ Execution of JS-->
     +---------------------------------------------------------------------------+
 
 
+
 ** JS Engine: A JavaScript engine is simply a computer program that receives JavaScript source code and compiles it to the binary instructions (machine code) that a CPU can understand.
                     JavaScript engines are typically developed by web browser vendors. Examples: V8 engine for Google chrome, SpiderMonkey for Firefox, and Chakra for Internet Explorer.
 
             Contains; 
                     1. call stack - responsible for code execution using "Execution Context", gets the stack of Execution Contexts
                     2. heap - unstructured memory pool to store the objects memory
+
 
 
 ** EXECUTION CONTEXT - 
@@ -148,7 +158,7 @@ Execution of JS-->
                                         'this' = undefined  // in 'use strict' mode 
                                     otherwise;
                                         'this' = <windows>  // without strict mode, (in the browser)
-                            - arrow functions -> doesn't get argument object and 'this' keyword in their execution context rather they can use this functionality from their closest regular function parent
+                            - arrow functions -> doesn't get argument object and 'this' keyword in their execution context rather they can use this functionality from their closest normal function parent
                                         'this' = <this of parent scope (lexical 'this')>
                             - eventHandlerFunction() -> 'this' = <DOM element that event is attached to>
                             - new, call, apply, bind -> 'this' = _____
@@ -191,11 +201,11 @@ Statement vs Expression:
         |+, -														    |	Addition/concatenation and subtraction
         | &&													        |  	Logical AND // used on any data type and returns any data type
         |                                                                       // 3 &&'A'      returns 'A'       // returns last truthy value
-        |                                                                       // 2 && 3 && 1  returns 1
-        |                                                                       // ''&& 0       returns 0         // returns first Falsey value 
-        |                                                                       // 1 && '' && 2 returns '' 
+        |                                                                       // 2 && 3 && 1  returns 1           
+        |                                                                       // ''&& 0       returns 0         // returns first Falsey value(short circuiting)
+        |                                                                       // 1 && '' && 2 returns ''          
         | ||  												            |	Logical OR  // used on any data type and returns any data type
-        |                                                                       // 3||'A'    returns 3       // returns first truthy value
+        |                                                                       // 3||'A'    returns 3       // returns first truthy value(short circuiting)
         |                                                                       // ''||'A'   returns 'A'     
         |                                                                       // ''||0||1  returns 1
         |                                                                       // ''||0     returns 0       // returns last Falsey value
@@ -234,7 +244,7 @@ Statement vs Expression:
         
         JS has total of 6 built-in data structures,
             Array - ordered data, easy manipulation/fetching
-            Set - unique items(removes dublicates), high-performance(as searching/deleting is faster than arrays)
+            Set - unique items(removes duplicates), high-performance(as searching/deleting is faster than arrays)
             Object - keys must be strings, easy to write and access, used when want to include methods(and has 'this') or working with JSON
             Map - better performance(than objects), easy to iterate & compute size, keys can have any data type value
             Weak-maps 
@@ -244,15 +254,15 @@ Statement vs Expression:
 
 ** DATA TYPES--(Dynamically typed languages - variable types are decided in the runtime)
             Primitive - gives duplicate when copied | stored in stack | no methods
-                number  (NaN is also of number type)
+                number  (NaN is also of number type) - all numbers are represented as floating point numbers internally in 64 bit binary format(i.e. 24 === 24.0 => true)
                 string
                 boolean
                 null
                 undefined(undefined is both value and type of value)
                 symbol(values that are unique and unchanged)
-                BigInt(larger values than number type can hold)
+                BigInt(larger values than number type can hold) let big = 7445676536389867646n or BigInt(2)
 
-            reference - [] () {} - gives reference when copied | stored in heap | have methods
+            Reference - [] () {} - gives reference when copied | stored in heap | have methods
                 arrays, functions, collections, dates, and all other types of objects
                     - To copy the reference variables, use spread(...) operator - spread operator gives all the elements without creating new variable
                         arr = [1,2,3,4]
@@ -262,7 +272,6 @@ Statement vs Expression:
                         objCopy = Object.assign({}, obj)         // gives shallow copy, as only first level properties are copied, 
                                                                         if any property is object, that property will be pointing to the same memory location for both the obj and objCopy
             Note - JavaScript converts primitive strings to string objects, so that it is possible to use string object methods like, str.length
-
 
         Variable Declaration-   
                 var name;                     // var has function scope             // can be redeclared and reinitialized multiple times
@@ -284,14 +293,48 @@ Statement vs Expression:
                                     console.log(i)          // gives reference errors, as let variable 'i' is only scoped inside 'for' block
                                 }
 
+        Number - (NaN is also of number type) 
+            - all numbers are represented as floating point numbers internally in 64 bit binary format(i.e. 24 === 24.0 => true)
+            - out of 64 bit, only 53 bits are used for numbers rest bits are used for position of decimal point and sign(-/+)
+            - Number.MAX_SAFE_NUMBER    => max number value that is stored in js number variable
+            - Numberic Seperator (1_23_456 => 123456) should be like 1_1 and not 1._ _1
+
+                Number Methods - 
+                    Number.isNaN(x)         // to check if x is NaN value
+                    Number.isInteger(x)     // to check if x is integer value
+                    Number.isFinite(x)      // to check if x is number/floating value(and not infinite i.e. 1/0)
+
+                    Math.sqrt(4) === 4**(1/2) === 8**(1/3)      => 2 === 2 === 2
+                    Math.max(2,56,"87",12,34,9)                 => 87     // Type Coercion (internally convert string to number)
+                    Math.min("2",56,"87",12,34,9)               => 2      // Type Coercion (internally convert string to number)
+
+                    Math.PI                                     => 3.14
+                    Math.random()                               => x      // 0 < x < 1
+                        - Math.trunc(Math.random()*6)           => 0 to 5
+                        - Math.trunc(Math.random()*(6-2)) + 2   => 2 to 5
+                    
+                    Math.trunc(3.14) === Math.trunc(3.94)       => 3 === 3
+                    Math.trunc(-3.14) === Math.trunc(-3.94)     => -3 === -3
+                    Math.floor(3.14) === Math.floor(3.94)       => 3 === 3
+                    Math.floor(-3.14) === Math.floor(-3.94)     => -4 === -4
+                    Math.ceil(3.14) === Math.ceil(3.94)         => 4 === 4
+                    Math.round(3.14) !== Math.round(3.94)       => 3 !== 4     
+
+                    `2`.padStart(3, 0)                          => 002
+                    (3.14).toFixed(0) !== (3.94).toFixed(0)     => 3 !== 4  // returns string
+                    (3.14).toFixed(3)                           => 3.140    // returns string
+                    +(3.145).toFixed(2)                          => 3.15    // returns string so to convert into number we are using +
+
         String -
                 const s = "string" / 'string'
                 const s = `this is ${expression}
                             string`
                 
-                String Methods - strings are immutable so all methods returns new strings 
+                String Methods - strings are immutable so all methods return new strings 
                     s.length;
-                    s.indexOf("g")      -> 5    for s="string"      // gives first occured characters index
+                    s[s.length - 1]         -> last character
+                    s.at(-1)                -> last character
+                    s.indexOf("g")          -> 5    for s="string"      // gives first occured characters index
                     s.lastIndexOf("ng")                             // gives last occurence character index
                     s.includes("string")    -> true/false
                     s.startsWith("s")       -> true/false
@@ -307,10 +350,9 @@ Statement vs Expression:
                     s.replaceAll(" ", "space")                      // replaces all occurences of " " to "space" and returns string
 
                     Regular Expression - 
-                        s.replace(/" "/g, "space")                     // regular Expression with Global Flag so All the Occurrences Are Targeted           
+                        s.replace(/" "/g, "space")                     // regular Expression with (/''/g) Global Flag so All the Occurrences Are Targeted           
 
-
-        Object-
+        Object -
                 var a = {};     // Blank Object
                 // Filled Object
                 const backpack = {                                  // can change the properties of object but can't reassign all properties of backpack container/variable
@@ -341,33 +383,34 @@ Statement vs Expression:
 
                 backpack.hasOwnProperty("lidOpen")          // returns true
                 delete backpack.name
+                backpack?.size                              // doesn't gives error even if size is not property of backpack
 
                 Object Method/Properties - 
                     var obj = { 1:"One", 2:"Two" }
                     delete obj.2;           // obj becomes { 1:"One" }
+
                     Object.keys(obj)            // gives all keys array
                     Object.values(obj)          // gives all values array
                     Object.entries(obj)         // gives all keys and values arrays     // this methods converts objects to maps 
 
-
-        Arrays (objects that treated differently)-
+        Arrays (objects that treated differently) -
                 var a = [12,13];            a[0] = 12       a is converted to object;ie. a = {0:12, 1:13}
                                                             so we can assign negative index mannualy, a[-1] = 11
-                a.length                                    // length property gives number of elements in array
-                const a = new Array(1,2,3,4)    // using array function
-
-                Array Methods
-                    a.includes(12)   -> true/false
-                    a.push(14)          add at the end
-                    x = a.pop()         remove form the end and return last value
-                    a.unshift(11)       add at the start
-                    x = a.shift()       remove from the start and return first value
-                    a.splice(1, 2)      remove 2 values from 1st index of arrays
-
+                const a = new Array(1,2,3,4)        // using constructor function
+                const a = new Array(5)                  // a=[ empty*5 ] & a.length = 5  i.e. creates empty array with size 5
+                a.fill(0, 2,3)                              // a=[ empty*2, 0, empty*2 ]  mutates 'a'
+                const a = Array.from({length:5}, (cur, i) => i+1)               // a=[1,2,3,4,5]
+                const a = Array.from(nodeList, element => Number(element.textContent))    
                 const a1 = [1,2,3,4]
                 
-                a1[0]    // gives 1(first element)
-                a1[a1.length - 1]    // gives 4(last element)
+                a1[0]               |// gives 1(first element)
+                const [a] = a1      |   a = a1[0]
+                a1.at(0)            |
+
+                a1[a1.length - 1]   |// gives 4(last element)
+                a1.slice(-1)[0]     |
+                a1.at(-1)           |
+
                 a1[0] = 5    // allowed as changing element is possible for non-primitive variables
                 a1 = [6,7,8,9]    // not allowed as a1 is const
                 
@@ -378,6 +421,53 @@ Statement vs Expression:
                 
                 a3.includes(`Ankit`)     // returns true    uses strict equality (===)
                 a3.includes(`Ankit`)     // returns false
+
+                Array Methods - 
+                    a.length                                                 -> number of elements in array
+                    
+                    a.at(-1)                                                 -> last element
+                    a.indexOf(value)                                         -> index / -1
+                    a.findIndex(function(current, i, a){return true/false})  -> returns first element index for which callback function return true of array elements
+                    a.find(function(current, i, a){return true/false})       -> returns first element for which callback function return true of array elements
+                    
+                    a.includes(12)                                           -> true/false      // checks for eqality
+                    a.some(function(current, i, a){return true/false})       -> true/false      // checks for availability
+                    a.every(function(current, i, a){return true/false})      -> true/false      // if callback function return true for every value of array 
+
+                    a.concat(a1)                                             -> [...a, ...a1]
+                    a.join("")                                               -> string with all 'a' elements
+
+                    a.flat() / a.flat(1)    // if a=[[1,2],3,[4,[5,6]]]      -> [1,2,3,4,[5,6]]     // flat one level nested array
+                    a.flat(2)               // if a=[[1,2],3,[4,[5,6]]]      -> [1,2,3,4,5,6]       // flat 2 levels nested array
+                    a.flatMap((x, i, a1) => x.array)           // map + flat
+
+                    a.reverse()                             reverse 'a' elements as well as return new reverse elements array too
+                    a.sort()   // sort array elements according to strings   -> sorted array in ascending order with original array mutation
+                    a.sort((a,b)=> a-b)     ascending   // if callback function returns negative value, a and b gets swapped in array
+                    a.sort((a,b)=> b-a)     descending  
+
+                    a.push(14)          add at the end
+                    x = a.pop()         remove form the end and return last value
+                    a.unshift(11)       add at the start
+                    x = a.shift()       remove from the start and return first value
+                    
+                    x = a.slice(start)  
+                    x = a.slice(3)          returns new array from 3rd index element, without changing 'a'
+                    x = a.slice(-2)         returns new array from 2nd last index element of 'a', without changing 'a'
+                    x = a.slice(start,end)  excluding 'end' index
+                    x = a.slice(1, 3)       returns new array with 1st index till 2nd index, without changing 'a'
+
+                    x = a.splice(index)    
+                    x = a.splice(3)         returns new array from 3rd index element and also remove them from 'a'
+                    x = a.splice(index, number)
+                    x = a.splice(1, 2)      remove 2 values from 1st index of 'a' and return remaining elements in x
+
+                    sqInt = a1.filter((num, i, a1) => Number.isInteger(num) && num > 0).map((x, i, a1) => x*x);   // map method creates new and forEach doesn't
+                                            // filter the value based on true/false returned by callback function(filter function argument)
+                    sum = a1.reduce((accumulator, current, i, a1) => accumulator + current, 0)          // sum = 10 / 0(accumulator initial value)   // a1 = [1,2,3,4]
+
+                    a.entries()       -> map with index and values arrays       // this methods converts array object to maps
+                    a.forEach(function(item, index, a){})       // changes done in temporary copy of arr  |  break/continue can't be used
 
 
         Sets (iterable) - collection of unique values // no way to retrieve value using index/method but can be iterated
@@ -390,7 +480,7 @@ Statement vs Expression:
                     set.add('A')
                     set.delete('A')
                     for(const item of set) console.log(item)
-
+                    set.forEach(function(item, item, set){})       // changes done in temporary copy of set  |  break/continue can't be used
 
         Maps - key-value pairs where the keys can be any datatype(for objects, must be strings) and ordered by intersection
                 const fruits = new Map([                            fruits = {                                                            }
@@ -406,7 +496,7 @@ Statement vs Expression:
                     [...fruits]                     // convert map to array
                     [...fruits.keys()]              // convert map to map keys array
                     [...fruits.values()]            // convert map to map values array
-
+                    map.forEach(function(value, key, map){})       // changes done in temporary copy of map  |  break/continue can't be used
 
         Truthy, Falsey and Nullish values
                 Falsey values - 0, false, undefined, null, NaN(invalid number/not a number), ``, document.all
@@ -415,10 +505,37 @@ Statement vs Expression:
 
 
 
+Date/Time/Time Zone
+    const nowUTC = new Date()                                                   => 2024-01-01T00:00:00.000Z  (Object)
+    const now = new Date(new Date().getTime() + 5.5*60*60*1000).toJSON()        => 2024-01-01T00:05:30.000Z  (string)
+    Number(now) == +now                 => 1725277002705    (mili seconds, reference to 1970-01-01T00:00:00.000Z)
+    
+    const daysSubstraction = (new Date(2024, 8, 23) - new Date(2024, 7, 23)) / (1000*60*60*24)
+
+    const day = now.getDate()          
+    const month = now.getMonth() + 1      // because, jan == 0 && dec == 11
+    const year = now.getFullYear()
+    const hour = now.getHours()
+    const min = now.getMinutes()
+
+
+
+Timers - 
+    const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after 5 seconds/5000 miliseconds, as 1 sec = 1000 mili
+    clearTimeout(timer)                                             // abort the callback of timer
+
+    const intervalTimer = setInterval(function, 5*1000, arg1, arg2) // calls function with arguments after every 5 seconds/5000 miliseconds again and again
+    clearInterval(timer)
+
+
+
 ** Parsing - Type conversion (explicit with functions)
-        parseInt("34")      Number("34")        "34".toString()         returns 34
+        parseInt(" 34$ ")     Number("34")                              returns 34      // parceInt argument should be starting with number
         parseInt("f")       Number("f")                                 returns NaN 
+        parseFloat(" 34rem ")                                           returns 34
         String(12)                                                      returns "12"
+        12.toString()                                                   returns "12"
+        5.toString(2)                                                   returns "101"
         Boolean("0")                                                    returns true
         Boolean(0)                                                      returns false
 
@@ -436,6 +553,27 @@ Statement vs Expression:
                 e.g. x = 5 + "7"     "57"
                     x = 5 - "7"     -2
                     x = 5 * "7"     35
+
+
+
+**Destructuring Operator - short form to assign object property values to the variable
+        [y, x] = [x, y]             // swapping values of two variable
+
+        const arr = [1, 2, [3, 4]];
+        const [x, , y=0, z=0] = arr;        // x=1, y=[3, 4], z=0       // with default value
+        const [x, , [y, z]]                 // x=1, y=3, z=4
+
+        obj = { 
+            property1 : {
+                property11 : value11,
+                property22 : value22
+            },
+            property2 : value2
+        }
+        const { property2 } = obj;                                                      // property2 = value2
+        ({ property2 } = obj)                                                           // property2 = value2
+        const { property2 : x=[], property1 : {property11 : y, property22} } = obj;     // x = value2, y = value11, property22 = value22
+        const { property3 : z=[] }                                                      // z = []           // with default value
 
 
 
@@ -461,6 +599,7 @@ Statement vs Expression:
 
 O/P-I/P
     console.log(`outputs to console`)
+    console.dir(r)
     console.warn()              
     console.error()                 
     console.table(object)                       // gives key-value rows in table on console
@@ -505,21 +644,24 @@ O/P-I/P
         FOR
             for(var i;i<=10;i++) {}
 
-        FOR Arrays 
-            forEach                                             // changes done in temporary copy of arr
-                arr.forEach(function(i){console.log(i+2)})               // anonymous function - function without name
+        FOR OF 
+            for(const i of arr) console.log(i);
+            for(const [index, item] of arr.entries()) console.log(`${index + 1} : ${item}`);         // object is first converted in map using entries method 
 
-            for-of
-                for(const i of arr) console.log(i);
-                for(const [index, item] of arr.entries()) console.log(`${index + 1} : ${item}`);            // object is first converted in map using entries method 
-            
-            for-in
-                for(const i in arr) console.log(arr[i]);
+        FOR IN
+            for(const i in arr) console.log(arr[i]);                        // array
+            for(const key in obj){ console.log(`${key} : ${obj[key]}); }      // object
 
-        FOR objects
-            for-in
-                for(let key in obj){ console.log(`${key} : ${obj[key]}); }
+        FOR EACH Method
+            - changes done in temporary copy 
+            - break/continue can't be used
 
+            arr.forEach(function(item, index, a){console.log(`${item}, ${index}, {$a}`)})                                   // array
+            map.forEach(function(value, key, map){console.log(`${key}, ${value}, {$map}`)})                                 // map
+            set.forEach(function(item, _, set){console.log(`${item}, {$set}`)})                                             // set
+            new Map(Object.entries(obj)).forEach(function(value, key, objMap){console.log(`${key} : ${value} ${objMap}`)})  // object
+            nodelist.forEach(function(item, index, a){console.log(`${item}, ${index}, {$a}`)})                              // nodelist
+       
         WHILE
             while() {}
 
@@ -532,12 +674,15 @@ O/P-I/P
 
 
 **Functions - Block Scoped in 'use strict' mode
+            - Function are just another type of object, function has properties and methods i.e. functionName.name 
+            - 'call', 'apply' & 'bind' method can be called on function, i.e. functionName.bind()
+
         Function statement/declaration - way of creating a function
                 function funcName(parameters, a=10, b=a+1) {}           // default parameter            
                                                     
                 funcName(arguments, undefined, 100);  // a=1, b=100     // can be called before declaration of function because of hoisting
 
-        Rest operator(...) - for variable number of arguments 
+        Rest operator(...) - for variable number of arguments in form of array
                 function funcName(...args) {            // if, x = [1,2,3]   then, ...x = 1, 2, 3   and [ , ...x] = [2, 3]
                     return args.reduce((a,b) => a+b, 0)
                 }
@@ -563,15 +708,18 @@ O/P-I/P
                 y();                // gives reference error
 
         Arrow Function - function behaving like a variable, short form for the function definition | 
-                            doesn't get argument object and 'this' keyword in their execution context, rather they can use this functionality from their closest regular function parents 'this' keyword
+                            doesn't get argument object and 'this' keyword in their execution context, rather they can use this functionality 
+                                                        from their closest normal function parents 'this' keyword
                 const gerName = (arg1, arg2) => { }           // const gerNmae = function() {}
                 const x = arg => { }
 
         Anonymous Function - function without name. can have multiple arguments, but only one expression
             
-                function() {}           // gives syntax error
+                function() {}           // gives syntax error to fix the error
+                (function() {})         // function conerted into expression
+                (function() {})()       // when defined this function expression is executed only once
 
-                var greet = function (parameters){                                  //using function expression
+                var greet = function (parameters){            //using function expression; same as greet = (function(p){})
 		            console.log(`Welcome to ${parameters}`);        // parameters is function scoped variable
 	            }
 
@@ -580,8 +728,10 @@ O/P-I/P
                 greet();            // as we have only one expression in function so we can ignore the {}
                                     // function call, gives error when called before creation as var greet is hoisted and assigned with Undefined
 
-        Self Executing Function -
-            (function (parameters){                                                 //using function expression
+        Self Executing Function/ Immediately Invoked Function - done by converting function into expression then invoking() it
+            - Only executed once
+            
+            (function (parameters){                                                 // converting function into expression
                 console.log(`Welcome to ${platform}`);
             })();
             
@@ -589,19 +739,27 @@ O/P-I/P
                 console.log("GeeksforGeeks"); 
             })();
 
-        First class function/citizen - ability to use function as arguments, parameter or returning values for the function
-                fuction x(z){                   taking parameter as a function
-                    var a = 7;
-                    z();
-                    return function {           returning anonymous function from function x
-                        console.log(a);
-                    }
-                }
-                function y(){ }
-                var r = x(function z(){ });     |
-                var s = x(y)                    |passing function as argument            
+        First class function/citizen 
+                - ability to use function as arguments, parameter or returning values for the function
 
-        callback function
+        Higher Order Function - function that receives another function(callback function) as argument that returns a new function(returned function)
+                              - only possible because of first-class functions
+                eg.              
+                    function x(z){                // taking parameter as a function; x is higher order function
+                        var a = 7;
+                        z();
+                        return function {        // returning anonymous function from function x; this anonymous function is returned function
+                            console.log(a);
+                        }
+                    }
+                    function y(){ }
+                    var r = x(function z(){ });     |
+                    var s = x(y)                    |passing function as argument
+                    var t = addEventListener("click", function(e){})        // t is Higher Order function and argument function is CallBack function
+
+                map, filter, reduce, addEventListener, parent function in closures 
+
+        Callback function
             setTimeout(function(){}, 2000)      // calls callback fuction after 2000 miliseconds(2 sec)
                         eg. function x() {                  // this function will print 1 after 1 second, 2 after 2 seconds and so on till 5
                                 for(let i = 1; i <= 5; i++) {
@@ -612,21 +770,41 @@ O/P-I/P
                             }
                             x();
 
+        Function Methods - call, apply & bind
+            call - to manipulate/modify 'this' value for that function call
+                const funcName = obj.fn;         // gives copy of fn() inside of obj to external function(funcName)
+                funcName(args);                  // defaultly function call assignes 'this' === undefined (in "use strict")
+                funcName.call(objName, args)     // for this function call with 'this' === objName
+
+            apply - to manipulate/modify 'this' value for that function call
+                funcName.apply(objName, [args])         // for this function call with 'this' === objName
+
+            bind - returns new function with 'this' value for function, and set it as arguments
+                newFunc = funcName.bind(objName, value)     // newFunc.this === objName
+                newFunc = funcName.bind(null, value)     // first argument already set(partial application) to value for returned function
+                newFunc(arg1)                               // every function call assignes 'this' === objName and arg1 === value   
+
+                document.querySelector('.btn').addEventListener('click', fn)                // defaultly, 'this' === <button class="btn"></button>
+                document.querySelector('.btn').addEventListener('click', fn.bind(obj))      // for returned fun, 'this' === obj
 
 
-**CLOSURES -        Function y() along with its lexical scope x() bundles together forms a closure
 
-            function x(){
+**CLOSURES -    Closed-over variable environment(including parameters) of EC in which a function was created 
+                        even after that EC is gone or enclosing function has returned
+                closure variables takes priority against global variables
+                Not accessible outside(Encapsulation)
+
+            function x(){       
                 var a = 7;
                 function y(){
                     console.log(a);
                 }
                 y();
                 return y;
-            }
-            var r = x();       because to closure(x), even after x() is vanished, closure still remembers it for y()
+            }             // Function y() along with its lexical scope(variables/parameters) x() bundles together forms a closure
+            var r = x();      // because to closure(x), even after x() is vanished, closure still remembers it for y()
             r();                / will give output as "> 7" 
-
+            console.dir(r)
 
         Uses of Closures
             - Module design pattern
@@ -649,46 +827,193 @@ O/P-I/P
 
 
 
-**TO access/manipulate DOM - ability to change HTML text, attributes or CSS styles
-    'document' is special object given by web api(browser implimented libraries written in js) that accessed using js
-    
+**TO access/manipulate DOM - ability to change HTML text, attributes or CSS styles as well as listen and respond to events
+    - DOM is very complex API that contain lots of methods(.querySelector(), addEventListener()) and properties(.innerHTML, .textContent) to interact with DOM tree
+
+    +--------------------------------------------------------------------------------------------------------------------+    Example of DOM tree for <a>
+    | DOM API                                       +------+    (js object with properties; .textContent,                |          document        |<html>
+    |                                               | Node | <-    .childNodes, .parentNode, .cloneNode() )              |              |           |    <body>
+    |                    +--------------+-----------+------+----------+-----------------+                                |            <html>        |        <p>
+    |                    ⬇              ⬇             ⬇               ⬇                 ⬇                                |              |           |            <a>click</a>
+    |(inherits all   +-------+       +----+       +-------+       +--------+      +------------+                         |            <body>        |        </p>
+    |properties of → |Element|       |Text|       |Comment|       |Document|      |Event Target| ← (.addEventListener()  |              |           |    </body>
+    |  parent)       +-------+       +----+       +-------+       +--------+      +------------+  .removeEventListener())|             <p>          |</html>
+    | eg. .innerHTML <p>,<Button>,   Paragraph   <!--comment-->                         ⬆                                |              |   
+    |                 <a>, <div>                                                     +------+                            |             <a>
+    |                                                                                |Window|   (Global Object, lots of  |
+    |                                                                                +------+    methods and properties) |                                                                                                                       
+    +--------------------------------------------------------------------------------------------------------------------+
+        - 'document' is (1st most/root)node of DOM tree given by web api(browser implemented libraries written in js) that accessed using js
+
+    DOM Events Lifecycle - from the moment webpage first accessed until the user leaves it  
+        1. 'DOMContentLoaded' event - fired on document as soon as HTML+JS fetched and conveted into DOM tree finished(excluding img and other external content)
+            document.addEventListener('DOMContentLoaded', e => 'HTML parsed and DOM tree built!')
+
+        2. 'load' event - fired on window after all the elements(including img, css and other external content) on webpage are loaded completely
+            document.addEventListener('load', e => 'Webpage fully loaded!')
+
+        3. 'beforeunload' event- fired on window just before user is leaving webpage
+            document.addEventListener('beforeunload', function(e){
+                e.preventDefault();
+                e.returnValue = ''          // previously we can give custom messages for leaving conformation(now we have generic message)
+            })
+
     - Selecting and Manipulating web content -
 
-        document.getElementById('idName')                   // acess the matching first item
-        document.getElementByClassName('className')         
-        document.getElementByTagName('p')
+        1. document.getElementById('idName')                   // access the matching first item
+        2. document.getElementsByClassName('className')        // returns HTMLColletion, also called as LiveCollection
+        3. document.getElementsByTagName('p')                  // returns HTMLColletion, as html dom changes this collection items changes
 
-        document.querySelector('cssSelector')       // console.log(document.querySelector(".my-name").textContent);  // only selects first matched element
-        document.querySelectorAll('cssSelector')
+        4. document.querySelector('cssSelector')       // console.log(document.querySelector(".my-name").textContent);  // only selects first matched element
+        5. document.querySelectorAll('cssSelector')    // returns nodelist, doesn't have methods like map()/reduce(). array methods on can be used. Selects all child and deeper elements from the 'document'
+                                                            we can convert nodelist(any array like structure) to arrays using Array.from() or [...document.querySelectorAll('cssSelector')]
+                eg. console.log(document.querySelector(".my-name").textContent);
+                    document.querySelector(".my-name").textContent = `This is text from any tag except input`;
 
-            eg. console.log(document.querySelector(".my-name").textContent);
-                document.querySelector(".my-name").textContent = `This is text from any tag except input`;
+                    console.log(document.querySelector(".my-name").value);      // for input element
+                    document.querySelector(".my-name").value
 
-                console.log(document.querySelector(".my-name").value);      // for input element
-                document.querySelector(".my-name").value
 
-    - Handling Events
-        document.querySelector('.btnCheck').addEventListener('click', function(){ })        // eventHandlerFunction()
-
-    - Changing CSS(appling inline styles)
-        document.querySelector('.btnCheck').width = '20rem';        // property value should be string including unit
-        document.querySelector('body').backgroundColor = 'red';     // in css we use background-color but in js we use camelCase 
-    
-    - Manpulating classes of HTML elements
-        document.querySelector('p').classList.remove('className');  
+    - Adding/Removing HTML elements
+        document.querySelector('p').innerHTML = '';             // removing the inner html of selected <p>
+        html = `<p> My name is ${name} </p>`
+        document.querySelector('p').insertAdjacentHTML('afterBegin', html)            
+                                                        <!-- 'beforebegin' -->
+                                                            <p>
+                                                                <!-- 'afterbegin' -->
+                                                                foo
+                                                                <!-- 'beforeend' -->
+                                                            </p>
+                                                        <!-- 'afterend' -->
         
-        let p = document.querySelectorAll('p')              // gives the array of all p elements
-        for(let i=0;i < p.length; i++){
-            p[i].classList.add('className');
-            p[i].addEventListener('click);
-        }      
+        document.querySelector('.header').prepend(document.createElement('div').innerHTML('here is buttn <button>Button</button>'))
+                                                        <!-- '.before()' -->
+                                                            <p class='header'>
+                                                                <!-- '.prepend()' -->
+                                                                foo
+                                                                <!-- '.append()' -->
+                                                            </p>
+                                                        <!-- '.after()' -->
+
+
+    - Traversing DOM elements
+        - child
+            const section = document.querySelector('.section')  // gives first child element node of section no mater how deep-child its on DOM tree
+            section.querySelectorAll('.imp')                    // gives nodelist of all matched('.imp') child and deeper child nodes of the section
+            section.childNodes                                  // gives nodelist of all direct child nodes(span, text, comment, br, etc.) of the section 
+            section.children                                    // gives live HTMLColletion of only html element nodes(span, br) which are direct child of the section
+        
+        - parent
+            section.parentNode                                  // gives direct parent node of the section
+            section.parentElement                               // gives direct parent element node of the section
+            section.closest('.header')                          // gives closest parent element node of section no matter how far-up parent it's on DOM tree
+            section.closest('.section')                         // gives section itself as, section = document.querySelector('.section')
+        
+        - sibling(only access direct siblings - only consecutive prev and next node)
+            section.previousSibling                             // gives direct sibling node that is previous of section, otherwise null
+            section.previousElementSibling                      // gives direct sibling element node that is previous of section, otherwise null
+            section.nextSibling                                 // gives direct sibling node that is next of section, otherwise null
+            section.nextElementSibling                          // gives direct sibling element node that is next of section, otherwise null
+
+
+    - Changing CSS(applies inline styles)
+        document.querySelector('.btnCheck').style.width = '20rem';        // property value should be string including unit
+        document.querySelector('body').style.backgroundColor = 'red';     // in css we use background-color but in js we use camelCase 
+        
+        - to get defined/browser computed styles from webpage
+            getComputedStyle(document.querySelector('body'))    => returns object which contains all the styles(defined in style.css / computed by browser)
+        
+        - to modify CSS Custom properties(variables)
+            document.documentElement.style.setProperty('--color-primary', '#34e572')
+                        :root{                  // css variables defined on root, accessible throughout all document
+                            --color-primary: #4e5678;
+                            --color-secondary: #34e572;
+                        }
     
+
+    - Manpulating classes of HTML element attributes
+        - standard attributes (must have in HTML defined properties)
+            document.querySelector('.nav_logo').className   => nav_logo                             | // js will create standard 
+            document.querySelector('.nav_logo').src         => http://127.0.0.1:8080/img/logo.png   |  attributes as properties of
+            document.querySelector('.nav_logo').alt         => Logo For Navbar                      |  object obj.src, obj.alt, etc.
+            document.querySelector('.nav_logo').getAttribute('src')             => img/logo.png
+            document.querySelector('.nav_logo').getAttribute('myAttribute')     => my custom defined value for attribute
+        
+        - non-standard attributes (custom/user-defined attributes)
+            document.querySelector('.nav_logo').alt = 'Logo For Navbar'                     
+            document.querySelector('.nav_logo').setAttribute('myAttribute', 'my custom defined value for attribute')  
+
+        - data attributes (special attributes stored in dataset object)
+            document.querySelector('.nav_logo').dataset.versionNumber   => 3.0        // <img data-version-number="3.0"/>
+
+        - class
+            document.querySelector('.nav_logo').className = 'className'    
+                // don't use above as it overwrites all present classes and set to only one className
+            document.querySelector('p').classList.add('className1', 'className2', 'className3');  
+            document.querySelector('p').classList.remove('className1', 'className2', 'className3');  
+            document.querySelector('p').classList.replace('className1', 'className2');  
+            document.querySelector('p').classList.toggle('className1', i < 10);  
+            document.querySelector('p').classList.contains('className1');               => true/false
+
+            let p = document.querySelectorAll('p')              // gives the array of all p elements
+            for(let i=0;i < p.length; i++){
+                p[i].classList.add('className');
+                p[i].addEventListener('click);
+            } 
+
+
+    - Manpulating Viewport/browser window
+        document.documentElement.clientHeight           // current height of viewport(brouwser window) in pixels
+        document.documentElement.clientWidth            // current width of viewport(brouwser window) in pixels
+        x = window.pageXOffset                          // current horizontal scroll location in pixels
+        y = window.pageYOffset                          // current vertical scroll location in pixels
+        
+        s1 = document.querySelector('.section1').getBoundingClientRect()               // returns dom rectangle object(position, width, height,..,etc.) 
+        window.scrollTo({left: s1.left + x, top: s1.top + y, behavior: "smooth"})      // left and top will be relative to current viewport, in pixels
+        document.querySelector('.section1').scrollIntoView({behavior:"smooth"})      
+    
+    
+    - Handling Events (Event is a signal that is generated by dom node and is generated on document(root node))
+        Event happens in 3 stages
+            1. Capturing phase  - event goint from root/prarent(document) elements to target element(on which event listener is attached)
+            2. Target phase     - event listning and handled(via event handler fnc) from target element(on which event listener is attached)
+            3. Bubbling phase   - after event handler function execution, event again goes to root/prarent(document) element, executing handler of parent element(if listener attached)
+
+            Note - defaultly addEventListener() catches event in Bubbling phase.
+                 - After target element bubbling can be stopped(event can't be handled by parent elements of target element) using; e.stopPropagation();
+                 - to catch event in Capturing phase we can use 3rd argument; addEventListener('click', func, true) 
+                 - Event Delegation : attach an event listener to a parent element(using event.target) instead of directly to each child element.
+                                    : Event Delegation relies on event bubbling
+
+        const aEventHandlerFnc = (e)=>{}
+        a.addEventListener('click', aEventHandlerFnc)       // multiple event handler function can be executed(i.e. a.addEventListener('click', aEventHandlerFnc1), a.addEventListener('click', aEventHandlerFnc2)) // both event handler function will be executed
+        a.onClick = aEventHandlerFnc                        // for direct assignment of eventlistener(old), only lastly assigned Event Handler function is executed(i.e. a.addEventListener('click', aEventHandlerFnc1), a.addEventListener('click', aEventHandlerFnc2)) // only aEventHandlerFnc2 is executed     
+        <a onclick="aEventHandlerFnc()">Click Here</a>      // html event handler
+
+        a.removeEventListener('click', aEventHandlerFnc) 
+
+        document.querySelector('.btnCheck').addEventListener('click', function(e){ e.preventDefault() })  // eventHandlerFunction(e)
+            this === e.currentTarget     // both returns the target element(on which event listener is attached)
+            e.target                     // returns the element on which the event is occurred
+
+        Passing 'argument'/changing 'this' keyword value for handler function
+            document.querySelector('.btn').addEventListener('click', fn)                // defaultly, 'this' === <button class="btn"></button>
+            document.querySelector('.btn').addEventListener('click', fn.bind(obj))      // for returned fun, 'this' === obj
+
+        Intersection Observer API(observe changes of target element intersecting element/viewport)
+            const observer = new IntersectionObserver((entries, observer)=>{}, {root: null, threshold: [0,0.1,1], rootMargin:'150px'});    
+                                // (entries, observer)=>{observer.unobserve.entry[0].target}
+                                // root = element/viewport(null) wrt which target-element is being observed.
+                                // threshold = area of root(viewport/element) intersection in % wrt which target-element is being observed
+                                                for threshold list, event will trigger at every value from list(as target gets that % area on viewport/element intercepted)
+                                // rootMargin = margin to the threshold string value in pixel
+            observer.observe(document.querySelector('.section1'))       // target element
+
+
     - Handling keyboard events  // global event(should be called on document)
         document.addEventListener('keydown', function(event){       // addEventListener gives the event object which can be used in event handler function
-            if (event.key === 'Enter'){                             // event object will have key property which stores the value of key pressed from the keyboard
-                
-            }
-        });
+            if (event.key === 'Enter'){}                            // event object will have key property which stores the value of key pressed from the keyboard
+        });                                 // 'leftArrow', 'Enter', 'Enter'
 
 
 
@@ -699,20 +1024,6 @@ O/P-I/P
         } catch(exception){
             console.log(exception)
         }
-
-
-
-**Higher Order Function
-  
-    map, filter, reduce
-
-        let arr = [2, 5.4, -9.5, 3, 8.34, 12];
-        
-        const sqInt = arr.filter(num => Number.isInteger(num) && num > 0)
-                         .map(x => x*x);
-        
-        args = [1,2,3]
-        sum = args.reduce((a,b) => a+b, 0)          // sum = 6
 
 
 

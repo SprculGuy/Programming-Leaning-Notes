@@ -5,16 +5,64 @@ cd D:\Anynomus\Documents\Programming\Python
 cls 			> clears cmd screen
 
 **ShortCuts--
+    General Shortcuts-->
+        Ctrl + C                        > Copy
+        Ctrl + X                        > Cut
+        Ctrl + V                        > Paste
+        Ctrl + Z                        > Undo
+        Ctrl + Y                        > Redo
+        Ctrl + A                        > Select all
+        Ctrl + S                        > Save
+        Ctrl + P                        > Print
+        Ctrl + F                        > Find
+        Ctrl + N                        > New window/document
+        Ctrl + O                        > Open
 
-		win + I                         > Open Setting
-		F11                             > Toggle between full screen and exit full screen
-		F6                              > Cycle through browser elements(search bar/tabs/web page/Favorites bar/Certain popup dialogs)
-		F7                              > Toggle caret browsing(navigate with only using keyboard) on or off
+    System Shortcuts-->
+        Win + D                         > Show/Hide desktop
+        Win + E                         > Open File Explorer
+        Win + L                         > Lock your PC
+        Win + M                         > Minimize all windows
+        Win + Shift + M                 > Restore minimized windows
+        Win + R                         > Open Run dialog
+        Win + I                         > Open Settings
+        Win + A                         > Open Action Center
+        Win + S                         > Open Search
+        Win + X                         > Open Quick Link menu
+
+    Windows/Programs-->
+        Alt + tab                       > Switch between open apps
+        Alt + F4                        > Close the active window
+        Win + tab                       > Open Task View
+        Win + Arrow Keystab             > Snap windows to sides/corners
+        Win + Shift + Arrow Keystab     > Move windows between monitors
+
+    Taskbar-->
+        Win + (1-9)                     > Open the app pinned to the taskbar in the position indicated by the number
+        Shift + Click (on taskbar icon) > Open a new instance of the app
+
+    Virtual Desktops-->
+        Win + Ctrl + D                  > Add a new virtual desktop
+        Win + Ctrl + Left/Right Arrow   > Switch between virtual desktops
+        Win + Ctrl + F4                 > Close the current virtual desktop
+
+    Miscellaneous-->
+        F6                              > Cycle through browser elements(search bar/tabs/web page/Favorites bar/Certain popup dialogs)
+        F7                              > Toggle caret browsing(navigate with only using keyboard) on or off
+        F2                              > Rename selected item
+        F5                              > Refresh the active window
+        F11                             > Toggle full-screen mode
 		Tab                             > Move focus to the next item
 		Shift + Tab                     > Move focus to the previous item
 		Alt + Left arrow                > Go back
 		Alt + Right arrow               > Go forward
 		win + v                         > clipboard + emoji + symbols
+
+    Command Prompt-->
+        Ctrl + Shift + N: Create a new folder
+        Ctrl + Shift + Enter: Run as administrator
+        Ctrl + C: Abort current command
+        Up/Down Arrow: Cycle through command history
 
 	Browser-->
 		Ctrl + T                        > Open a new tab and switch to it
@@ -33,16 +81,16 @@ cls 			> clears cmd screen
 
 
 **Softwares--
-HWiNFO64		>gives all syste/sensors details for hardware components
-
+    HWiNFO64		> gives all syste/sensors details for hardware components
 
 
 **File Related
-	cd -							>change directory to specified path after keyword
-	dir -							>list out the all files in current working directory
+	cd 							    > change directory to specified path after keyword
+	dir 							> list out the all files in current working directory
+
 
 **Check Python version
 	python --version
-	
 
-	
+
+

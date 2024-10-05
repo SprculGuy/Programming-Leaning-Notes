@@ -8,7 +8,7 @@
 		- Used for analysis of runtime according to the input size...
 		- We can't define runtime in seconds because, for variable proccessing power of every individual...
 	
-	1] Big O
+	[1] Big O
 			f(n)=O(g(n)) 	if f(n) <= c.g(n)
 
 			O(n^0) = O(1)	   	▲		
@@ -21,10 +21,10 @@
 			O(n^n)				|
 			O(n!)				|
 
-	2] Big ʊ
+	[2] Big ʊ
 			f(n)=ʊ(g(n)) 	if f(n) >= c.g(n)
 
-	3] Big ʘ
+	[3] Big ʘ
 			f(n)=ʘ(g(n)) 	if c₁.g(n) <= f(n) <= c₂.g(n)
 
 properties->
@@ -74,6 +74,7 @@ properties->
 				third->prev = second;	
 				third->data = 3;	
 				third->next = NULL;	
+
 
 
 ** Searching Techniques

@@ -14,18 +14,18 @@
       }
     </style>
 
-    <script type="module" src="js/hello-world-alert.js" async> alert("Hi") </script>    <!-- only the external js code will be exicuted, internal js will be ignored -->
+    <script type="module" src="js/hello-world-alert.js" defer> alert("Hi") </script>    <!-- only the external js code will be exicuted, internal js will be ignored -->
                         <!--default - js loads and exicuted in priority by halting the document(html/css) loading. -->
                         <!--async - js loads parallel to document and exicuted after loading by halting the document loading. -->
     <script defer>      //  defer - js loads parallel to document but exicuted only after loading of document is finished.
-        alert("Hi")
+        const hi = () => {alert("Hi")};
     </script>
 
     <title>Hello, world!</title>
   </head>
 
   <body>    
-    <h1>H1 Heading</h1>
+    <h1 onclick="hi()">H1 Heading</h1>
     <h2>H2 Heading</h2>
     <h5>H5 Heading</h5>
     <h6>H6 Heading</h6>

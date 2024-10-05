@@ -168,10 +168,10 @@ Types to apply CSS/styles to webpage-
 
 
 
-**Variables -
-            :root {  /* accessible in whole project */      body {  
-                --BGCOLOR: black;                               background-color: var(--BGCOLOR);
-            }                                               }
+**Custom properties (Variables) -
+            :root {  /* accessible in whole project */     used as ->   body {  
+                --BGCOLOR: black;                                           background-color: var(--BGCOLOR);
+            }                                                           }
 
 
 

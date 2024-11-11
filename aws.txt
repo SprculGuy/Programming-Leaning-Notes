@@ -316,8 +316,8 @@ AWS Services
                     Cross-Account -> Bucket Policy
                 
             Versioning 
-                - for object but enabled at bucket level
+                - for object but enabled at Bucket-Level
                 - Easy rollback and avoid unintended deletion
-                - Files prior to enabling versioning we have version 'null'
-                - Suspending versioning doesn't delete previous versions
+                - Files prior to enabling versioning will have version 'null'
+                - Suspending(turning off) versioning doesn't delete previous versions
                 

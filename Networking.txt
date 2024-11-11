@@ -1,3 +1,33 @@
+https://github.com/sprculguy/programming.git
+    https or http               -> Protocol 
+    github.com                  -> domain name
+    sprculguy/programming.git   -> resourse
+
+
+
+Steps for any host request to the server
+    1. DNS lookup
+        - checks for server address using domain name. i.e. https://github.com/sprculguy/programming.git  >>  https://123.123.123.123:443/sprculguy/programming.git
+    2. TCS/IP socket connection establishment between host and server
+        - Breaks data into packets, which are then routed to the destination and reassembled. 
+        - TCP is responsible for reliable data delivery, while IP handles addressing and routing the packets 
+    3. HTTP request
+        http request example -
+            GET /sprculguy/programming.git HTTP/1.1     | -> start line: HTTP method + request target + HTTP version
+            Host: www.google.com                        |
+            User-Agent: Mozilla/5.0                     | -> HTTP request headers
+            Accept-Language: en-US                      |
+            <BODY>                                      | -> Request body(only when sending data to the server.e.g. HTTP method POST)
+    4. HTTP response
+        http response example -
+            HTTP/1.1 200 OK                             | -> start line: HTTP version + status code + status message
+            Date: Fri, 18 Jan 2021                      |
+            Content-Type: text/html                     | -> HTTP response headers
+            Transfer-Encoding: chunked                  |
+            <BODY>                                      | -> Response body
+
+
+
 Hosts 
     - Any devices that sends & receives trffic; eg. client, server.
     - Any Host needs 4 things for Internet connectivity
@@ -18,6 +48,11 @@ Protocols
 
 
 
+DNS(Domain Name Server)
+    - special kind of Server with stored domain name and address mapping
+
+
+
 HTTP Web Server Request Methods
     GET         Read data
     DELETE      Delete data
@@ -27,6 +62,12 @@ HTTP Web Server Request Methods
     HEAD        Inspect resource headers
     TRACE       Echo back received message
     Options     Server Capabilities
+
+
+
+CORS(Cross-Origin Resource Sharing) - Security mechanism that allows web applications to access resources from other domains
+    - CORS defines a way for client web applications that are loaded in one domain to interact with resources in a different domain.
+    - CORS allows the client browser to check with the third-party servers if the request is authorized before any data transfers.
 
 
 

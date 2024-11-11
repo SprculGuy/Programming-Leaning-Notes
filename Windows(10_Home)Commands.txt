@@ -67,6 +67,7 @@ cls 			> clears cmd screen
 	Browser-->
 		Ctrl + T                        > Open a new tab and switch to it
 		Ctrl + Shift + T                > Reopen the last closed tab, and switch to it
+        Ctrl + Shift + R                > Forced refresh
 		Ctrl + Tab                      > Switch to the next tab
 		Ctrl + 1,2,3...                 > Switch to a specific tab
 		Ctrl + Shift + Tab              > Switch to the previous tab

@@ -15,7 +15,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             multi paradigm (can be imperative or declarative paradigm) - supports procedural/function/object-oriented paradigm
             Synchronous
             Single threaded
-            Prototyped based oopl(has no class, object is created from another object)
+            Prototyped based oopl(has no class, object is inherited from another object(prototype object))
             dynamically typed
 
             First-class function(function can be treated as variable) 
@@ -58,15 +58,24 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             <script src="js/script.js"></script>            // scripts fetched and executed in priority by halting the document(html/css) loading. i.e why should be used at the end of Body tag/element
 
         or  <script defer src="js/script.js"></script>      // scripts are fetched parallel to document but executed only after loading of document is finished. 
-                                                            // 'DOMContentLoaded' event only fires after script execution(even if document fetched completely before script fethed/executed), 
+                                                            // 'DOMContentLoaded' event only fires after script execution(even if document fetched completely before script fetched/executed), 
                                                             // scripts are executed in order they are declared in code
 
         or  <script async src="js/hello-world-alert.js"> alert("Hi") </script>      // only the external js code will be executed, internal js will be ignored
                                                             // scripts fetched parallel to document and executed after fetched by halting the document loading. 
-                                                            // 'DOMContentLoaded' event fires as soon as document fetched completely(even if script fethed/execution is not complete)
-                                                            // scripts not guaranteed to execute in order they are declared in code, scripts gets executed in the oreder it fetched
+                                                            // 'DOMContentLoaded' event fires as soon as document fetched completely(even if script fetched/execution is not complete)
+                                                            // scripts not guaranteed to execute in order they are declared in code, scripts gets executed in the order it is fetched
 
             <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
+
+
+    Note - in case of multiple script imports in html
+            i.e.    <script defer src="js/script1.js"></script>
+                    <script defer src="js/script2.js"></script>
+
+                All the global attributes inside "script1.js" will be accessible in "script2.js" as "script2.js" is imported after "script1.js"
+                Attributes(Global) inside "script2.js" will not be accessible in "script1.js" as "script1.js" is imported before "script2.js"
+
 
 
 
@@ -118,16 +127,19 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
     | +---------------------------+   +---------------------------------------+ |
     | |         JS Engine         |   |              Web APIs                 | |       - Web APIs is the functionalities provided to the JS engine accessible on windows object  
     | |                           |   |  +---+   +------+   +---------+       | |       - Web APIs are not the part of JS language, but the part of JS Runtime
-    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |Fetch API|  ...  | |
+    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |Fetch API|  ...  | |       - All Asynchronous tasks are executed in Web APIs environment
     | | |          | |          | |   |  +---+   +------+   +---------+       | |
     | | |          | |  CALL    | |   +---------------------------------------+ |
     | | |   HEAP   | |  STACK   | |                                             |
-    | | |       *  | |          | |      +---------------------------------+    |
-    | | | *        | | __F2EC__ | |      |            Callback Queue       |    |       - Callback queue is a data structure that contains all the callback functions that are ready to be executed
-    | | |    *  *  | | __F1EC__ | |      |  +-----+  +-----+  +----+       |    |          example; eventHandlerFunction - callback function from DOM event listener
-    | | |  *   *   | | __GEC___ | |      |  |click|  |timer|  |data|  ...  |    |                      as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
-    | | +----------+ +----------+ |      |  +-----+  +-----+  +----+       |    |                      then when the call stack is empty the callback queued function passed to call stack for execution, this happens using 'Event Loop'
-    | +---------------------------+      +---------------------------------+    |
+    | | |          | |          | |       +---------------------------------+   |       - Microtasks Queue Like callback queue, but for callbacks related to promises and has priority over callback queue!
+    | | |          | |          |↗------↘ |        Microtasks Queue         |   |           e.g. fetch("https://github.com/sprculguy/programming.git").then(response => response)  
+    | | |          | |          |  Event  +---------------------------------+   |                   // (response => response) is callback function related to promise  
+    | | |       *  | |          |  loop   +---------------------------------+   |
+    | | | *        | | __F2EC__ |↖------↙ |      Callback Queue             |   |       - Callback queue is a data structure that contains all the callback functions that are ready to be executed
+    | | |    *  *  | | __F1EC__ | |       |  +-----+  +-----+  +----+       |   |          example; eventHandlerFunction - callback function from DOM event listener
+    | | |  *   *   | | __GEC___ | |       |  |click|  |timer|  |data|  ...  |   |              as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
+    | | +----------+ +----------+ |       |  +-----+  +-----+  +----+       |   |              then when the call stack is empty the callback queued function passed to call stack by 'Event Loop' for execution
+    | +---------------------------+       +---------------------------------+   |
     |                                                                           |
     +---------------------------------------------------------------------------+
 
@@ -161,7 +173,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
                             - arrow functions -> doesn't get argument object and 'this' keyword in their execution context rather they can use this functionality from their closest normal function parent
                                         'this' = <this of parent scope (lexical 'this')>
                             - eventHandlerFunction() -> 'this' = <DOM element that event is attached to>
-                            - new, call, apply, bind -> 'this' = _____
+                            - 'new', 'call', 'apply', 'bind' -> 'this' = _____
 
 
 
@@ -190,7 +202,7 @@ Statement vs Expression:
         |{key: value...}                    							|	object display
 
         |x[index],                              					    |	Subscription,
-        |x(arguments...), x.attribute								    |	call, attribute reference
+        |x(arguments...), x.attribute								    |	fn call, attribute reference
 
         |x++, x--													    |	pre-increment, pre-decrement
         |++x, --x													    |	post-increment, post-decrement
@@ -223,7 +235,7 @@ Statement vs Expression:
         | ...                                                           |   Spread operator(seperate away - used RHS of '=')(for iterables(string, arrays, maps, sets) but NOT OBJECTS) eg. ...arr
         |                                                                       // x = [1,2,3]  then, ...x = 1, 2, 3 and [1, ...x] = [1, 2, 3]
         |                                                                       // s = "Ank"    then, ...s = 'A', 'n', 'k' and [...s] = ['A', 'n', 'k']
-        |                                                                   Rest Operator(groups together - used LHS of '=') eg. function(...args){}    // args = [parameters seperated by commas]
+        |                                                                   Rest Operator(groups together - used LHS of '=') eg. function(...args){}    // args = [parameters separated by commas]
         |                                                                       // x = [1,2,3,4]  then, const [a, ,...remaining] = x; a=1, remaining=[3,4] 
         |                                                                       // obj = {'mon':1,'tue':2,'wed':3}      then, const {mon, ...otherDays} = obj; mon=1, otherDays = {'tue':2,'wed':3}
         | ` Hi my name is ${name},                                      |   Template Literal - Multiline + Formatted string
@@ -238,8 +250,8 @@ Statement vs Expression:
 
 
 ** DATA SOURCES --
-        1. Source Code  - written in source code (eg. status messages)
-        2. UI           - user input from DOM (eg. tasks from TODO, etc.)
+        1. Source Code  - written in source code (e.g. status messages)
+        2. UI           - user input from DOM (e.g. tasks from TODO, etc.)
         3. Web API      - data fetched from web API (e.g. whether data, data about movies, currency conversion rates, etc.) // generally in JSON
         
         JS has total of 6 built-in data structures,
@@ -297,7 +309,7 @@ Statement vs Expression:
             - all numbers are represented as floating point numbers internally in 64 bit binary format(i.e. 24 === 24.0 => true)
             - out of 64 bit, only 53 bits are used for numbers rest bits are used for position of decimal point and sign(-/+)
             - Number.MAX_SAFE_NUMBER    => max number value that is stored in js number variable
-            - Numberic Seperator (1_23_456 => 123456) should be like 1_1 and not 1._ _1
+            - Numeric Seperator (1_23_456 => 123456) should be like 1_1 and not 1._ _1
 
                 Number Methods - 
                     Number.isNaN(x)         // to check if x is NaN value
@@ -334,8 +346,8 @@ Statement vs Expression:
                     s.length;
                     s[s.length - 1]         -> last character
                     s.at(-1)                -> last character
-                    s.indexOf("g")          -> 5    for s="string"      // gives first occured characters index
-                    s.lastIndexOf("ng")                             // gives last occurence character index
+                    s.indexOf("g")          -> 5    for s="string"      // gives first occurred characters index
+                    s.lastIndexOf("ng")                             // gives last occurrence character index
                     s.includes("string")    -> true/false
                     s.startsWith("s")       -> true/false
                     s.endsWith("g")         -> true/false
@@ -346,15 +358,15 @@ Statement vs Expression:
                     s.toUpperCase()
                     s.trim()                                        // trims the white spaces both from start and end
                     s.trimStart() s.trimEnd()
-                    s.replace(" ", "space")                         // replaces first occurence of " " to "space" and returns string
-                    s.replaceAll(" ", "space")                      // replaces all occurences of " " to "space" and returns string
+                    s.replace(" ", "space")                         // replaces first occurrence of " " to "space" and returns string
+                    s.replaceAll(" ", "space")                      // replaces all occurrences of " " to "space" and returns string
 
                     Regular Expression - 
                         s.replace(/" "/g, "space")                     // regular Expression with (/''/g) Global Flag so All the Occurrences Are Targeted           
 
-        Object -
-                var a = {};     // Blank Object
-                // Filled Object
+        Object Literal(mannual object creation. i.e. not programmatically using class) -
+                var a = {}   or   var a = new Object(a)
+
                 const backpack = {                                  // can change the properties of object but can't reassign all properties of backpack container/variable
                                 name: "Everyday Backpack",                                      for ex. > const x = {'1':'One', '2':'two'}
                                 volume: 30,                                                             > x = {'1':'One', '2':'two'} // will give error
@@ -383,7 +395,7 @@ Statement vs Expression:
 
                 backpack.hasOwnProperty("lidOpen")          // returns true
                 delete backpack.name
-                backpack?.size                              // doesn't gives error even if size is not property of backpack
+                backpack?.size                              // Optional chaining - doesn't gives error even if size is not property of backpack
 
                 Object Method/Properties - 
                     var obj = { 1:"One", 2:"Two" }
@@ -394,9 +406,9 @@ Statement vs Expression:
                     Object.entries(obj)         // gives all keys and values arrays     // this methods converts objects to maps 
 
         Arrays (objects that treated differently) -
-                var a = [12,13];            a[0] = 12       a is converted to object;ie. a = {0:12, 1:13}
-                                                            so we can assign negative index mannualy, a[-1] = 11
-                const a = new Array(1,2,3,4)        // using constructor function
+                var a = [12,13];            a[0] = 12       a is converted to object; i.e.. a = {0:12, 1:13}
+                                                            so we can assign negative index manually, a[-1] = 11
+                const a = new Array(1,2,3,4)        // using constructor function('new')
                 const a = new Array(5)                  // a=[ empty*5 ] & a.length = 5  i.e. creates empty array with size 5
                 a.fill(0, 2,3)                              // a=[ empty*2, 0, empty*2 ]  mutates 'a'
                 const a = Array.from({length:5}, (cur, i) => i+1)               // a=[1,2,3,4,5]
@@ -430,9 +442,9 @@ Statement vs Expression:
                     a.findIndex(function(current, i, a){return true/false})  -> returns first element index for which callback function return true of array elements
                     a.find(function(current, i, a){return true/false})       -> returns first element for which callback function return true of array elements
                     
-                    a.includes(12)                                           -> true/false      // checks for eqality
+                    a.includes(12)                                           -> true/false      // checks for equality
                     a.some(function(current, i, a){return true/false})       -> true/false      // checks for availability
-                    a.every(function(current, i, a){return true/false})      -> true/false      // if callback function return true for every value of array 
+                    a.every(function(current, i, a){return true/false})      -> true/false      // true if callback function return true for every/all values of array 
 
                     a.concat(a1)                                             -> [...a, ...a1]
                     a.join("")                                               -> string with all 'a' elements
@@ -441,7 +453,7 @@ Statement vs Expression:
                     a.flat(2)               // if a=[[1,2],3,[4,[5,6]]]      -> [1,2,3,4,5,6]       // flat 2 levels nested array
                     a.flatMap((x, i, a1) => x.array)           // map + flat
 
-                    a.reverse()                             reverse 'a' elements as well as return new reverse elements array too
+                    a.reverse()                             reverse elements of 'a' as well as return new reverse elements array too
                     a.sort()   // sort array elements according to strings   -> sorted array in ascending order with original array mutation
                     a.sort((a,b)=> a-b)     ascending   // if callback function returns negative value, a and b gets swapped in array
                     a.sort((a,b)=> b-a)     descending  
@@ -521,16 +533,16 @@ Date/Time/Time Zone
 
 
 Timers - 
-    const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after 5 seconds/5000 miliseconds, as 1 sec = 1000 mili
+    const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after 5 seconds/5000 milliseconds, as 1 sec = 1000 milli
     clearTimeout(timer)                                             // abort the callback of timer
 
-    const intervalTimer = setInterval(function, 5*1000, arg1, arg2) // calls function with arguments after every 5 seconds/5000 miliseconds again and again
+    const intervalTimer = setInterval(function, 5*1000, arg1, arg2) // calls function with arguments after every 5 seconds/5000 milliseconds again and again
     clearInterval(timer)
 
 
 
 ** Parsing - Type conversion (explicit with functions)
-        parseInt(" 34$ ")     Number("34")                              returns 34      // parceInt argument should be starting with number
+        parseInt(" 34$ ")     Number("34")                              returns 34      // parseInt argument should be starting with number
         parseInt("f")       Number("f")                                 returns NaN 
         parseFloat(" 34rem ")                                           returns 34
         String(12)                                                      returns "12"
@@ -556,7 +568,7 @@ Timers -
 
 
 
-**Destructuring Operator - short form to assign object property values to the variable
+**De-structuring Operator - short form to assign object property values to the variable
         [y, x] = [x, y]             // swapping values of two variable
 
         const arr = [1, 2, [3, 4]];
@@ -571,6 +583,7 @@ Timers -
             property2 : value2
         }
         const { property2 } = obj;                                                      // property2 = value2
+        const { property2 : p2 } = obj;                                                 // p2 = value2
         ({ property2 } = obj)                                                           // property2 = value2
         const { property2 : x=[], property1 : {property11 : y, property22} } = obj;     // x = value2, y = value11, property22 = value22
         const { property3 : z=[] }                                                      // z = []           // with default value
@@ -584,6 +597,7 @@ Timers -
                     so they will give "ReferenceError" if accessed before initialization, before initialization they are in TDZ(Temporal Dead Zone)
 
         Exceptions
+            Classes are not hoisted
             NullPointerException (NPE) is an error that occurs when a program tries to access or manipulate data
                 through a reference that points to a non-existent object or has a null value.
             The equivalent error is a TypeError when accessing properties or methods of null or undefined objects.
@@ -691,7 +705,7 @@ O/P-I/P
 
         Passing Object as arguments
                 function funcName(property1, property2) {}          // getting object properties as parameter
-                            // if we change the properties in function, obj aslo changes as reference is passed which points to same object
+                            // if we change the properties in function, obj also changes as reference is passed which points to same object
                 obj = {property1 : value1, property2 : value2}
                 funcName(obj)
 
@@ -710,13 +724,13 @@ O/P-I/P
         Arrow Function - function behaving like a variable, short form for the function definition | 
                             doesn't get argument object and 'this' keyword in their execution context, rather they can use this functionality 
                                                         from their closest normal function parents 'this' keyword
-                const gerName = (arg1, arg2) => { }           // const gerNmae = function() {}
+                const gerName = (arg1, arg2) => { }           // const gerName = function() {}
                 const x = arg => { }
 
         Anonymous Function - function without name. can have multiple arguments, but only one expression
             
                 function() {}           // gives syntax error to fix the error
-                (function() {})         // function conerted into expression
+                (function() {})         // function converted into expression
                 (function() {})()       // when defined this function expression is executed only once
 
                 var greet = function (parameters){            //using function expression; same as greet = (function(p){})
@@ -728,7 +742,7 @@ O/P-I/P
                 greet();            // as we have only one expression in function so we can ignore the {}
                                     // function call, gives error when called before creation as var greet is hoisted and assigned with Undefined
 
-        Self Executing Function/ Immediately Invoked Function - done by converting function into expression then invoking() it
+        Self-Executing Function/ Immediately Invoked Function - done by converting function into expression then invoking() it
             - Only executed once
             
             (function (parameters){                                                 // converting function into expression
@@ -744,7 +758,7 @@ O/P-I/P
 
         Higher Order Function - function that receives another function(callback function) as argument that returns a new function(returned function)
                               - only possible because of first-class functions
-                eg.              
+                e.g.              
                     function x(z){                // taking parameter as a function; x is higher order function
                         var a = 7;
                         z();
@@ -760,7 +774,7 @@ O/P-I/P
                 map, filter, reduce, addEventListener, parent function in closures 
 
         Callback function
-            setTimeout(function(){}, 2000)      // calls callback fuction after 2000 miliseconds(2 sec)
+            setTimeout(function(){}, 2000)      // calls callback function after 2000 miliseconds(2 sec)
                         eg. function x() {                  // this function will print 1 after 1 second, 2 after 2 seconds and so on till 5
                                 for(let i = 1; i <= 5; i++) {
                                     setTimeout( function () {
@@ -770,28 +784,28 @@ O/P-I/P
                             }
                             x();
 
-        Function Methods - call, apply & bind
-            call - to manipulate/modify 'this' value for that function call
+        Function Methods - 'call', 'apply' & 'bind'
+            'call' - to manipulate/modify 'this' value for that function call
                 const funcName = obj.fn;         // gives copy of fn() inside of obj to external function(funcName)
-                funcName(args);                  // defaultly function call assignes 'this' === undefined (in "use strict")
+                funcName(args);                  // by default function call assigns 'this' === undefined (in "use strict")
                 funcName.call(objName, args)     // for this function call with 'this' === objName
 
-            apply - to manipulate/modify 'this' value for that function call
+            'apply' - to manipulate/modify 'this' value for that function call
                 funcName.apply(objName, [args])         // for this function call with 'this' === objName
 
-            bind - returns new function with 'this' value for function, and set it as arguments
+            'bind' - returns new function with 'this' value for function, and set it as arguments
                 newFunc = funcName.bind(objName, value)     // newFunc.this === objName
                 newFunc = funcName.bind(null, value)     // first argument already set(partial application) to value for returned function
-                newFunc(arg1)                               // every function call assignes 'this' === objName and arg1 === value   
+                newFunc(arg1)                               // every function call assigns 'this' === objName and arg1 === value   
 
-                document.querySelector('.btn').addEventListener('click', fn)                // defaultly, 'this' === <button class="btn"></button>
+                document.querySelector('.btn').addEventListener('click', fn)                // by default, 'this' === <button class="btn"></button>
                 document.querySelector('.btn').addEventListener('click', fn.bind(obj))      // for returned fun, 'this' === obj
 
 
 
 **CLOSURES -    Closed-over variable environment(including parameters) of EC in which a function was created 
                         even after that EC is gone or enclosing function has returned
-                closure variables takes priority against global variables
+                closure variables take priority against global variables
                 Not accessible outside(Encapsulation)
 
             function x(){       
@@ -802,7 +816,7 @@ O/P-I/P
                 y();
                 return y;
             }             // Function y() along with its lexical scope(variables/parameters) x() bundles together forms a closure
-            var r = x();      // because to closure(x), even after x() is vanished, closure still remembers it for y()
+            var r = x();      // because to closure(x), even after x() vanished, closure still remembers it for y()
             r();                / will give output as "> 7" 
             console.dir(r)
 
@@ -846,7 +860,7 @@ O/P-I/P
         - 'document' is (1st most/root)node of DOM tree given by web api(browser implemented libraries written in js) that accessed using js
 
     DOM Events Lifecycle - from the moment webpage first accessed until the user leaves it  
-        1. 'DOMContentLoaded' event - fired on document as soon as HTML+JS fetched and conveted into DOM tree finished(excluding img and other external content)
+        1. 'DOMContentLoaded' event - fired on document as soon as HTML+JS fetched and converted into DOM tree finished(excluding img and other external content)
             document.addEventListener('DOMContentLoaded', e => 'HTML parsed and DOM tree built!')
 
         2. 'load' event - fired on window after all the elements(including img, css and other external content) on webpage are loaded completely
@@ -855,7 +869,7 @@ O/P-I/P
         3. 'beforeunload' event- fired on window just before user is leaving webpage
             document.addEventListener('beforeunload', function(e){
                 e.preventDefault();
-                e.returnValue = ''          // previously we can give custom messages for leaving conformation(now we have generic message)
+                e.returnValue = ''          // previously we can give custom messages for leaving confirmation(now we have generic message)
             })
 
     - Selecting and Manipulating web content -
@@ -971,13 +985,13 @@ O/P-I/P
         s1 = document.querySelector('.section1').getBoundingClientRect()               // returns dom rectangle object(position, width, height,..,etc.) 
         window.scrollTo({left: s1.left + x, top: s1.top + y, behavior: "smooth"})      // left and top will be relative to current viewport, in pixels
         document.querySelector('.section1').scrollIntoView({behavior:"smooth"})      
-    
-    
+
+
     - Handling Events (Event is a signal that is generated by dom node and is generated on document(root node))
         Event happens in 3 stages
-            1. Capturing phase  - event goint from root/prarent(document) elements to target element(on which event listener is attached)
-            2. Target phase     - event listning and handled(via event handler fnc) from target element(on which event listener is attached)
-            3. Bubbling phase   - after event handler function execution, event again goes to root/prarent(document) element, executing handler of parent element(if listener attached)
+            1. Capturing phase  - event going from root/parent(document) elements to target element(on which event listener is attached)
+            2. Target phase     - event listening and handled(via event handler fnc) from target element(on which event listener is attached)
+            3. Bubbling phase   - after event handler function execution, event again goes to root/parent(document) element, executing handler of parent element(if listener attached)
 
             Note - defaultly addEventListener() catches event in Bubbling phase.
                  - After target element bubbling can be stopped(event can't be handled by parent elements of target element) using; e.stopPropagation();
@@ -1016,6 +1030,13 @@ O/P-I/P
         });                                 // 'leftArrow', 'Enter', 'Enter'
 
 
+    - Local Storage API(key-value store)(blocking storage - if used for large ammount of data application will slowdown)
+        localStorage.setItem('key',JSON.stringify(object))  // need two parameters,1.key string and 2.value string(converting object to string)
+                                                                using local storage will eraze/rewrite the prototypal inheritance to the Object
+        const object = JSON.parse(localStorage.getItem('key'))
+        localStorage.removeItem('key')
+
+
 
 **Exception handling
 
@@ -1027,54 +1048,295 @@ O/P-I/P
 
 
 
-**Destructuring Operator - short form to assign object property values to the variable
-        [y, x] = [x, y]             // swapping values of two variable
+**OOP - 
+        - JS does not support Classes, rather all JS objects are linked to prototype object containing all methods and properties using "Prototypal Inheritance" / "delegation"
+        - In Js, prototype object method is used for all JS objects linked to that Prototype object
+                Eg. all array objects are linked with the "Array.prototype" prototype object
+        - whereas in classical OOP with class and instance, methods are copied from class to all instances
 
-        const arr = [1, 2, [3, 4]];
-        const [x, , y=0, z=0] = arr;        // x=1, y=[3, 4], z=0       // with default value
-        const [x, , [y, z]]                 // x=1, y=3, z=4
-
-        obj = { 
-            property1 : {
-                property11 : value11,
-                property22 : value22
-            },
-            property2 : value2
-        }
-        const { property2 } = obj;                                                      // property2 = value2
-        ({ property2 } = obj)                                                           // property2 = value2
-        const { property2 : x=[], property1 : {property11 : y, property22} } = obj;     // x = value2, y = value11, property22 = value22
-        const { property3 : z=[] }                                                      // z = []           // with default value
+    Piller of OOP
+        Abstraction - ignore/hiding unrelated details 
+        Encapsulation - keeping properties and methods private inside a class(unaccessible outside of class)
+        Inheritance - Inherits Parent Class
+        Polymorphism - child class overwrites a method it inherited from parent class
 
 
+    Class - Create Prototype, create object/link Object to prototype
+            Classes are not Hoisted
+            Class Body always executed in Strict Mode "use strict"
 
-**New object from object / Class / getter-setter-
+        1. Constructor Functions - technique to create objects from function; built-in objects like Array, Maps or Sets are actually implemented
+            
+            const Space = function(planet){        or         function Space(planet){               // arrow function doesn't work 
+                this.planet = planet;                             this.planet = planet;             // because they don't have 'this'(has their lexical 'this')
+                // this.calcDist(){}                              // this.calcDist(){}              // never create method like this, as every object will create its own copy of function. Rather we uses Prototypal inheritance for methods
+            }                                                 }
+            const earth = new Space('Earth');    // earth.planet = 'Earth'
+            console.log(earth instanceof Space)  // true
+            Space.prototype.calcDist = function () {}                       // Every function has a property called Prototype on which we can add methods that will be accessible for all objects created using Constructor Functions
+            earth.calcDist()                                                // prototypal inheritance/delegation
+            Space.calcDist = function () {}                                 // static function
 
-        var space = function(planet){
-            this.planet = planet;
-        }
-        var zeus = new space('Earth');       // zeus.planet = 'Earth'
+            Space.prototype.galaxy = "Milky Way"                            // properties/attributes can also be set
+            earth.galaxy                                                    // "Milky Way"    
+            earth.hasOwnProperty('planet')                                  // true 
+            earth.hasOwnProperty('galaxy')                                  // false 
 
-        class space {
-            constructor(planet, isWater){
-                this.planet = planet;
-                this._water = isWater           // private variable - only accessible within the class
+            earth.__proto__ === Space.prototype                             // true(due to step 3 of 'new')
+            Space.prototype.isprototypeOf(Space)                            // false
+            Space.prototype.isprototypeOf(earth)                            // true
+
+
+            steps happens when we use 'new' keyword on constructor function to create object
+                1. new empty object {} is created
+                2. function called, and 'this' set to empty object{} created in step one
+                3. creates <__proto__> property on {} and links its value to Constructor Function prototype <Space.prototype>
+                4. {} returned unless we are explicitly returning something else, generally we should never return from constructor function
+
+
+            Prototype Chain ⬆ - series of links between objects, linked through prototype(serches for properties and methods in parent __proto__)
+                +----------------+      +----------------+
+                | Constructor Fun|  ->  |   Prototype    |                  Object() constructor function is used when we use object literal
+                |    Object()    |      |Object.prototype|                      i.e. var a = {}   or   var a = new Object(a)
+                +----------------+      |__proto__ = null|                  End of Prototype Chain ⬆             
+                                        +----------------+
+                                                 ⬆
+                +----------------+      +----------------------------+
+                | Constructor Fun|  ->  |         Prototype          |
+                |     Space()    |      |       Space.prototype      |
+                +----------------+      |__proto__ = Object.prototype|
+                                        +----------------------------+
+                                                      ⬆
+                                        +----------------------------+      earth.__proto__.__proto__.__proto__ === null
+                                        |          object            |      earth.__proto__.__proto__ === Object.Prototype
+                                        |          earth             |      earth.__proto__ === Space.Prototype
+                                        |__proto__ = Space.prototype |      
+                                        +----------------------------+
+   
+
+        2. ES6 Classes           - Class type implementation but behind the scenes it works exactly like Constructor Functions
+                                 - Classes are not Hoisted
+                                 - Classes are also first-class citizen, just like functions
+                                 - Classe body are always executed in Strict mode, ie. 'use strict'
+            class Space {
+                constructor(planet, isWater){
+                    this.planet = planet;
+                    this.isWater = isWater          // setter is called/executed 
+                }
+
+                // Instance Method
+                calcDist() {}
+
+                // getter                           // getter and setter are available for all the objects
+                get isWater(){
+                    return this._isWater
+                }
+
+                // setter
+                set isWater(updatedStatus){
+                    this._isWater = updatedStatus
+                }
+
+                // Static method
+                static life(){}
+            }
+            var earth = new Space('Earth', true);        // earth.planet = 'Earth'
+            let water_available = earth.isWater          // getter is called, water_available = true     used as property // earth.isWater()
+            earth.isWater = false                        // setter is called, water_available = false                     // earth.isWater(false)
+            water_available = earth.isWater              // getter is called, water_available = false
+
+
+
+        3. Object.create()       - way of linking an object to a Prototype Object(object from object literal)
+                                                        
+            const Space = {
+                initFunc(planet, isWater){              // mannual initializer function
+                    this.planet = planet
+                    this.isWater = isWater         
+                }
+
             }
 
-            // getter
-            get isWater(){
-                return this._water
+            const earth = Object.create(Space)          // creates new object from Space with __proto__ = Space.Prototype
+            earth.initFunc('Earth', true)                       (behaves like inheritance)
+
+
+    Inheritance -
+        1. Constructor Function
+
+            const Child = function(arg1, arg2){
+                Parent.call(this, arg1)                     // calling constructor from Parent with 'this' assigned to Clild class calling obj
+                this.arg2 = arg2
             }
 
-            // setter
-            set isWater(updatedStatus){
-                this._water = updatedStatus
+            // Inheritance/Linking Prototypes
+            Child.prototype = Object.create(Parent.prototype)       // this will create new empty Child object with prototype assigned to Parent.prototype                                                        
+                // Child.prototype = Parent.prototype   ->   can't use this as it will create only one Parent.prototype for all objects created with Child class, which should be Child.prototype for Child objects
+
+            const obj = new Child("name","age")
+            console.log(obj instanceof Child)       -> true
+            console.log(obj instanceof Parent)      -> true     // should be false but giving true because; Child.prototype = Object.create(Parent.prototype)
+            console.log(obj instanceof Object)      -> true     // should be false but giving true because; Child.prototype = Object.create(Parent.prototype)
+        // To fix above
+            Child.prototype.constructor = Child
+
+        2. ES6 Classes - works exactly same as Constructor Function, just syntax is different
+
+            class Child extends Parent{                 // extends keyword automatically set up prototype chain(same working as Constructor Function[prototypal inheritance])
+                constructor(parent_arg, child_arg){
+                    super(parent_arg)
+                    this.child_arg = child_arg
+                }
             }
-        }
-        var zeus = new space('Earth', true);        // zeus.planet = 'Earth'
-        let water_available = zeus.isWater          // getter is called, water_available = true
-        zeus.isWater = false                        // setter is called, water_available = false
-        water_available = zeus.isWater              // getter is called, water_available = false
+            class Child extends Parent{}
+
+            const obj = new Child("name","age", "canWalk")      
+            const obj1 = new Child("name","age", "canWalk")     // if not defined default constructor is Parent constructor
+
+        3. Object.create()
+
+            const Child = Object.create(Parent)         // creates a new object with prototype assigned with Parent
+            Child.initFunc = function(planet, isWater, life){
+                Parent.initFunc.call(this,planet, isWater)
+                this.life = life
+            }
+
+            const obj = Object.create(Child)        // creates a new object with prototype assigned with Child and Child objects prototype is Parent. Inheritance
+            obj.initFunc('Earth', true, true)
+
+    Encapsulation - 
+        // Public Class Field (available on instance[not on prototype])
+            need = "Transportation";
+
+        // Private Class Field (available on instance[not on prototype])
+            #wheels = 4;        // should be defined inside class but outside of function
+            #key;               // in case we need private variable initialization in a function, then we define private field in class 
+                                    // and then initialize/assign value in that function
+            
+        // Public Method (added on prototype)
+            getWheels(){                
+                console.log(this.#wheels);  // private class fields, only accessible inside of class
+            }
+
+        // Private Methods
+            #pinVerifier(){
+                console.log("pin verifier");
+                return true;
+            }
+
+
+
+**Asynchronous JS - code execution doesn't wait to finish execution of previous line of code
+        API(Application Programming Interface) - Determines how one set of software communicates with another set of software
+        Web API - application running on server, that receives requests for data and send back the response data
+        API data format 
+            AJAX(Asynchronous JavaScript and XML) 
+                - asynchronous communication(request data) with remote servers dynamically(without loading webpage)
+                - XML(AJAX) is just popular name but we don't use xml now we uses JSON(javascript object converted to a string)
+
+    
+    Old Javascript API request
+        const req = new XMLHttpRequest();   
+        req.open('GET', 'https://github.com/sprculguy/programming.git')
+        req.send()                                      // load event will trigger after getting the response
+        req.addEventListener('load',function(){                 
+            const [data] = JSON.parse(this.responseText)        // converting JSON string to object
+        })  
+
+    
+    Latest fetch API request/promise
+        const req = fetch('https://github.com/sprculguy/programming.git', optionObj)    // req -> promise object
+        req.then(function(res){return res.json()}).then(function(data){console.log(data)})
+        req.then(res => res.json(), err => alert(err)).then(data => data)               // using then again as json() also returns promise object
+        req.then(res => {
+            if(!res.ok)
+                throw new Error(`error is ${res.status}`)                               // mannual error throw for 404 response
+            return res.json()
+        }).then(data => data).catch(err => alert(err)).finally(()=>loading_cursor.style.display = None)         // error can be handled as above line(rescallback, errcallback) or this catch()
+                                                        // catch also returns promise object thats why we can use finally
+
+
+    Promise -
+        - An object that is used as a placeholder for the future result of an asynchronous operation
+        - Container for an asynchronously delivered(in future) value. eg. response from AJAX call
+        - Promise Life Cycle:
+            1. Pending - before future value is available
+            2. Async task
+            3. Settled - after async task is finished. 
+            Note - Promise is only settled once
+        - we can create a promise object  
+            e.g.    cosnt promiseObj = new Promise(function(resolve, reject){        // only one argument - executer function gets executed with promise constructor by passing two function arguments (resolve, reject)
+                        setTimeout(function(){                                       // adding setTimeout to make function asynchronous nature
+                            if(success==true) resolve('response')               
+                            else reject(new Error('error'))
+                            }
+                            , 2000)
+                    })         
+                    promiseObj.then(res=>res).catch(err=>err)
+        - promisifying callback (setTimeout),
+                    const wait = function(seconds){
+                        return new Promise(function(resolve){setTimeout(resolve, seconds*1000)})
+                    }
+                    wait(2).then(()=>{
+                        console.log('waited for 2 seconds')
+                        return wait(1)
+                    }).then(()=>{console.log('waited for 1 seconds')})
+        - Promise.resolve('response').then(res => res)
+        - Promise.reject('error').catch(err => err)
+        - Promise.all([])       // args - array of promises to execute them parallelly, returns - array of response(resolve) promise objects.  
+                                    // in case of any one of the promises reject, then promise.all() will be rejected
+        - Promise.race([])      // args - array of promises to execute them parallelly, returns - first settled(resolve/reject) response promise objects 
+        - Promise.allSettled([])// args - array of promises to execute them parallelly, returns - array all settled(resolve/reject) response promise objects 
+                                    // difference between Promise.all() & Promise.allSettled() is Promise.allSettled() will return all the results(resolve/reject) in both cases
+        - Promise.any([])       // args - array of promises to execute them parallelly, returns - only first resolved response promise objects, ignoring failed/rejected responses of before that first resolve
+
+
+    Async/Await - advance way of consuming/using promises. In background everything
+        - creates a function be exeuted asynchronously(in Web APIs environment without blocking call stack) and return a promise
+        - async/await are just implementation because behind the scenes it works exactly like consuming promises using fetch().then()
+                eg. const fun = async function(){
+                        try{
+                            const res = awaits fetch('https://github.com/programming.git')            // fetch('https://github.com/programming.git').then()      
+                            return res              // stops the execution of function(which is being executed asynchronously in Web APIs environment without blocking call stack) until promise is fulfilled
+                        }catch(err){
+                            console.error(err)
+                            throw err
+                        }
+                    }    
+
+                    (async function(){                                  // <script src="js/asynchronous.js" defer> </script>
+                        try{                                            // if this code gives error try force reload - Ctrl + Shift + R
+                            const res = await asyncFunc()
+                            console.log(res)
+                        }catch(err){
+                            console.error(err)
+                        }
+                    })()
+                    OR
+                    try{                            // await is only valid in async functions and the top level bodies of modules
+                        const res = await fun()       // so, <script type="module" src="js/asynchronous.js" defer> </script>
+                        console.log(res)
+                    }catch(err){
+                        console.error(err)
+                    }
+
+            // use case of Promise.all([])
+                const imgs = [].map(async img => await createlmage(img))        // returns promise objects
+                const imgsEl = await Promise.all(imgs);                         // promise objects resoled to values    
+                console. log(imgsEl) 
+                imgsEl. forEach(img = img.classList.add('parallel')):
+
+
+
+
+**Error Handling - 
+    try{
+        throw new Error('myError')
+    }catch(e){
+        console.error(e)
+    }finally(){
+
+    }
 
 
 

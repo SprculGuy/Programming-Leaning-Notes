@@ -6,25 +6,25 @@ Guido van Rossum (Netherlands as a successor to 'ABC programming language')
 
 
 
-**Featurs Of Python
-        Purely Interpreted language - gets exicuted line by line
+**Features Of Python
+        Purely Interpreted language - gets executed line by line
 
 					
 
 *To Compile & Run Python Program -->
-Exicute these in terminal of working directory...
+Execute these in terminal of working directory...
 python3 file_name.py										python3 hello.py
-	SourceCode -> syntax Checker & Translator -> Interpreter(Python Vertual Machine) -> Machine language                " Compiler -> ByteCode "
+	SourceCode -> syntax Checker & Translator -> Interpreter(Python Virtual Machine) -> Machine language                " Compiler -> Bytecode "
 Execution-->
 	1. cpython interpreter breaks code in-to tokens(variables, Operators, white-spaces)
 	2. Using tokens CST(Concreate Syntax Tree) is generated
 	3. Further by removing comment, white-spaces the AST(Abstract Syntax Tree) is generated
-	4. Form AST types of objects are deduced so that interpreter should know which fuction is being called. Eg. for {a=2, b=3}; for {a+b} add(int, int) is called rather than add(str, str) or add(float, float)
+	4. Form AST types of objects are deduced so that interpreter should know which function is being called. E.g. for {a=2, b=3}; for {a+b} add(int, int) is called rather than add(str, str) or add(float, float)
 	5. then the bytecode is generated
 	6. PVM will execute bytecode line by line
 
 > python is Interpreted language, 
-	i.e. it gets exicuted line by line, unlike C/C++ which first compiled(get converted into machine code) then get executed...	
+	i.e. it gets executed line by line, unlike C/C++ which first compiled(get converted into machine code) then get executed...	
 
 
 **PIP:
@@ -33,7 +33,7 @@ Execution-->
 	pip list									-->list the packages with their installed version
 	pip freeze									-->
 	pip freeze > req.txt						-->gets the list into the req.txt file
-	pip install -r req.txt 						-->insatlls the all packages with their installed version from req.txt
+	pip install -r req.txt 						-->installs the all packages with their installed version from req.txt
 	pip freeze pip uninstall -r req.txt -y
 	pip install numpy
 	pip install selenium==4.0.0
@@ -55,8 +55,8 @@ Execution-->
 
 SPECIAL VARIABLE--
 	-> Used to run default code only from current module
-__name__		# __name__ = '__main__' for static point of exicution for current working module
-				# For imported module __name__ holds 'module_name' as static point of exicution from which it accessed...
+__name__		# __name__ = '__main__' for static point of execution for current working module
+				# For imported module __name__ holds 'module_name' as static point of execution from which it accessed...
 
 
 
@@ -73,7 +73,7 @@ __name__		# __name__ = '__main__' for static point of exicution for current work
 					str5 = str1 * 5								# str5 = "aaaaa"		
 	list			lst = ['Ank', ["A", 10]]					# lst[0] is 'Ank'  ||  lst[1] is ["A", 10]  ||  lst[1][0] is "A"
 																# every element is pointer-object of list class, 
-																  which results in more space/time complexity for woking on python lists, for efficiency we use Numpy arrays as it uses C/C++ arrays
+																  which results in more space/time complexity for Woking on python lists, for efficiency we use Numpy arrays as it uses C/C++ arrays
 	tuple			tpl = ('Ank', "A", 10)						# immutable
 	set				x = {1,2,3,3,2} ->becomes-> {1,2,3}			# mutable & duplicates get removed || x=frozenset({'a',2}) is immutable
 	dict			dictionary = {'key':"value", 12:21}			# values are accessed through keys || keys must be unique
@@ -124,7 +124,7 @@ Note-->
 	zip(list1, list2)  # returns list of tuples with n element of both list1 and list2
 	list.sort(key = lambda x:x["TotalMarks"], reverse=True)        	# sorts list, returns None
 	sorted(list, key = x:x["TotalMarks"], reverse = True)       	# returns sorted copy of list
-	",".join(list)     # returns a string with list elements seperated by comma
+	",".join(list)     # returns a string with list elements separated by comma
 
 
 
@@ -164,8 +164,8 @@ Note-->
 
 	|await x													|	Await expression
 	|**															|	Exponentiation 
-	|++x, --x													|	pre-increament, pre-decreament
-	|x++, x--												    |	post-increament, post-decreament
+	|++x, --x													|	pre-increment, pre-decrement
+	|x++, x--												    |	post-increment, post-decrement
 	|x+=2, x*=5                                                 |   compound Assignment with augmented expression
 	|+x, -x, ~x													|	Positive, negative, bitwise NOT
 	|*, @, /, //, %												|	Multiplication, matrix multiplication, division, floor division, remainder 
@@ -181,7 +181,7 @@ Note-->
 	|lambda														|	Lambda expression
 	|:=															|	Assignment expression
 
-	|\                                                          |  Escape character for escape seqences; \n,\',\",\\,\t,\b
+	|\                                                          |  Escape character for escape sequences; \n,\',\",\\,\t,\b
 	|#															|- Comment
 	|''' 														|- Multiline Comment 				
 	|_block_													|
@@ -190,7 +190,7 @@ Note-->
 
 
 **PRINTING OUTPUT-- 
-	print("& this is Python...")			# new line defaultly. like, end="\n"
+	print("& this is Python...")			# new line is default. like, end="\n"
 	print(end="")							# without new line
 	print(x, y, sep=":")
 
@@ -209,7 +209,7 @@ Note-->
 			else:
 				_block_
 
-			resutl = "Even" if n%2==0 else "Odd"
+			result = "Even" if n%2==0 else "Odd"
 
 	MATCH	match var:
 				case "100":
@@ -227,7 +227,7 @@ Note-->
 	FOR		for x in range(-10,11,2):    //x = -10,-8,...,-2,0,2,...,8,10
 				_block_
 			else:
-				_block_					//will exicute only after last successful iteration of for loop.ie, without 'break'
+				_block_					//will execute only after last successful iteration of for loop.ie, without 'break'
 
 			for key, val in dict.items():
 				_block_
@@ -241,8 +241,8 @@ Note-->
 			set = {x for x in range(5)}															// set comprehension
 			
 			list = map(function, lst1, lst2,...)			//Function can be any operation to perform on every item of lst(s)
-					eg. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
-								//map fuction returns the iterator map object, so we need to convert it into the list,tuple,set...
+					e.g. result = list(map(lambda x, y: x + y, n1, n2)) 		# n1=[1,2,3,4] n2=[5,6,7,8] result=[6,8,10,12]
+								//map function returns the iterator map object, so we need to convert it into the list,tuple,set...
 
 			list = filter(conditioned_function, iterator)			//conditioned_function returns True/False for every item of iterator(s)
 					eg. result = list(filter(lambda x: x%2 != 0, seq))	# seq=[1,2,3,4,5,6] result=[1,3,5]
@@ -267,13 +267,13 @@ Note-->
 	func_name():								#Declearing post-defined Function
 												argtuple - holds tuple of any no. of arguments values passed while calling the func_name ; must be used before **kargdict
 												kargdict - holds dictionary of any no. of keyword arguments values passed while calling the func_name ; must be used as last parameter
-	def func_name(par1, par2, *argtuple, **kargdict):	# defining fuction.		parameter = place holder	
+	def func_name(par1, par2, *argtuple, **kargdict):	# defining function.		parameter = place holder	
 		'DocString'										# DocString is the comment about defined function & it's optional
 			def local_func:								# python allows function in function
 				_block_
 				return x, y
 		_block_
-		return a, b										# returns all values in the form of tuple eg. (2, 3)	if, a = 2 & b = 3			
+		return a, b										# returns all values in the form of tuple e.g. (2, 3)	if, a = 2 & b = 3			
 
 	x = func_name(val1, val2,...)				 		# calling function.		argument = actual value  | here, x will be (2, 3)
 
@@ -295,7 +295,7 @@ Note-->
 				return local                        # after returning the local function, all variables used in local function 
 															# are not discarded, Closure remembers the variables to use in local function
 
-			lf = enclosing()                        # after exicution of return statement of enclosing(), ideally all the members of enclosing() should be destroyed
+			lf = enclosing()                        # after execution of return statement of enclosing(), ideally all the members of enclosing() should be destroyed
 			lf()
 			print(lf.__closure__)                   # but closure is used to remember the references for the members of enclosing() that are being used in local()
 
@@ -331,7 +331,7 @@ Note-->
 					b = 0
 					def local(*argstuple, **kwargsdict):
 						a += 1									| here, a & b are distinct variables than a & b defined outside of local function.
-						b += 1									| So these lines to increament the value of a & b will give error
+						b += 1									| So these lines to increment the value of a & b will give error
 						global a
 						nonlocal b
 						a += 1									|
@@ -348,16 +348,16 @@ Note-->
 
 
 **ANONYMOUS FUNCTIONS--	
-	- Functiopn without name
+	- Function without name
 	- Contains no of arguments but only one expression...
-	eg.	
+	e.g.	
 		x = lambda a, b: a**b
 		print(x(2, 3))					# 8 will be printed
 
 
 
 **MODULES--
-	We can use py files/modules created in working directory
+	We can use .py files/modules created in working directory
   examples-
 	import module
 	import module as obj
@@ -378,7 +378,7 @@ Note-->
 	from package.module import method_class as obj						> obj()
 	from package.sub-package.module import method_class as obj			> obj()
 
-Note -> Modules are defaultly searched in 'sys.path' list of directory by the python compiler
+Note -> Modules are by default searched in 'sys.path' list of directories by the python compiler
 		sys.path list has first item of list is current working directory
 	adding directory manually
 		in-code		sys.path.append('D:\Anynomus\Documents\Programming\Python\Package\Package1')
@@ -394,7 +394,7 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 					_block_
 			obj = ClassName()
 
-			eg.
+			e.g.
 
 				class Computer:
 					class_attribute = 0								
@@ -448,14 +448,14 @@ Note -> Modules are defaultly searched in 'sys.path' list of directory by the py
 
 				obj = ClassName()
 				obj1 = ChildClassName()						#calls constructor of parent class only if, child class doesn't had user defined constructor
-																otherwise, defaultly only child class constructor is exicuted
+																otherwise, by default only child class constructor is executed
 
 
 **POLIMORPHISM--
 ways to implement polymorphism in python
 	-Duck Typing
 	-Operator Overloading
-	-Method Overloading 	- Method having same name but differnt parameters (implemented using, a = None, b = None & if conditions)
+	-Method Overloading 	- Method having same name but different parameters (implemented using, a = None, b = None & if conditions)
 	-Method Overriding  	- Method Overrides the parent method having same name, parameter (I have my parents phone, and I also have my phone)
 
 
@@ -464,7 +464,7 @@ ways to implement polymorphism in python
 	MODES--
 				t					> text file handling mode (Default, if mode is unspecified)
 				r / rb				> only able to read content, gives error if file isn't available
-				w / wb				> only writing possile. if file exists,erazes old content then write. if file not exist,creates new file then write.
+				w / wb				> only writing possible. if file exists, razes old content then write. if file does not exist, creates new file then write.
 				r+					> read and write file, Overrides the existing content. 		"My name is Ankit" > "Helloame is Ankit"
 										r+ gives error if file is not available, w+ creates new file
 				w+					> read and write file, Overrights the existing content. 	"My name is Ankit" > "Hello"
@@ -506,10 +506,10 @@ ways to implement polymorphism in python
 
 
 
-**EXCEPTION/ERROR ANDLING--
+**EXCEPTION/ERROR HANDLING--
 	try:
 		_block_
-	except error_name as error_msg:				error_name = (ValueError, ...) | defaultly you can leave that as, error_name = Exception
+	except error_name as error_msg:				error_name = (ValueError, ...) | by default you can leave that as, error_name = Exception
 		print(error_msg)							error_msg can be accessed using str(error_msg) in print statement
 		_block_
 		raise 										raise shows full error msg from the Compiler, will be executed after the finally block
@@ -556,9 +556,4 @@ ways to implement polymorphism in python
 
 **GENERATOR - 
 **ITERATOR	- python object that allows you to traverse through a collection, one element at a time
-**ITERABLE	- any object that you can loop over. Yterables can produce iterators using - iter()
-
- 
- 
-OOP concepts - Classes and Objects
-SQL and MySql concepts - basics, joins, group by
+**ITERABLE	- any object that you can loop over. Iterables can produce iterators using - iter()

@@ -314,7 +314,7 @@ AWS Services
                     IAM users(Acc) -> IAM Policy
                     EC2(services) -> IAM Role 
                     Cross-Account -> Bucket Policy
-                
+
             Versioning 
                 - for object but enabled at Bucket-Level
                 - Easy rollback and avoid unintended deletion

@@ -1,9 +1,3 @@
-cd C:\Users\ap788\Downloads
-cd D:\Anynomus\Documents\Programming\Python
-
-
-cls 			> clears cmd screen
-
 **ShortCuts--
     General Shortcuts-->
         Ctrl + C                        > Copy
@@ -86,8 +80,27 @@ cls 			> clears cmd screen
 
 
 **File Related
-	cd 							    > change directory to specified path after keyword
-	dir 							> list out the all files in current working directory
+	cd 							                        > change directory to specified path after keyword
+        cd ./
+        cd ..
+        cd ../..
+        cd C:\Users\ap788\Downloads
+        cd D:\Anynomus\Documents\Programming\Python 
+	dir/ls 							                    > list out the all files in current working directory
+    mkdir Test                                          > creates a folder/directory in the current working directory
+    rmdir Test                                          > removes/deletes Test named directory
+    "" > text.txt                                       > creates a empty file(2 bytes of "") in the current working directory
+    copy nul > text1.txt                                > creates a empty file(0 bytes) as nul doesn't exist in the current working directory
+    copy text1.txt > text2.txt                          > creates a copy of text1.txt named as text2.txt in the current working directory
+    mv text.txt ../                                     > moves test.txt to parent folder/directory of current working directory
+    del text.txt                                        > removes text.txt from current working directory
+
+
+
+
+
+
+    cls/clear 			            > clears cmd screen
 
 
 **Check Python version

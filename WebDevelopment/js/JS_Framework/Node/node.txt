@@ -1,0 +1,31 @@
+Server-side js runtime
+
+node js is the js runtime environment based on google's V8 js engine to interpret Js code for machine outside of browser
+
+
+** JavaScript Runtime in Node.JS -
+
+    +---------------------------------------------------------------------------+
+    |                           JS Runtime in Node.JS                           |
+    |                                                                           |
+    | +---------------------------+   +---------------------------------------+ |
+    | |         JS Engine         |   |       C++ Bindings & Thread Pool      | |       
+    | |                           |   |  +---+   +------+   +---------+       | |      
+    | | +----------+ +----------+ |   |  |...|   |......|   |.........|  ...  | |
+    | | |          | |          | |   |  +---+   +------+   +---------+       | |
+    | | |          | |  CALL    | |   +---------------------------------------+ |
+    | | |   HEAP   | |  STACK   | |                                             |
+    | | |       *  | |          | |      +---------------------------------+    |
+    | | | *        | | ________ | |      |            Callback Queue       |    |       - data structure that contains all the callback functions that are ready to be executed
+    | | |    *  *  | | ________ | |      |  +-----+  +-----+  +----+       |    |          example; eventHandlerFunction - callback function from DOM event listener
+    | | |  *   *   | | ________ | |      |  |click|  |timer|  |data|  ...  |    |                      as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
+    | | +----------+ +----------+ |      |  +-----+  +-----+  +----+       |    |                      then when the call stack is empty the callback queued function passed to call stack for execution, this happens using Event Loop
+    | +---------------------------+      +---------------------------------+    |
+    |                                                                           |
+    +---------------------------------------------------------------------------+
+
+
+
+Backend == API
+    1. REST API (Representational State Transfer) = Diffrent(multiple) urls + HTTP methods for diffrent actions
+    2. GraphQL API = only one url + HTTP method that accepts query command(in body)

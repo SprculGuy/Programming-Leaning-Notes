@@ -1,6 +1,9 @@
-const now = new Date(new Date("2024-01-01T00:00:00.000Z").getTime() + 5.5*60*60*1000)
-const now1 = new Date("2024-01-01T00:00:00.000Z")
-const now2 = new Date().toISOString()
-console.log(now);
-console.log(now1);
-console.log(now2);
+const obj = {
+    x : "Ankit",
+    y : "Patil"
+}
+
+
+const obj1 = {x : obj.x, y : obj.y}
+
+console.log(obj1);

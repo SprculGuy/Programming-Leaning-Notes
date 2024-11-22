@@ -56,8 +56,9 @@ const asyncFunc = async function(){
     }
 })()
 
+// top-level await is synchronous(blocks the module code execution)
 // try{                                             // <script type="module" src="js/asynchronous.js" defer> </script>
-//     const res = await asyncFunc()                    // as, await is only valid in async functions and the top level bodies of modules
+//     const res = await asyncFunc()                    // as, await is only valid in async functions and the top-level bodies of modules
 //     console.log(res);
 // }catch(err){
 //     console.error(err);

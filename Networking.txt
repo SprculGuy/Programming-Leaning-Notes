@@ -57,8 +57,8 @@ HTTP Web Server Request Methods
     GET         Read data
     DELETE      Delete data
     POST        Insert data
-    PUT         Update data
-    PATCH       Modify data(Partially)
+    PUT         Update data(all fields)
+    PATCH       Modify data(Partially - some of the all fields but not all)
     HEAD        Inspect resource headers
     TRACE       Echo back received message
     Options     Server Capabilities

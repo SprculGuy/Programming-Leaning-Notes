@@ -7,3 +7,6 @@ text.txt
 *.pdf
 /Python/Package
 /node_modules
+.vscode/*
+!.vscode/extensions.json
+*.logs*

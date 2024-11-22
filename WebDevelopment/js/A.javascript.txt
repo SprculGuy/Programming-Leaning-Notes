@@ -37,7 +37,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             Electron - Electron embeds Chromium and Node.js to enable web developers to create Cross Platform desktop applications.
 
     JavaScript Build tools - comes js framework with to convert/optimize the code back into js for current browser
-                            - converting ES6+ JavaScript to older versions for broader browser compatibility
+                            - converting ES6+ JavaScript to older versions for broader browser compatibility using 'Babel'
             1. npm - comes with Node.js    Node.js is to execute JavaScript code server-side
             2. webpack
             3. gulp    
@@ -64,7 +64,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
         or  <script async src="js/hello-world-alert.js"> alert("Hi") </script>      // only the external js code will be executed, internal js will be ignored
                                                             // scripts fetched parallel to document and executed after fetched by halting the document loading. 
                                                             // 'DOMContentLoaded' event fires as soon as document fetched completely(even if script fetched/execution is not complete)
-                                                            // scripts not guaranteed to execute in order they are declared in code, scripts gets executed in the order it is fetched
+                                                            // scripts not guaranteed to execute in order they are declared in code, scripts get executed in the order it is fetched
 
             <script type="module" src="js/script.js"></script>      // when type attribute set to module, script tag get automatically becomes defer
 
@@ -281,8 +281,8 @@ Statement vs Expression:
                         arrCopy = [0, ...arr, 5]                       // ...arr = 1, 2, 3, 4      ||      arrCopy = [0, 1, 2, 3, 4, 5]
                         obj = {1:"One",2:"Two",3:"Three",4:"Four"}
                         objCopy = {...obj}  || 
-                        objCopy = Object.assign({}, obj)         // gives shallow copy, as only first level properties are copied, 
-                                                                        if any property is object, that property will be pointing to the same memory location for both the obj and objCopy
+                        objCopy = Object.assign({}, obj)         // gives shallow copy, as only first level properties are copied, to also copy a nested object we can use 'lodash' module using npm
+                                                                        if any property is object, that property will be pointing to the same memory location for both the obj and objCopy. i.e. obj.nestedObj.flag == objCopy.nestedObj.flag
             Note - JavaScript converts primitive strings to string objects, so that it is possible to use string object methods like, str.length
 
         Variable Declaration-   
@@ -352,7 +352,7 @@ Statement vs Expression:
                     s.startsWith("s")       -> true/false
                     s.endsWith("g")         -> true/false
                     s.slice(1, -1)                                  // return the string from index 1st till second last character(as 2nd index is exclusive)
-                    arr = s.split(" ")      -> array of s words spitted by " "
+                    arr = s.split(" ")      -> array of 's' words spitted by " "
                     new_s = arr.join(" ")   -> all elements from arr joined by " " to create a string         
                     s.toLowerCase()
                     s.toUpperCase()
@@ -444,7 +444,7 @@ Statement vs Expression:
                     
                     a.includes(12)                                           -> true/false      // checks for equality
                     a.some(function(current, i, a){return true/false})       -> true/false      // checks for availability
-                    a.every(function(current, i, a){return true/false})      -> true/false      // true if callback function return true for every/all values of array 
+                    a.every(function(current, i, a){return true/false})      -> true/false      // true if callback function returns true for every/all values of array 
 
                     a.concat(a1)                                             -> [...a, ...a1]
                     a.join("")                                               -> string with all 'a' elements
@@ -679,7 +679,8 @@ O/P-I/P
         WHILE
             while() {}
 
-        DO-WHILE
+        DO-WHILE 
+		    - will be executed at least once(even if condition is false)
             do{
                 console.log(a)
                 a++
@@ -742,8 +743,9 @@ O/P-I/P
                 greet();            // as we have only one expression in function so we can ignore the {}
                                     // function call, gives error when called before creation as var greet is hoisted and assigned with Undefined
 
-        Self-Executing Function/ Immediately Invoked Function - done by converting function into expression then invoking() it
+        Self-Executing Function/Immediately Invoked Function(IIFE) - done by converting function into expression then invoking() it
             - Only executed once
+            - code line previous to "Self-Executing Function" should be terminated by semicolon(;)
             
             (function (parameters){                                                 // converting function into expression
                 console.log(`Welcome to ${platform}`);
@@ -1235,7 +1237,7 @@ O/P-I/P
                 - XML(AJAX) is just popular name but we don't use xml now we uses JSON(javascript object converted to a string)
 
     
-    Old Javascript API request
+    Old JavaScript API request
         const req = new XMLHttpRequest();   
         req.open('GET', 'https://github.com/sprculguy/programming.git')
         req.send()                                      // load event will trigger after getting the response
@@ -1250,15 +1252,15 @@ O/P-I/P
         req.then(res => res.json(), err => alert(err)).then(data => data)               // using then again as json() also returns promise object
         req.then(res => {
             if(!res.ok)
-                throw new Error(`error is ${res.status}`)                               // mannual error throw for 404 response
+                throw new Error(`error is ${res.status}`)                               // manual error throw for 404 response
             return res.json()
         }).then(data => data).catch(err => alert(err)).finally(()=>loading_cursor.style.display = None)         // error can be handled as above line(rescallback, errcallback) or this catch()
-                                                        // catch also returns promise object thats why we can use finally
+                                                        // catch also returns promise object that's why we can use finally
 
 
     Promise -
         - An object that is used as a placeholder for the future result of an asynchronous operation
-        - Container for an asynchronously delivered(in future) value. eg. response from AJAX call
+        - Container for an asynchronously delivered(in future) value. e.g. response from AJAX call
         - Promise Life Cycle:
             1. Pending - before future value is available
             2. Async task
@@ -1292,7 +1294,7 @@ O/P-I/P
 
 
     Async/Await - advance way of consuming/using promises. In background everything
-        - creates a function be exeuted asynchronously(in Web APIs environment without blocking call stack) and return a promise
+        - creates a function be executed asynchronously(in Web APIs environment without blocking call stack) and return a promise
         - async/await are just implementation because behind the scenes it works exactly like consuming promises using fetch().then()
                 eg. const fun = async function(){
                         try{
@@ -1313,9 +1315,9 @@ O/P-I/P
                         }
                     })()
                     OR
-                    try{                            // await is only valid in async functions and the top level bodies of modules
+                    try{                            // await is only valid in async functions and the top-level bodies of modules
                         const res = await fun()       // so, <script type="module" src="js/asynchronous.js" defer> </script>
-                        console.log(res)
+                        console.log(res)              // top-level await is synchronous(blocks the module code execution)
                     }catch(err){
                         console.error(err)
                     }
@@ -1328,7 +1330,6 @@ O/P-I/P
 
 
 
-
 **Error Handling - 
     try{
         throw new Error('myError')
@@ -1336,14 +1337,89 @@ O/P-I/P
         console.error(e)
     }finally(){
 
-    }
+    }                
 
 
 
-**Import/Export - only allows certain function and variables
+Modern JS development -
 
-        import { funcname } from "./fuctionContainer"
-        import * as x from "./fuctionContainer"
+    Module1                 |                                                                           |
+    Module2                 |   |                                                                       |
+    .                       |     -->        Bundling        -->          Transpiling/Polyfilling       | --> JavaScript Bundle
+    .                       |             (Join modules)            (JS Modern to Primitive conversion) |
+    React package(from NPM) |             Parcel/webpack                           Babel                    |
+    ------------------------+---------------------------------------------------------------------------+-----------------------
+        development                                        Build Process                                          Production
 
-        export { funcName };
-        export const x = 10;
+
+            ES6 Module          |      Script
+    ----------------------------+--------------------------    
+        Scoped to module        |      Global               <-     Top-level variables 
+           Strict Mode          |    Sloppy Mode            <-     Default Execution Mode
+            undefined           |   window object           <-     top-level 'this' 
+               Yes              |        No                 <-     Import/Export top-level(outside of any block)
+       <script type="module">   |     <script>              <-     HTML linking
+            Asynchronous        |   Synchronous(blocking)   <-     Default file downloading(unless using defer/async attribute in <script>)
+
+
+
+**Import/Export 
+    - HTML linking should be with <script type="module">
+    - all imports are hoisted
+    - Modules are imported Synchronously(main code(index.js) is executed only after all imported modules are downloaded and executed)
+    - imports are not copy of exported variables but are reference(points to the same place in memory) 
+    - there are two types of export/imports
+        1. Named export/import
+            import { var1, var2 as variable } from "./fuctionContainer.js"
+            import * as x from "./fuctionContainer.js"
+            console.log(x.var1)
+
+            export { var1, variable as var2 };
+            export const x = 10;
+
+        2. Default export/import 
+            - exports/imports one thing/value per module
+
+                import x from './fuctionContainer.js'
+
+                export default function(){}
+                export default "234567890987654"
+
+    - CommonJS export/import
+        - Developed for Node.js(requre() function & export object is not available in browser but are available in Node.js)
+
+            const { x } = require("../fuctionContainer.js)  
+
+            export.x = function(){}
+
+        
+
+To create a full-stack application/project with npm
+    run npm init
+    npm install express mongoose dotenv                 // dependencies{} in package.json
+    npm install nodemon -D                        // dev devDependencies{} in package.json
+
+        e.g. package.json
+                {
+                    "name": "project-name",
+                    "version": "1.0.0",
+                    "description": "",
+                    "main": "index.js",
+                    "scripts": {
+                        "dev": "NODE_ENV=development nodemon backend/server.js",
+                        "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+                        "start": "NODE_ENV=production node backend/server.js"
+                    },
+                    "type": "module",
+                    "keywords": [],
+                    "author": "",
+                    "license": "ISC",
+                    "dependencies": {
+                        "dotenv": "^16.4.5",
+                        "express": "^4.19.2",
+                        "mongoose": "^8.5.1"
+                    },
+                    "devDependencies": {
+                        "nodemon": "^3.1.4"
+                    }
+                }

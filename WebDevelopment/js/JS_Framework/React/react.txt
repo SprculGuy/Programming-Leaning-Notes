@@ -1,0 +1,4 @@
+Browser side JS library to build highly reactive user interfaces
+    - render UI with dynamic data 
+    - handle user input
+    - communicate with backend servises

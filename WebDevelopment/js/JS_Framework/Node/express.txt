@@ -1,0 +1,3 @@
+Node.js framework that simplifies writing server-side code and logic
+    - middleware-based : funnel request through functions
+    - routing, view-rendering

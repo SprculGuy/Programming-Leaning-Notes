@@ -215,32 +215,32 @@ debugger;       // keyword used to add breakpoint for the debugging
         |*, /, //, %												    |	Multiplication, division, floor division, remainder 
         |+, -														    |	Addition/concatenation and subtraction
         | &&													        |  	Logical AND // used on any data type and returns any data type
-        |                                                                       // 3 &&'A'      returns 'A'       // returns last truthy value
-        |                                                                       // 2 && 3 && 1  returns 1           
-        |                                                                       // ''&& 0       returns 0         // returns first Falsey value(short circuiting)
-        |                                                                       // 1 && '' && 2 returns ''          
+        |                                                                 |     // 3 &&'A'      returns 'A'       // returns last truthy value
+        |                                                                 |     // 2 && 3 && 1  returns 1           
+        |                                                                 |     // ''&& 0       returns 0         // returns first Falsey value(short circuiting)
+        |                                                                 |     // 1 && '' && 2 returns ''          
         | ||  												            |	Logical OR  // used on any data type and returns any data type
-        |                                                                       // 3||'A'    returns 3       // returns first truthy value(short circuiting)
-        |                                                                       // ''||'A'   returns 'A'     
-        |                                                                       // ''||0||1  returns 1
-        |                                                                       // ''||0     returns 0       // returns last Falsey value
+        |                                                                 |     // 3||'A'    returns 3       // returns first truthy value(short circuiting)
+        |                                                                 |     // ''||'A'   returns 'A'     
+        |                                                                 |     // ''||0||1  returns 1
+        |                                                                 |     // ''||0     returns 0       // returns last Falsey value
         | !															    |	Logical NOT
         |<, <=, >, >=, !=, ==				                            |	Comparisons (does type conversion)
         |===, !==                                                       |   strict equality operator;  doesn't allows type coercion.eg, 3=='3' is true but 3==='3' is false
         | ??														    |	Nullish Coalescing Operator, x1 ?? x2   // returns x2 if x1 is nullish(null or undefined) Nullish values are null and undefined (not "" or 0)
-        |                                                                       // const guest = 0;         Nullish Coalescing operator is same as or(||) operator
-        |                                                                       // noOfGuestPresent = guest || 10   // this gives 10 even if the number of guest is 0
-        |                                                                       // noOfGuestPresent = guest ?? 10   // this solves above problem and gives value zero, not 10
+        |                                                                 |     // const guest = 0;         Nullish Coalescing operator is same as or(||) operator
+        |                                                                 |     // noOfGuestPresent = guest || 10   // this gives 10 even if the number of guest is 0
+        |                                                                 |     // noOfGuestPresent = guest ?? 10   // this solves above problem and gives value zero, not 10
         |?.                                                             |   Optional chaining operator;  // returns nullish values if doesn't find value to left else executes right-side expression(obj?.property or arr[0]?.property)   
-        |                                                                       // obj.property1?.property11  // checks if property1 exists then executes expression otherwise returns nullish value(undefined)
-        |                                                                       // obj.method?.() ?? 'method not exist'  // if method doesn't exists then it was returning undefined(nullish value), to avoid this we use nullish Coalescing operator
-        |                                                                       // arr[0]?.property ?? 'object array is empty'   
+        |                                                                 |     // obj.property1?.property11  // checks if property1 exists then executes expression otherwise returns nullish value(undefined)
+        |                                                                 |     // obj.method?.() ?? 'method not exist'  // if method doesn't exists then it was returning undefined(nullish value), to avoid this we use nullish Coalescing operator
+        |                                                                 |     // arr[0]?.property ?? 'object array is empty'   
         | ...                                                           |   Spread operator(seperate away - used RHS of '=')(for iterables(string, arrays, maps, sets) but NOT OBJECTS) eg. ...arr
-        |                                                                       // x = [1,2,3]  then, ...x = 1, 2, 3 and [1, ...x] = [1, 2, 3]
-        |                                                                       // s = "Ank"    then, ...s = 'A', 'n', 'k' and [...s] = ['A', 'n', 'k']
-        |                                                                   Rest Operator(groups together - used LHS of '=') eg. function(...args){}    // args = [parameters separated by commas]
-        |                                                                       // x = [1,2,3,4]  then, const [a, ,...remaining] = x; a=1, remaining=[3,4] 
-        |                                                                       // obj = {'mon':1,'tue':2,'wed':3}      then, const {mon, ...otherDays} = obj; mon=1, otherDays = {'tue':2,'wed':3}
+        |                                                                 |     // x = [1,2,3]  then, ...x = 1, 2, 3 and [1, ...x] = [1, 2, 3]
+        |                                                                 |     // s = "Ank"    then, ...s = 'A', 'n', 'k' and [...s] = ['A', 'n', 'k']
+        |                                                               |   Rest Operator(groups together - used LHS of '=') eg. function(...args){}    // args = [parameters separated by commas]
+        |                                                                 |     // x = [1,2,3,4]  then, const [a, ,...remaining] = x; a=1, remaining=[3,4] 
+        |                                                                 |     // obj = {'mon':1,'tue':2,'wed':3}      then, const {mon, ...otherDays} = obj; mon=1, otherDays = {'tue':2,'wed':3}
         | ` Hi my name is ${name},                                      |   Template Literal - Multiline + Formatted string
         |   I am ${age} years old. `
 

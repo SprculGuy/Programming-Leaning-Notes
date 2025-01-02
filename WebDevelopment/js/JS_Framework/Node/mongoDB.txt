@@ -1,2 +1,2 @@
 NoSQL DB engine which stores "Documents" in "collections" (just like "objects" in "JSON" or "records/rows" in "Tables" SQL DB)
-    - no scema and relations are mandatory unlike SQL databass
+    - no schema and relations are mandatory unlike SQL databass

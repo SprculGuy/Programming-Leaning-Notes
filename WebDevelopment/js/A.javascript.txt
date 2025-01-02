@@ -8,9 +8,9 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             
 
 
-**Characteristics of Js
+** Characteristics of Js
             High Level - no need to manage memory with variable definition as c/c++
-            garbage collected
+            garbage collection
             Just in time compiled (compiles and executed immediately)
             multi paradigm (can be imperative or declarative paradigm) - supports procedural/function/object-oriented paradigm
             Synchronous
@@ -22,11 +22,13 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             Non-blocking event loop concurrency model(executes time-consuming tasks in background and takes them back in main thread as they finished)
             Everything in js happens inside an Execution Context
 
-    Typescript  - JavaScript's superset with additional feature implementation(script.ts)
+
+* Typescript  - JavaScript's superset with additional feature implementation(script.ts)
                 - TypeScript adds static typing to JavaScript, which can help catch errors during development and improve code maintainability.
                 - Needs TypeScript compiler (tsc) to transpile it into JavaScript.
 
-    JavaScript framework
+
+* JavaScript framework
             ReactJS - use JSX(JavaScript XML) which simplifies mixing of js and html
             vueJS - 
             AngularJS -
@@ -36,7 +38,8 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
         Native Desktop Application
             Electron - Electron embeds Chromium and Node.js to enable web developers to create Cross Platform desktop applications.
 
-    JavaScript Build tools - comes js framework with to convert/optimize the code back into js for current browser
+
+* JavaScript Build tools - comes js framework with to convert/optimize the code back into js for current browser
                             - converting ES6+ JavaScript to older versions for broader browser compatibility using 'Babel'
             1. npm - comes with Node.js    Node.js is to execute JavaScript code server-side
             2. webpack
@@ -44,7 +47,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
 
 
 
-**Types to apply JS/Script to webpage -    
+** Types to apply JS/Script to webpage -    
     1> Internal - used anywhere inside the <html> and only applies to current html document
             <script>
                 const allp = document.querySelectorAll("p")             // ; at ending is optional
@@ -78,8 +81,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
 
 
 
-
-**Execution of JS-->                                                
+** Execution of JS-->                                                
 	SourceCode -> Parsing & syntax Checker -> AST -> Just in-Time Compilation(BrowserEngine/node) -> Machine language -> Execution(using call stack) -> Global Execution Context + EC of function as they were called + EC of callback function after using event loop             
                                                     ^ >     gives unoptimized version as fast as possible then          |
                                                     |  in background the code is optimized(recompiled) while execution  |               // these 3 threads are completely separate from the main thread that
@@ -126,9 +128,9 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
     |                                                                           |
     | +---------------------------+   +---------------------------------------+ |
     | |         JS Engine         |   |              Web APIs                 | |       - Web APIs is the functionalities provided to the JS engine accessible on windows object  
-    | |                           |   |  +---+   +------+   +---------+       | |       - Web APIs are not the part of JS language, but the part of JS Runtime
-    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |Fetch API|  ...  | |       - All Asynchronous tasks are executed in Web APIs environment
-    | | |          | |          | |   |  +---+   +------+   +---------+       | |
+    | |                           |   |  +---+   +------+   +-----------+     | |       - Web APIs are not the part of JS language, but the part of JS Runtime
+    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |fetch() API| ... | |       - All Asynchronous tasks are executed in Web APIs environment
+    | | |          | |          | |   |  +---+   +------+   +-----------+     | |
     | | |          | |  CALL    | |   +---------------------------------------+ |
     | | |   HEAP   | |  STACK   | |                                             |
     | | |          | |          | |       +---------------------------------+   |       - Microtasks Queue Like callback queue, but for callbacks related to promises and has priority over callback queue!
@@ -155,13 +157,14 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
 
 
 ** EXECUTION CONTEXT - 
-            Browser can't understand high-level JS so the js code from web pages is sent to Browsers JS Engine that creates Execution context(environment) for execution
+            Browser can't understand high-level JS so the js code from web pages is sent to Browsers JS Engine that creates Execution context(environment) in call stack for execution
                 during runtime, it's like a box where all the necessary information(local variables) for code execution is stored
             Execution Context consists of;
-                    1. Variable Environment
+                    1. Variable Environment - variable environment of EC is always preserved for enclosed function that is why Closures are possible
                             - let, const, and var declarations
                             - Function
                             - argument object(arguments that were passed to the function that the current execution context belongs to)
+							- references to objects
                     2. Scope chain - lexical 
                     3. 'this' keyword  
                             - method -> 'this' = <object that is calling the method>       
@@ -182,7 +185,7 @@ debugger;       // keyword used to add breakpoint for the debugging
 
 
 
-Statement vs Expression:
+** Statement vs Expression:
         code that doesn't produce/return any value on successful execution is statement(s)
             e.g. const x = `this variable declaration is statement as it doesn't return any value`
 
@@ -191,7 +194,7 @@ Statement vs Expression:
 
 
 
-**OPERATORS--(with precedence)
+** OPERATORS--(with precedence)
 		Operators in the same box have the same precedence
 		Operators in the same box group left to right
 		comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining
@@ -249,7 +252,7 @@ Statement vs Expression:
 
 
 
-** DATA SOURCES --
+** DATA SOURCES -
         1. Source Code  - written in source code (e.g. status messages)
         2. UI           - user input from DOM (e.g. tasks from TODO, etc.)
         3. Web API      - data fetched from web API (e.g. whether data, data about movies, currency conversion rates, etc.) // generally in JSON
@@ -280,9 +283,10 @@ Statement vs Expression:
                         arr = [1,2,3,4]
                         arrCopy = [0, ...arr, 5]                       // ...arr = 1, 2, 3, 4      ||      arrCopy = [0, 1, 2, 3, 4, 5]
                         obj = {1:"One",2:"Two",3:"Three",4:"Four"}
-                        objCopy = {...obj}  || 
-                        objCopy = Object.assign({}, obj)         // gives shallow copy, as only first level properties are copied, to also copy a nested object we can use 'lodash' module using npm
-                                                                        if any property is object, that property will be pointing to the same memory location for both the obj and objCopy. i.e. obj.nestedObj.flag == objCopy.nestedObj.flag
+                        objCopy = {...obj} || objCopy = Object.assign({}, obj)    // gives shallow copy, as only first level properties are copied, to also copy a nested object we can use structuredClone() or 'lodash' module using npm
+                                                                // if any property is object, that property will be pointing to the same heap memory location for both the obj and objCopy. i.e. obj.nestedObj.flag == objCopy.nestedObj.flag
+                        objCopy = structuredClone(obj)    // gives deep copy/clone, as all level properties are copied, i.e. also copy a nested objects.
+                                                                // if any property is object, that property will be copied in objCopy. i.e. obj.nestedObj & objCopy.nestedObj will be pointing to different heap memory location
             Note - JavaScript converts primitive strings to string objects, so that it is possible to use string object methods like, str.length
 
         Variable Declaration-   
@@ -405,6 +409,11 @@ Statement vs Expression:
                     Object.values(obj)          // gives all values array
                     Object.entries(obj)         // gives all keys and values arrays     // this methods converts objects to maps 
 
+					const objArr = [{name: "ankit", type: "saving"}, {name: "Nikita", type: "saving"}, {name: "Bharti", type: "current"}]
+					Object.groupBy(objArr, (current, i) => i)				-> {'0': {...}, '1': {...}, '2': {...}}
+					Object.groupBy(objArr, (current, i) => current.type)	-> {saving: [{...},{...}], current: [{name: 'Bharti', type: 'current'}]}
+					Object.groupBy(objArr, ({type}, i) => type)				-> {saving: [{...},{...}], current: [{name: 'Bharti', type: 'current'}]}	// de-structuring
+
         Arrays (objects that treated differently) -
                 var a = [12,13];            a[0] = 12       a is converted to object; i.e.. a = {0:12, 1:13}
                                                             so we can assign negative index manually, a[-1] = 11
@@ -419,46 +428,49 @@ Statement vs Expression:
                 const [a] = a1      |   a = a1[0]
                 a1.at(0)            |
 
-                a1[a1.length - 1]   |// gives 4(last element)
-                a1.slice(-1)[0]     |
-                a1.at(-1)           |
-
-                a1[0] = 5    // allowed as changing element is possible for non-primitive variables
-                a1 = [6,7,8,9]    // not allowed as a1 is const
+                a1[0] = 5    		// allowed as changing element is possible for non-primitive variables	a1 = [5,2,3,4] // array mutation
+                a1 = [6,7,8,9]    	// not allowed as a1 is const, we are not allowed to change the memory location present in stack variable a1
+				
+				x = a.with(index, value)		// return new array with given index modified by given value without array mutation
+				a2 = a1.with(0, 1)			->	a2 = [1,2,3,4]  & 	a1 = [5,2,3,4]	 
                 
                 const a3 = [a1, `Ankit`, lastName, 2024-2001]
                 
-                a3.indexOf(`Ankit`)     // returns 1
-                a3.indexOf(`Ankita`)     // returns -1
+                a3.indexOf(`Ankit`)    	// returns 1
+                a3.indexOf(`Ankita`)    // returns -1
                 
-                a3.includes(`Ankit`)     // returns true    uses strict equality (===)
-                a3.includes(`Ankit`)     // returns false
+                a3.includes(`Ankit`)    // returns true    uses strict equality (===)
+                a3.includes(`Ankit`)    // returns false
 
                 Array Methods - 
-                    a.length                                                 -> number of elements in array
-                    
-                    a.at(-1)                                                 -> last element
-                    a.indexOf(value)                                         -> index / -1
-                    a.findIndex(function(current, i, a){return true/false})  -> returns first element index for which callback function return true of array elements
-                    a.find(function(current, i, a){return true/false})       -> returns first element for which callback function return true of array elements
-                    
-                    a.includes(12)                                           -> true/false      // checks for equality
-                    a.some(function(current, i, a){return true/false})       -> true/false      // checks for availability
-                    a.every(function(current, i, a){return true/false})      -> true/false      // true if callback function returns true for every/all values of array 
+                    a.length                                                 	-> number of elements in array
+	
+                    a.at(-1)                                                 	-> last element
+                    a.indexOf(value)                                         	-> index / -1
+                    a.findIndex(function(current, i, a){return true/false})  	-> returns first element index for which callback function return true of array elements
+                    a.findLastIndex(function(current, i, a){return true/false}) -> returns last element index for which callback function return true of array elements
+                    a.find(function(current, i, a){return true/false})       	-> returns first element for which callback function return true of array elements
+                    a.findLast(function(current, i, a){return true/false})   	-> returns last element for which callback function return true of array elements
+	
+                    a.includes(12)                                           	-> true/false      // checks for equality
+                    a.some(function(current, i, a){return true/false})       	-> true/false      // checks for availability
+                    a.every(function(current, i, a){return true/false})      	-> true/false      // true if callback function returns true for every/all values of array 
 
-                    a.concat(a1)                                             -> [...a, ...a1]
-                    a.join("")                                               -> string with all 'a' elements
+                    a.concat(a1)                                             	-> [...a, ...a1]	// returns new array, unlike push 
+                    a.join("")                                               	-> string with all 'a' elements
 
-                    a.flat() / a.flat(1)    // if a=[[1,2],3,[4,[5,6]]]      -> [1,2,3,4,[5,6]]     // flat one level nested array
-                    a.flat(2)               // if a=[[1,2],3,[4,[5,6]]]      -> [1,2,3,4,5,6]       // flat 2 levels nested array
-                    a.flatMap((x, i, a1) => x.array)           // map + flat
+                    a.flat() / a.flat(1)    // if a=[[1,2],3,[4,[5,6]]]      	-> [1,2,3,4,[5,6]]     // flat one level nested array
+                    a.flat(2)               // if a=[[1,2],3,[4,[5,6]]]      	-> [1,2,3,4,5,6]       // flat 2 levels nested array
+                    a.flatMap((x, i, a1) => x.array)           // map + flat	
 
                     a.reverse()                             reverse elements of 'a' as well as return new reverse elements array too
+                    a.toReverse()                           return new reverse elements array without original array mutation
                     a.sort()   // sort array elements according to strings   -> sorted array in ascending order with original array mutation
                     a.sort((a,b)=> a-b)     ascending   // if callback function returns negative value, a and b gets swapped in array
                     a.sort((a,b)=> b-a)     descending  
+                    a.toSorted()   // sort array elements according to strings   -> sorted array in ascending order without original array mutation
 
-                    a.push(14)          add at the end
+                    a.push(14)          add at the end, modifies existing array
                     x = a.pop()         remove form the end and return last value
                     a.unshift(11)       add at the start
                     x = a.shift()       remove from the start and return first value
@@ -473,6 +485,7 @@ Statement vs Expression:
                     x = a.splice(3)         returns new array from 3rd index element and also remove them from 'a'
                     x = a.splice(index, number)
                     x = a.splice(1, 2)      remove 2 values from 1st index of 'a' and return remaining elements in x
+					x = a.toSplice(3)		returns new array from 3rd index element, without changing 'a'
 
                     sqInt = a1.filter((num, i, a1) => Number.isInteger(num) && num > 0).map((x, i, a1) => x*x);   // map method creates new and forEach doesn't
                                             // filter the value based on true/false returned by callback function(filter function argument)
@@ -481,6 +494,8 @@ Statement vs Expression:
                     a.entries()       -> map with index and values arrays       // this methods converts array object to maps
                     a.forEach(function(item, index, a){})       // changes done in temporary copy of arr  |  break/continue can't be used
 
+					Object.groupBy([2,-2], (current, i) => current>0 ? 'positive' : 'negative')	-> {positive: [2], negative: [-2, -34]}
+					Object.groupBy([2,-2, 1], (current, i) => i)								-> {'0': [2], '1': [-2], '2': [-34]}
 
         Sets (iterable) - collection of unique values // no way to retrieve value using index/method but can be iterated
                 const set = new Set("Any iterable ")                     iterables are - string, arrays, maps, sets
@@ -488,10 +503,22 @@ Statement vs Expression:
                 
                 Set Methods -
                     set.size        gives length of set values
-                    set.has('A') -> true/false
-                    set.add('A')
-                    set.delete('A')
-                    for(const item of set) console.log(item)
+                    set.has('A') 					-> true/false
+                    set.add('A')					-> same set reference(memory location)
+                    set.delete('A')					-> true/false
+					set.clear()		
+
+					set1.intersection(set2)			-> new set with common elements present in both set1 & set2
+					set1.union(set2)				-> new set with all elements present in both set1 & set2 without duplication
+					set1.difference(set2)			-> new set with all unique elements in set1 which are not present in set2
+					set2.difference(set1)			-> new set with all unique elements in set2 which are not present in set1
+					set1.symmetricDifference(set2)	-> new set with all elements present in both set1 & set2 except intersecting elements
+
+					set1.isDisjointFrom(set2)		-> true/false  	| checks if both sets have no common element
+					set1.isSubsetOf(set2)			-> true/false	| checks if all elements in set1 are present in set2
+                    set1.isSupersetOf(set2)			-> true/false	| checks if all elements in set2 are present in set1
+
+					for(const item of set) console.log(item)
                     set.forEach(function(item, item, set){})       // changes done in temporary copy of set  |  break/continue can't be used
 
         Maps - key-value pairs where the keys can be any datatype(for objects, must be strings) and ordered by intersection
@@ -517,7 +544,7 @@ Statement vs Expression:
 
 
 
-Date/Time/Time Zone
+** Date/Time/Time Zone
     const nowUTC = new Date()                                                   => 2024-01-01T00:00:00.000Z  (Object)
     const now = new Date(new Date().getTime() + 5.5*60*60*1000).toJSON()        => 2024-01-01T00:05:30.000Z  (string)
     Number(now) == +now                 => 1725277002705    (mili seconds, reference to 1970-01-01T00:00:00.000Z)
@@ -532,7 +559,7 @@ Date/Time/Time Zone
 
 
 
-Timers - 
+** Timers - 
     const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after 5 seconds/5000 milliseconds, as 1 sec = 1000 milli
     clearTimeout(timer)                                             // abort the callback of timer
 
@@ -568,7 +595,7 @@ Timers -
 
 
 
-**De-structuring Operator - short form to assign object property values to the variable
+** De-structuring Operator - short form to assign object property values to the variable
         [y, x] = [x, y]             // swapping values of two variable
 
         const arr = [1, 2, [3, 4]];
@@ -590,7 +617,24 @@ Timers -
 
 
 
-**HOISTING - variables and functions are hoisted i.e. only their declaration (var a;) is added to the execution context of script in memory
+** Memory Management
+	- Automatic Memory management through memory life cycle
+		1. Memory Allocation [let temp = 10]
+		2. Memory Usage [temp += temp;]
+		3. Memory Relese [auto garbage collection]
+
+	- memory allocated to variables is relesed; 
+		1. Call stack	- variable environment is simply delted when exicution context pops off the call stack
+		2. Heap 		- Automated sheduled JS engine defined garbage collection(central memory management tool) releases the unreferenced heap memory allocations
+							(variables can be referenced by global execution context , EC of functions, active event listner or timers, closures)
+
+	[note - Variables declared in the global execution context (the top-level scope of your JS code) will generally not be garbage collected as long as the page or script is running]
+	[note - Variables in closures will not be garbage collected as long as the closure itself is alive]
+	[note - Variables in not deleted event listener and timers will not be garbage collected as long as the event listener or timer itself is alive]
+
+
+
+** HOISTING - variables and functions are hoisted i.e. only their declaration (var a;) is added to the execution context of script in memory
         because of hoisting,
             - 'var' and functions are hoisted in global space and are assigned to "undefined"
             - 'let' and 'const' are accessible only after initialization as they are hoisted in separate memory(that is reserved for the block) space,
@@ -611,18 +655,19 @@ Timers -
 
 
 
-O/P-I/P
-    console.log(`outputs to console`)
-    console.dir(r)
+** O/P-I/P
+    console.log(`outputs to console`)			// for basic output and to display simple values.
+    console.dir(r)								// to inspect the structure of objects or DOM elements in more detail.
     console.warn()              
     console.error()                 
     console.table(object)                       // gives key-value rows in table on console
-    alert(`browser provided notification window`);
+    
+	alert(`browser provided notification window`);
     prompt(`// gives pop-up windows with input field and returns input string`);
 
 
 
-**Conditionals - 
+** Conditionals - 
 
         IF
             if() {}
@@ -654,7 +699,7 @@ O/P-I/P
 
 
 
-**Loops -
+** Loops -
         FOR
             for(var i;i<=10;i++) {}
 
@@ -688,8 +733,9 @@ O/P-I/P
 
 
 
-**Functions - Block Scoped in 'use strict' mode
-            - Function are just another type of object, function has properties and methods i.e. functionName.name 
+** Functions - Block Scoped in 'use strict' mode
+			- Function always has access to the variable environment of the execution context in which the function was created
+            - Function are just another type of object, function has properties and methods i.e. functionName.name
             - 'call', 'apply' & 'bind' method can be called on function, i.e. functionName.bind()
 
         Function statement/declaration - way of creating a function
@@ -805,20 +851,19 @@ O/P-I/P
 
 
 
-**CLOSURES -    Closed-over variable environment(including parameters) of EC in which a function was created 
-                        even after that EC is gone or enclosing function has returned
-                closure variables take priority against global variables
+** CLOSURES -   Variable Environment(including parameters) of EC is preserved for enclosed(child) function, even after that EC is gone or enclosing(parent) function has returned
+                Closure variables take priority against global variables
                 Not accessible outside(Encapsulation)
 
             function x(){       
                 var a = 7;
-                function y(){
+                function y(){			// Function always has access to the variable environment of the execution context in which the function was created
                     console.log(a);
                 }
-                y();
+                y();		
                 return y;
-            }             // Function y() along with its lexical scope(variables/parameters) x() bundles together forms a closure
-            var r = x();      // because to closure(x), even after x() vanished, closure still remembers it for y()
+            }             // Function y() along with its lexical scope(variables/parameters - Variable Environment) x() bundles together forms a closure
+            var r = x();      // because to closure(x), even after x() vanished(returned), closure still remembers it for y()
             r();                / will give output as "> 7" 
             console.dir(r)
 
@@ -839,11 +884,11 @@ O/P-I/P
 
         Disadvantages of Closures
             - Overconsumption of Memory as closure variables are not garbage collected
-            - Memory Leak possibility
+            - Memory Leak possibility(variables which are not required/must be deleted are still accessible and hence not garbage collected)
 
 
 
-**TO access/manipulate DOM - ability to change HTML text, attributes or CSS styles as well as listen and respond to events
+** TO access/manipulate DOM - ability to change HTML text, attributes or CSS styles as well as listen and respond to events
     - DOM is very complex API that contain lots of methods(.querySelector(), addEventListener()) and properties(.innerHTML, .textContent) to interact with DOM tree
 
     +--------------------------------------------------------------------------------------------------------------------+    Example of DOM tree for <a>
@@ -1040,7 +1085,7 @@ O/P-I/P
 
 
 
-**Exception handling
+** Exception handling
 
         try{
 
@@ -1050,7 +1095,7 @@ O/P-I/P
 
 
 
-**OOP - 
+** OOP - 
         - JS does not support Classes, rather all JS objects are linked to prototype object containing all methods and properties using "Prototypal Inheritance" / "delegation"
         - In Js, prototype object method is used for all JS objects linked to that Prototype object
                 Eg. all array objects are linked with the "Array.prototype" prototype object
@@ -1228,7 +1273,7 @@ O/P-I/P
 
 
 
-**Asynchronous JS - code execution doesn't wait to finish execution of previous line of code
+** Asynchronous JS - code execution doesn't wait to finish execution of previous line of code
         API(Application Programming Interface) - Determines how one set of software communicates with another set of software
         Web API - application running on server, that receives requests for data and send back the response data
         API data format 
@@ -1245,20 +1290,8 @@ O/P-I/P
             const [data] = JSON.parse(this.responseText)        // converting JSON string to object
         })  
 
-    
-    Latest fetch API request/promise
-        const req = fetch('https://github.com/sprculguy/programming.git', optionObj)    // req -> promise object
-        req.then(function(res){return res.json()}).then(function(data){console.log(data)})
-        req.then(res => res.json(), err => alert(err)).then(data => data)               // using then again as json() also returns promise object
-        req.then(res => {
-            if(!res.ok)
-                throw new Error(`error is ${res.status}`)                               // manual error throw for 404 response
-            return res.json()
-        }).then(data => data).catch(err => alert(err)).finally(()=>loading_cursor.style.display = None)         // error can be handled as above line(rescallback, errcallback) or this catch()
-                                                        // catch also returns promise object that's why we can use finally
 
-
-    Promise -
+	Old Promise.then() -
         - An object that is used as a placeholder for the future result of an asynchronous operation
         - Container for an asynchronously delivered(in future) value. e.g. response from AJAX call
         - Promise Life Cycle:
@@ -1291,6 +1324,18 @@ O/P-I/P
         - Promise.allSettled([])// args - array of promises to execute them parallelly, returns - array all settled(resolve/reject) response promise objects 
                                     // difference between Promise.all() & Promise.allSettled() is Promise.allSettled() will return all the results(resolve/reject) in both cases
         - Promise.any([])       // args - array of promises to execute them parallelly, returns - only first resolved response promise objects, ignoring failed/rejected responses of before that first resolve
+
+
+    Latest fetch API request/promise
+        const req = fetch('https://github.com/sprculguy/programming.git', optionalOptionsObj)    // req -> promise Object  |  optionalOptionsObj = {method: "POST", body: JSON.stringify({username: "example", etc. })}	// default method="GET"
+        req.then(function(res){return res.json()}).then(function(data){console.log(data)})
+        req.then(res => res.json(), err => alert(err)).then(data => data)               // using then again as json() also returns promise object
+        req.then(res => {
+            if(!res.ok)
+                throw new Error(`error is ${res.status}`)                               // manual error throw for 404 response
+            return res.json()
+        }).then(data => data).catch(err => alert(err)).finally(()=>loading_cursor.style.display = None)         // error can be handled as above line(rescallback, errcallback) or this catch()
+                                                        // catch also returns promise object that's why we can use finally
 
 
     Async/Await - advance way of consuming/using promises. In background everything
@@ -1330,7 +1375,7 @@ O/P-I/P
 
 
 
-**Error Handling - 
+** Error Handling - 
     try{
         throw new Error('myError')
     }catch(e){
@@ -1341,7 +1386,7 @@ O/P-I/P
 
 
 
-Modern JS development -
+** Modern JS development -
 
     Module1                 |                                                                           |
     Module2                 |   |                                                                       |
@@ -1363,12 +1408,12 @@ Modern JS development -
 
 
 
-**Import/Export 
+** Import/Export 
     - HTML linking should be with <script type="module">
     - all imports are hoisted
     - Modules are imported Synchronously(main code(index.js) is executed only after all imported modules are downloaded and executed)
     - imports are not copy of exported variables but are reference(points to the same place in memory) 
-    - there are two types of export/imports
+    - there are two types of ES6 export/imports
         1. Named export/import
             import { var1, var2 as variable } from "./fuctionContainer.js"
             import * as x from "./fuctionContainer.js"
@@ -1394,7 +1439,7 @@ Modern JS development -
 
         
 
-To create a full-stack application/project with npm
+** To create a full-stack application/project with npm
     run npm init
     npm install express mongoose dotenv                 // dependencies{} in package.json
     npm install nodemon -D                        // dev devDependencies{} in package.json

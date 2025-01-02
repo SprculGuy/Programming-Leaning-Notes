@@ -2,7 +2,31 @@
     "livePreview.defaultPreviewPath": "/WebDevelopment/index.html",
     "livePreview.autoRefreshPreview": "On All Changes in Editor",
     "livePreview.customExternalBrowser": "Default",
+
     "code-runner.clearPreviousOutput": true,
-    "editor.formatOnSave": false,
-    "files.autoSave": "onFocusChange"
+    
+    "files.autoSave": "onWindowChange",
+    
+    "editor.formatOnSave": true,
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "editor.autoClosingComments": "beforeWhitespace",
+    "editor.autoClosingQuotes": "beforeWhitespace",
+    "editor.comments.ignoreEmptyLines": false,
+	"editor.comments.insertSpace": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.insertSpaces": false,
+    
+    "html.autoClosingTags": true,
+    
+    "javascript.format.semicolons": "insert",
+    "javascript.autoClosingTags": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+	"javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
 }

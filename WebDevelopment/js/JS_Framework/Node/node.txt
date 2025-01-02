@@ -9,7 +9,7 @@ node js is the js runtime environment based on google's V8 js engine to interpre
     |                           JS Runtime in Node.JS                           |
     |                                                                           |
     | +---------------------------+   +---------------------------------------+ |
-    | |         JS Engine         |   |       C++ Bindings & Thread Pool      | |       
+    | |         JS Engine         |   |      C++ Bindings & Thread Pool       | |       
     | |                           |   |  +---+   +------+   +---------+       | |      
     | | +----------+ +----------+ |   |  |...|   |......|   |.........|  ...  | |
     | | |          | |          | |   |  +---+   +------+   +---------+       | |

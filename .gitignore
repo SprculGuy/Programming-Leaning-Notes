@@ -10,3 +10,4 @@ text.txt
 .vscode/*
 !.vscode/extensions.json
 *.logs*
+*node_modules*

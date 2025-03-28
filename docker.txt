@@ -1,42 +1,67 @@
-**DOCKER -  
-            Allows developers to package their applications into images that run on containers
-            Images are created from lightweight configuration files that describes everything that your application need to run
-            Containers are lightweight, standalone, and executable software packages that include everything needed to run a piece of software, including the code, runtime, libraries, and system tools.
-            Docker virtualizes operating systems kernel, where as virtual machines virtualizes the hardware 
-            Docker provides a way to package and distribute applications in a consistent and portable manner across different environments.
-            Docker simplifies the deployment process, promotes consistency across different environments, and enhances scalability by isolating applications into containers.
+** DOCKER -  
+		Docker virtualizes operating systems kernel(software), where as virtual machines virtualizes entire hardware.
+		Docker simplifies the deployment process, promotes consistency across different environments, and enhances scalability by isolating applications into containers.
 
-Key components of Docker include:
-1. **Docker Engine:** The core technology that enables the creation and management of containers. It includes a server daemon and a command-line interface (CLI) for interacting with Docker.
 
-2. **Docker Image:** A lightweight, standalone, and executable package that includes all the necessary components to run a piece of software, such as code, runtime, libraries, and system tools.
-                        Just like github repository, but instead of just storing code docker image also stores environments where the software exicutable.
-                        Once created, Docker images can't be modified as they are read-only 
+** Key components of Docker include:
+		1. Docker Engine:
+			- Core technology that enables the creation and management of containers
+			- Includes a server daemon and a command-line interface (CLI) for interacting with Docker
 
-3. **Container Engine:** An instance of a Docker image that runs in isolation from the host system, providing a consistent and reproducible environment for applications.
+		2. Docker Image: 
+			- Read-only(immutable) templates(configuration files) that serve as the blueprints/instructions for creating the container
+			- Includes all the necessary components to run a application, such as code, runtime, libraries, and system tools.
+
+		3. Container Engine:
+			- Manages the entire lifecycle of the container, from creation to operation.
                     contains -> 1.namespaces(limits what you can see - specifies what containers can access on a linux system)
                                 2.control groups(limits what you can use - specifies how much of the resources containers can consume)
+			- Popular Container Engines;
+					Kubernetes - an open-source system for management, deployment, and scaling of containerized apps (Docker)
+					Docker Swarm
 
-4. **container runtime:** component of the container engine that used to configure control groups and namespaces proprties.
+		4. Container runtime: 
+			- The software that actually executes and manages containers
+			- component of the container engine that used to configure control groups and namespaces proprties.
 
-4. **Dockerfile:** A text file that contains instructions for building a Docker image. It specifies the base image, application code, dependencies, and other configuration settings.
+		5. Container:
+			- An one time instances of a Docker image that runs in isolation from the host system, providing a consistent and reproducible environment for applications.
+			- standalone, lightweight VMs, and executable software packages 
 
-5. **Registry:** A centralized repository for storing and sharing Docker images. Docker Hub is a popular public registry, but you can also use private registries for your organization's images.
+		6. Dockerfile: 	
+			- Text file that contains environment instructions for building a Docker image. 
+			- Specifies the base image, application code, dependencies, and other configuration settings.
 
-6. **Compose:** A tool for defining and running multi-container Docker applications. It allows you to specify a multi-container application setup in a YAML file, making it easier to manage complex deployments.
+		7. Docker Hub: 	
+			- Centralized public repository to store, share, and discover Docker images. Private registries for organization's images can be created.
 
+		8. Docker Compose: 
+			- Tool for defining and running multi-container Docker applications. It allows you to specify a multi-container application setup in a YAML file, making it easier to manage complex deployments.
+
+
+** Simplified (Cake Baking Analogy):
+		Docker Engine 					Entire bakery, including the ovens, mixing stations, and the staff that manages the baking process.
+		Docker Image 					Recipe for the cake.
+		Dockerfile 						List of ingredients and instructions in the recipe.
+		Container Engine 				Entire baking operation across multiple bakeries, ensuring efficient production and delivery of cakes to different locations.
+		Container 						Serving plate or box that holds the baked cake.
+		Container Runtime 				Oven itself that bakes the cake.
+		Application 					Actual baked cake.
+
+		Docker Hub 						Cookbook sharing website where you find recipes.
+		Docker Compose 					Guide for baking a multi-layered cake.
 
 
 Important directories and files -
-            /var/lib/docker                 almost all the docker data(containers, volumes, metadata) get stored in this directory
-            /var/lib/docker/overlay         stores container data while container is running
-            /var/run/docker.sock            pipe between doker engine and docker client (termed as unix socker file)
-            /etc/docker/daemon.json         docker engine configuration(might not exist defaultly)
+		/var/lib/docker                 almost all the docker data(containers, volumes, metadata) get stored in this directory
+		/var/lib/docker/overlay         stores container data while container is running
+		/var/run/docker.sock            pipe between doker engine and docker client (termed as unix socker file)
+		/etc/docker/daemon.json         docker engine configuration(might not exist defaultly)
 
 
 Docker limitations -
-            nativly only on Linux and some latest versions of windows
-            container images are bound to their parent operating system
+		nativly only on Linux and some latest versions of windows
+		container images are bound to their parent operating system
 
-            containers are created form container images 
-            container images are a compressed and pre-packaged file system that contains application along with its environment and configuaration with an instruction(entry point) on how to start the application
+		containers are created form container images 
+		container images are a compressed and pre-packaged file system that contains application along with its environment and configuaration with an instruction(entry point) on how to start the application

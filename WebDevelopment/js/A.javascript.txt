@@ -5,7 +5,7 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             JS is Backward compatible, even with ES1(1997)
 
             Js is functionality/behavior for Components of webpage
-            
+
 
 
 ** Characteristics of Js
@@ -19,8 +19,8 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
             dynamically typed
 
             First-class function(function can be treated as variable) 
-            Non-blocking event loop concurrency model(executes time-consuming tasks in background and takes them back in main thread as they finished)
-            Everything in js happens inside an Execution Context
+            Non-blocking event loop concurrency model(lets user to executes time-consuming tasks in background and takes them back in main thread as they finished)
+			Everything in js happens inside an Execution Context
 
 
 * Typescript  - JavaScript's superset with additional feature implementation(script.ts)
@@ -83,9 +83,9 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
 
 ** Execution of JS-->                                                
 	SourceCode -> Parsing & syntax Checker -> AST -> Just in-Time Compilation(BrowserEngine/node) -> Machine language -> Execution(using call stack) -> Global Execution Context + EC of function as they were called + EC of callback function after using event loop             
-                                                    ^ >     gives unoptimized version as fast as possible then          |
-                                                    |  in background the code is optimized(recompiled) while execution  |               // these 3 threads are completely separate from the main thread that
-                                                    |<    uses 3 separate threads(Parsing,compilation,optimization)    <|                               is running into the call stack executing code
+												 ↗     Gives unoptimized version for execution as fast as possible 		↘
+												 ↖________ then in background the code is optimized(recompiled) ________↙                
+		- Uses 3 separate threads(Parsing,compilation,optimization) which are completely separate from the main thread which is running into the call stack executing code.
     1. Parsed(analyzing and converting a program into an internal format that a runtime environment can actually run) into a data structure called AST(Abstract Syntax Tree)
                     AST example for code; const x = 23;
                         VariableDeclaration { 
@@ -111,39 +111,42 @@ Brenden Ike in 1995 (Internationally standard for JavaScript language = ECMAScri
                             kind: "const"
                         }
 	2. AST is compiled and converted as well as executed immediately, an unoptimized version of machine code for fast execution.
-	3. Then the unoptimized machine code is recompiled again and again without stopping already running execution to make the machine code optimized.
+	3. Then the unoptimized machine code is recompiled again and again without stopping already running execution to make the machine code optimized(inlining, copy elision, inline caching)
 	4. Parsing, Compilation/Recompilation & and Optimization is done on separate threads which is completely separate from the main thread
 	5. Main thread swept away old unoptimized code and re-executes new optimized machine code again and again
-    6. After getting the Machine Code, one "Global Execution Context" is created(for code outside of any Function) and JS code is executed inside of execution
-    7. as the function call is executed, new function specific execution context is created and added to call stack of JS engine.
-    8. After execution of top-level JS code, for all the callback functions execution contexts are created and those functions are executed inside of particular execution contexts
-    9. Global Execution Context remains in call stack as long as browser is running.
+    6. After getting the Machine Code, one "Global Execution Context" is created(for code outside of any Function) and JS code is executed inside call stack
+    7. as the function call is executed, new function specific execution context is created and added to call stack of JS engine
+    8. After execution of top-level JS code, "Global Execution Context" pops off the call stack.
+	9. As call stack becomes free, all queued the callback functions(oldest first) execution contexts are created and those functions are executed inside of respective execution contexts
 
 
 
 ** JavaScript Runtime in Browser -
 
-    +---------------------------------------------------------------------------+
-    |                           JS Runtime in Browser                           |
-    |                                                                           |
-    | +---------------------------+   +---------------------------------------+ |
-    | |         JS Engine         |   |              Web APIs                 | |       - Web APIs is the functionalities provided to the JS engine accessible on windows object  
-    | |                           |   |  +---+   +------+   +-----------+     | |       - Web APIs are not the part of JS language, but the part of JS Runtime
-    | | +----------+ +----------+ |   |  |DOM|   |Timers|   |fetch() API| ... | |       - All Asynchronous tasks are executed in Web APIs environment
-    | | |          | |          | |   |  +---+   +------+   +-----------+     | |
-    | | |          | |  CALL    | |   +---------------------------------------+ |
-    | | |   HEAP   | |  STACK   | |                                             |
-    | | |          | |          | |       +---------------------------------+   |       - Microtasks Queue Like callback queue, but for callbacks related to promises and has priority over callback queue!
-    | | |          | |          |↗------↘ |        Microtasks Queue         |   |           e.g. fetch("https://github.com/sprculguy/programming.git").then(response => response)  
-    | | |          | |          |  Event  +---------------------------------+   |                   // (response => response) is callback function related to promise  
-    | | |       *  | |          |  loop   +---------------------------------+   |
-    | | | *        | | __F2EC__ |↖------↙ |      Callback Queue             |   |       - Callback queue is a data structure that contains all the callback functions that are ready to be executed
-    | | |    *  *  | | __F1EC__ | |       |  +-----+  +-----+  +----+       |   |          example; eventHandlerFunction - callback function from DOM event listener
-    | | |  *   *   | | __GEC___ | |       |  |click|  |timer|  |data|  ...  |   |              as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
-    | | +----------+ +----------+ |       |  +-----+  +-----+  +----+       |   |              then when the call stack is empty the callback queued function passed to call stack by 'Event Loop' for execution
-    | +---------------------------+       +---------------------------------+   |
-    |                                                                           |
-    +---------------------------------------------------------------------------+
+    +----------------------------------------------------------------------------+
+    |                           JS Runtime in Browser                            |
+    |                                                                            |
+    | +---------------------------+   +--------------------------------------- + |
+    | |         JS Engine         |   |               Web APIs                 | |     	- Web APIs is the functionalities provided to the JS engine accessible on windows object  
+    | |     Code                  |   |  +--------+  +----------+  +-----+     | |     	- Web APIs are not the part of JS language, but the part of JS Runtime
+    | |Parser⬇  ⬆⬇ Optimization   |   |  |document|  |setTimeout|  |fetch| ... | |     	- All Asynchronous tasks are executed in Web APIs environment before passing to Microtasks/Callback queue
+    | |Intpr⬇↳ Cmpl⬇ (JITcompiler)|   |  +--------+  +----------+  +-----+     | |		- setTimeout(), DOM APIs, fetch(), localStorage, console, location
+    | |Execution⬇⬇ ↙↗GarbageColtr|   +--------------------------------------- + |
+    | | +----------+ +----------+ |                                              |
+    | | |  Memory  | |  CALL    | |       +---------------------------------+    |     	- Microtasks Queue is like callback queue, but has priority over callback queue!
+    | | |   HEAP   | |  STACK   |↗------↘ |        Microtasks Queue         |    |     	    e.g. fetch("https://github.com/sprculguy/programming.git").then(response => response)  
+    | | |          | |          |  Event  +---------------------------------+    |     	            // 1. (response => response) is callback function related to promise
+    | | |       *  | |          |  loop   +---------------------------------+    |				 // 2. Mutation Observer - DOM Tree changes observer
+    | | | *        | | __F2EC__ |↖------↙ |         Callback Queue          |    |    	- Callback queue is a data structure that contains all the callback/handler functions that are ready to be executed
+    | | |    *  *  | | __F1EC__ | |       |  +-----+  +-----+  +----+       |    |     	   example; eventHandlerFunction - callback function from 'click' DOM event listener
+    | | |  *   *   | | __GEC___ | |       |  |click|  |timer|  |data|  ...  |    |     	       as soon as 'click' event happens in the DOM, eventHandlerFunction() defined in the addEventListener gets added to callback queue.
+    | | +----------+ +----------+ |       |  +-----+  +-----+  +----+       |    |     	       then as soon as the call stack is empty, the callback queued function will be passed to call stack by 'Event Loop' for execution.
+    | +---------------------------+       +---------------------------------+    |
+    |                                                                            |		- Automated sheduled JS engine defined garbage collection(central memory management tool) releases the unreferenced heap memory allocations
+    +----------------------------------------------------------------------------+			(variables can be referenced by global execution context , EC of functions, active event listner or timers, closures)
+																							
+	Note - 
+			Trust Issue: blocking main thread results in blocking callback queued functions execution
 
 
 
@@ -256,13 +259,13 @@ debugger;       // keyword used to add breakpoint for the debugging
         1. Source Code  - written in source code (e.g. status messages)
         2. UI           - user input from DOM (e.g. tasks from TODO, etc.)
         3. Web API      - data fetched from web API (e.g. whether data, data about movies, currency conversion rates, etc.) // generally in JSON
-        
+
         JS has total of 6 built-in data structures,
             Array - ordered data, easy manipulation/fetching
             Set - unique items(removes duplicates), high-performance(as searching/deleting is faster than arrays)
             Object - keys must be strings, easy to write and access, used when want to include methods(and has 'this') or working with JSON
             Map - better performance(than objects), easy to iterate & compute size, keys can have any data type value
-            Weak-maps 
+            Weak-maps
             Weak-sets
 
 
@@ -328,7 +331,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                     Math.random()                               => x      // 0 < x < 1
                         - Math.trunc(Math.random()*6)           => 0 to 5
                         - Math.trunc(Math.random()*(6-2)) + 2   => 2 to 5
-                    
+
                     Math.trunc(3.14) === Math.trunc(3.94)       => 3 === 3
                     Math.trunc(-3.14) === Math.trunc(-3.94)     => -3 === -3
                     Math.floor(3.14) === Math.floor(3.94)       => 3 === 3
@@ -345,8 +348,8 @@ debugger;       // keyword used to add breakpoint for the debugging
                 const s = "string" / 'string'
                 const s = `this is ${expression}
                             string`
-                
-                String Methods - strings are immutable so all methods return new strings 
+
+                String Methods - strings are immutable so all methods return new strings
                     s.length;
                     s[s.length - 1]         -> last character
                     s.at(-1)                -> last character
@@ -423,35 +426,35 @@ debugger;       // keyword used to add breakpoint for the debugging
                 const a = Array.from({length:5}, (cur, i) => i+1)               // a=[1,2,3,4,5]
                 const a = Array.from(nodeList, element => Number(element.textContent))    
                 const a1 = [1,2,3,4]
-                
+
                 a1[0]               |// gives 1(first element)
                 const [a] = a1      |   a = a1[0]
                 a1.at(0)            |
 
                 a1[0] = 5    		// allowed as changing element is possible for non-primitive variables	a1 = [5,2,3,4] // array mutation
                 a1 = [6,7,8,9]    	// not allowed as a1 is const, we are not allowed to change the memory location present in stack variable a1
-				
+
 				x = a.with(index, value)		// return new array with given index modified by given value without array mutation
-				a2 = a1.with(0, 1)			->	a2 = [1,2,3,4]  & 	a1 = [5,2,3,4]	 
-                
+				a2 = a1.with(0, 1)			->	a2 = [1,2,3,4]  & 	a1 = [5,2,3,4]
+
                 const a3 = [a1, `Ankit`, lastName, 2024-2001]
-                
+
                 a3.indexOf(`Ankit`)    	// returns 1
                 a3.indexOf(`Ankita`)    // returns -1
-                
+
                 a3.includes(`Ankit`)    // returns true    uses strict equality (===)
                 a3.includes(`Ankit`)    // returns false
 
                 Array Methods - 
                     a.length                                                 	-> number of elements in array
-	
+
                     a.at(-1)                                                 	-> last element
                     a.indexOf(value)                                         	-> index / -1
                     a.findIndex(function(current, i, a){return true/false})  	-> returns first element index for which callback function return true of array elements
                     a.findLastIndex(function(current, i, a){return true/false}) -> returns last element index for which callback function return true of array elements
                     a.find(function(current, i, a){return true/false})       	-> returns first element for which callback function return true of array elements
                     a.findLast(function(current, i, a){return true/false})   	-> returns last element for which callback function return true of array elements
-	
+
                     a.includes(12)                                           	-> true/false      // checks for equality
                     a.some(function(current, i, a){return true/false})       	-> true/false      // checks for availability
                     a.every(function(current, i, a){return true/false})      	-> true/false      // true if callback function returns true for every/all values of array 
@@ -474,7 +477,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                     x = a.pop()         remove form the end and return last value
                     a.unshift(11)       add at the start
                     x = a.shift()       remove from the start and return first value
-                    
+
                     x = a.slice(start)  
                     x = a.slice(3)          returns new array from 3rd index element, without changing 'a'
                     x = a.slice(-2)         returns new array from 2nd last index element of 'a', without changing 'a'
@@ -500,7 +503,7 @@ debugger;       // keyword used to add breakpoint for the debugging
         Sets (iterable) - collection of unique values // no way to retrieve value using index/method but can be iterated
                 const set = new Set("Any iterable ")                     iterables are - string, arrays, maps, sets
                         // set = {'A','n','y',' ','i','t','e','r','a','b','l','e'}
-                
+
                 Set Methods -
                     set.size        gives length of set values
                     set.has('A') 					-> true/false
@@ -548,7 +551,7 @@ debugger;       // keyword used to add breakpoint for the debugging
     const nowUTC = new Date()                                                   => 2024-01-01T00:00:00.000Z  (Object)
     const now = new Date(new Date().getTime() + 5.5*60*60*1000).toJSON()        => 2024-01-01T00:05:30.000Z  (string)
     Number(now) == +now                 => 1725277002705    (mili seconds, reference to 1970-01-01T00:00:00.000Z)
-    
+
     const daysSubstraction = (new Date(2024, 8, 23) - new Date(2024, 7, 23)) / (1000*60*60*24)
 
     const day = now.getDate()          
@@ -560,7 +563,7 @@ debugger;       // keyword used to add breakpoint for the debugging
 
 
 ** Timers - 
-    const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after 5 seconds/5000 milliseconds, as 1 sec = 1000 milli
+    const timer = setTimeout(function, 5*1000, arg1, arg2)          // calls function with arguments after at least(trust issue) 5 seconds/5000 milliseconds, as 1 sec = 1000 milli
     clearTimeout(timer)                                             // abort the callback of timer
 
     const intervalTimer = setInterval(function, 5*1000, arg1, arg2) // calls function with arguments after every 5 seconds/5000 milliseconds again and again
@@ -585,7 +588,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             let y = "5"         string
             let x = +y          number
             let z = "A"         string
-            let x = +z          invalid number(NaN)  
+            let x = +z          invalid number(NaN)
 
         Binary Operator
             all expression rather than +(concatenation) Operator converts strings into number
@@ -624,7 +627,7 @@ debugger;       // keyword used to add breakpoint for the debugging
 		3. Memory Relese [auto garbage collection]
 
 	- memory allocated to variables is relesed; 
-		1. Call stack	- variable environment is simply delted when exicution context pops off the call stack
+		1. Call stack	- variable environment is simply deleted when exicution context pops off the call stack
 		2. Heap 		- Automated sheduled JS engine defined garbage collection(central memory management tool) releases the unreferenced heap memory allocations
 							(variables can be referenced by global execution context , EC of functions, active event listner or timers, closures)
 
@@ -661,7 +664,7 @@ debugger;       // keyword used to add breakpoint for the debugging
     console.warn()              
     console.error()                 
     console.table(object)                       // gives key-value rows in table on console
-    
+
 	alert(`browser provided notification window`);
     prompt(`// gives pop-up windows with input field and returns input string`);
 
@@ -720,7 +723,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             set.forEach(function(item, _, set){console.log(`${item}, {$set}`)})                                             // set
             new Map(Object.entries(obj)).forEach(function(value, key, objMap){console.log(`${key} : ${value} ${objMap}`)})  // object
             nodelist.forEach(function(item, index, a){console.log(`${item}, ${index}, {$a}`)})                              // nodelist
-       
+
         WHILE
             while() {}
 
@@ -739,8 +742,8 @@ debugger;       // keyword used to add breakpoint for the debugging
             - 'call', 'apply' & 'bind' method can be called on function, i.e. functionName.bind()
 
         Function statement/declaration - way of creating a function
-                function funcName(parameters, a=10, b=a+1) {}           // default parameter            
-                                                    
+                function funcName(parameters, a=10, b=a+1) {}           // default parameter
+
                 funcName(arguments, undefined, 100);  // a=1, b=100     // can be called before declaration of function because of hoisting
 
         Rest operator(...) - for variable number of arguments in form of array
@@ -748,7 +751,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                     return args.reduce((a,b) => a+b, 0)
                 }
 
-                funcName(arguments);  
+                funcName(arguments);
 
         Passing Object as arguments
                 function funcName(property1, property2) {}          // getting object properties as parameter
@@ -775,7 +778,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                 const x = arg => { }
 
         Anonymous Function - function without name. can have multiple arguments, but only one expression
-            
+
                 function() {}           // gives syntax error to fix the error
                 (function() {})         // function converted into expression
                 (function() {})()       // when defined this function expression is executed only once
@@ -785,18 +788,18 @@ debugger;       // keyword used to add breakpoint for the debugging
 	            }
 
 	            let greet = () => console.log("Welcome to GeeksforGeeks!");         // using arrow function
-	            
+
                 greet();            // as we have only one expression in function so we can ignore the {}
                                     // function call, gives error when called before creation as var greet is hoisted and assigned with Undefined
 
         Self-Executing Function/Immediately Invoked Function(IIFE) - done by converting function into expression then invoking() it
             - Only executed once
             - code line previous to "Self-Executing Function" should be terminated by semicolon(;)
-            
+
             (function (parameters){                                                 // converting function into expression
                 console.log(`Welcome to ${platform}`);
             })();
-            
+
             (() => {                                                                // using arrow function
                 console.log("GeeksforGeeks"); 
             })();
@@ -875,7 +878,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             - maintain state in async world
             - setTimeouts
             - Iterators
-        
+
         Advantages of Closures
             - Function currying
             - Data Hiding
@@ -946,7 +949,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                                                                 <!-- 'beforeend' -->
                                                             </p>
                                                         <!-- 'afterend' -->
-        
+
         document.querySelector('.header').prepend(document.createElement('div').innerHTML('here is buttn <button>Button</button>'))
                                                         <!-- '.before()' -->
                                                             <p class='header'>
@@ -963,13 +966,13 @@ debugger;       // keyword used to add breakpoint for the debugging
             section.querySelectorAll('.imp')                    // gives nodelist of all matched('.imp') child and deeper child nodes of the section
             section.childNodes                                  // gives nodelist of all direct child nodes(span, text, comment, br, etc.) of the section 
             section.children                                    // gives live HTMLColletion of only html element nodes(span, br) which are direct child of the section
-        
+
         - parent
             section.parentNode                                  // gives direct parent node of the section
             section.parentElement                               // gives direct parent element node of the section
             section.closest('.header')                          // gives closest parent element node of section no matter how far-up parent it's on DOM tree
             section.closest('.section')                         // gives section itself as, section = document.querySelector('.section')
-        
+
         - sibling(only access direct siblings - only consecutive prev and next node)
             section.previousSibling                             // gives direct sibling node that is previous of section, otherwise null
             section.previousElementSibling                      // gives direct sibling element node that is previous of section, otherwise null
@@ -980,17 +983,17 @@ debugger;       // keyword used to add breakpoint for the debugging
     - Changing CSS(applies inline styles)
         document.querySelector('.btnCheck').style.width = '20rem';        // property value should be string including unit
         document.querySelector('body').style.backgroundColor = 'red';     // in css we use background-color but in js we use camelCase 
-        
+
         - to get defined/browser computed styles from webpage
             getComputedStyle(document.querySelector('body'))    => returns object which contains all the styles(defined in style.css / computed by browser)
-        
+
         - to modify CSS Custom properties(variables)
             document.documentElement.style.setProperty('--color-primary', '#34e572')
                         :root{                  // css variables defined on root, accessible throughout all document
                             --color-primary: #4e5678;
                             --color-secondary: #34e572;
                         }
-    
+
 
     - Manpulating classes of HTML element attributes
         - standard attributes (must have in HTML defined properties)
@@ -999,7 +1002,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             document.querySelector('.nav_logo').alt         => Logo For Navbar                      |  object obj.src, obj.alt, etc.
             document.querySelector('.nav_logo').getAttribute('src')             => img/logo.png
             document.querySelector('.nav_logo').getAttribute('myAttribute')     => my custom defined value for attribute
-        
+
         - non-standard attributes (custom/user-defined attributes)
             document.querySelector('.nav_logo').alt = 'Logo For Navbar'                     
             document.querySelector('.nav_logo').setAttribute('myAttribute', 'my custom defined value for attribute')  
@@ -1020,7 +1023,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             for(let i=0;i < p.length; i++){
                 p[i].classList.add('className');
                 p[i].addEventListener('click);
-            } 
+            }
 
 
     - Manpulating Viewport/browser window
@@ -1028,7 +1031,7 @@ debugger;       // keyword used to add breakpoint for the debugging
         document.documentElement.clientWidth            // current width of viewport(brouwser window) in pixels
         x = window.pageXOffset                          // current horizontal scroll location in pixels
         y = window.pageYOffset                          // current vertical scroll location in pixels
-        
+
         s1 = document.querySelector('.section1').getBoundingClientRect()               // returns dom rectangle object(position, width, height,..,etc.) 
         window.scrollTo({left: s1.left + x, top: s1.top + y, behavior: "smooth"})      // left and top will be relative to current viewport, in pixels
         document.querySelector('.section1').scrollIntoView({behavior:"smooth"})      
@@ -1113,8 +1116,8 @@ debugger;       // keyword used to add breakpoint for the debugging
             Class Body always executed in Strict Mode "use strict"
 
         1. Constructor Functions - technique to create objects from function; built-in objects like Array, Maps or Sets are actually implemented
-            
-            const Space = function(planet){        or         function Space(planet){               // arrow function doesn't work 
+
+            const Space = function(planet){        or         function Space(planet){               // arrow function doesn't work
                 this.planet = planet;                             this.planet = planet;             // because they don't have 'this'(has their lexical 'this')
                 // this.calcDist(){}                              // this.calcDist(){}              // never create method like this, as every object will create its own copy of function. Rather we uses Prototypal inheritance for methods
             }                                                 }
@@ -1159,7 +1162,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                                         |          earth             |      earth.__proto__ === Space.Prototype
                                         |__proto__ = Space.prototype |      
                                         +----------------------------+
-   
+
 
         2. ES6 Classes           - Class type implementation but behind the scenes it works exactly like Constructor Functions
                                  - Classes are not Hoisted
@@ -1195,7 +1198,7 @@ debugger;       // keyword used to add breakpoint for the debugging
 
 
         3. Object.create()       - way of linking an object to a Prototype Object(object from object literal)
-                                                        
+
             const Space = {
                 initFunc(planet, isWater){              // mannual initializer function
                     this.planet = planet
@@ -1237,7 +1240,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             }
             class Child extends Parent{}
 
-            const obj = new Child("name","age", "canWalk")      
+            const obj = new Child("name","age", "canWalk")
             const obj1 = new Child("name","age", "canWalk")     // if not defined default constructor is Parent constructor
 
         3. Object.create()
@@ -1259,7 +1262,7 @@ debugger;       // keyword used to add breakpoint for the debugging
             #wheels = 4;        // should be defined inside class but outside of function
             #key;               // in case we need private variable initialization in a function, then we define private field in class 
                                     // and then initialize/assign value in that function
-            
+
         // Public Method (added on prototype)
             getWheels(){                
                 console.log(this.#wheels);  // private class fields, only accessible inside of class
@@ -1281,7 +1284,7 @@ debugger;       // keyword used to add breakpoint for the debugging
                 - asynchronous communication(request data) with remote servers dynamically(without loading webpage)
                 - XML(AJAX) is just popular name but we don't use xml now we uses JSON(javascript object converted to a string)
 
-    
+
     Old JavaScript API request
         const req = new XMLHttpRequest();   
         req.open('GET', 'https://github.com/sprculguy/programming.git')
@@ -1297,16 +1300,16 @@ debugger;       // keyword used to add breakpoint for the debugging
         - Promise Life Cycle:
             1. Pending - before future value is available
             2. Async task
-            3. Settled - after async task is finished. 
+            3. Settled - after async task is finished.
             Note - Promise is only settled once
-        - we can create a promise object  
+        - we can create a promise object
             e.g.    cosnt promiseObj = new Promise(function(resolve, reject){        // only one argument - executer function gets executed with promise constructor by passing two function arguments (resolve, reject)
                         setTimeout(function(){                                       // adding setTimeout to make function asynchronous nature
-                            if(success==true) resolve('response')               
+                            if(success==true) resolve('response')
                             else reject(new Error('error'))
                             }
                             , 2000)
-                    })         
+                    })
                     promiseObj.then(res=>res).catch(err=>err)
         - promisifying callback (setTimeout),
                     const wait = function(seconds){
@@ -1382,7 +1385,7 @@ debugger;       // keyword used to add breakpoint for the debugging
         console.error(e)
     }finally(){
 
-    }                
+    }
 
 
 
@@ -1437,7 +1440,7 @@ debugger;       // keyword used to add breakpoint for the debugging
 
             export.x = function(){}
 
-        
+
 
 ** To create a full-stack application/project with npm
     run npm init

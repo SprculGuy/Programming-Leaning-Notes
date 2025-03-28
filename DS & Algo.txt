@@ -8,30 +8,30 @@
 		- Used for analysis of runtime according to the input size...
 		- We can't define runtime in seconds because, for variable proccessing power of every individual...
 	
-	[1] Big O
-			f(n)=O(g(n)) 	if f(n) <= c.g(n)
+		[1] Big O
+				f(n)=O(g(n)) 	if f(n) <= c.g(n)
 
-			O(n^0) = O(1)	   	▲		
-			O(log n)			|
-			O(n^½)				|
-			O(n)				|
-			O(n log n)			|	 Common runtimes form worse to best 
-			O(n^2)				|
-			O(2^n)				|
-			O(n^n)				|
-			O(n!)				|
+				O(n^0) = O(1)	Constant Time	   	▲		
+				O(log n)		Logarithmic Time	|
+				O(n^½)			Squereroot Time		|
+				O(n)			Linear Time			|
+				O(n log n)		Linearithmic Time	|	 Common runtimes from worse to best 
+				O(n^2)			Quadratic Time		|
+				O(n^3)			Cubic Time			|
+				O(2^n)			Exponential Time	|
+				O(n!)			Factorial Time		|
 
-	[2] Big ʊ
-			f(n)=ʊ(g(n)) 	if f(n) >= c.g(n)
+		[2] Big ʊ
+				f(n)=ʊ(g(n)) 	if f(n) >= c.g(n)
 
-	[3] Big ʘ
+		[3] Big ʘ
 			f(n)=ʘ(g(n)) 	if c₁.g(n) <= f(n) <= c₂.g(n)
 
-properties->
-	O(f(n)) + O(g(n)) = | O(f(n))		if f(n) > g(n)
-						| O(g(n))		if g(n) > f(n)
+	properties->
+		O(f(n)) + O(g(n)) = | O(f(n))		if f(n) > g(n)
+							| O(g(n))		if g(n) > f(n)
 
-	O(f(n)) * O(g(n)) = O(f(n)*g(n))
+		O(f(n)) * O(g(n)) = O(f(n)*g(n))
 
 
 

@@ -28,6 +28,16 @@ Steps for any host request to the server
 
 
 
+Classic ports to know  
+    21 = FTP(File Transfer Protocol) - upload files into a file share
+    22 = SFTP(Secure File Transfer Protocol)
+    80 = HTTP(Hypertext Transfer Protocol) - access unsecured websites
+    433 = HTTPS(Hypertext Transfer Protocol Secure) - access secured websites
+    22 = SSH(Secure Shell) - log into a Linux instance
+    3389 = RDP(Remote Desktop Protocol) - log into a windows instance
+
+
+
 Hosts 
     - Any devices that sends & receives trffic; eg. client, server.
     - Any Host needs 4 things for Internet connectivity
@@ -41,10 +51,28 @@ Hosts
 
 Protocols
     - Set of rules & messages that forms internet standard
-        eg. ARP(Address Resolution Protocol) - Resolves IP to Mac address mapping
+        eg. ARP(Address Resolution Protocol) 
+				- Resolves IP to Mac address mapping
             HTTP(Web server)
             HTTPS(HTTP with SSL(SecureSocketLayer)/TSL(TransportLayerSecurity))
             DNS(Domain Name System) server
+			TCP (Transmission Control Protocol)
+				- Connection-oriented protocol that guarantees ordered and error-checked(slower than UDP) delivery of data
+				- Ideal for applications where data integrity is crucial, such as; file transfers, web browsing, and email
+			UDP (User Datagram Protocol)
+				- Connectionless protocol that prioritizes faster data delivery by sending packets directly to an addressed destination, without guaranteeing delivery or order
+				- Ideal for applications where some data loss is tolerable, such as; streaming video, online gaming, and VoIP (Voice over Internet Protocol)
+
+OSI Model									TCP/IP Model
+
+	7. Application Layer				↱	4. Application Layer
+	6. Presentation Layer				|
+	5. Session Layer					|
+	4. Transport Layer						3. Transport Layer
+	3. Network Layer						2. Internet Layer
+	2. Data Link Layer					↱	1. Network Access Layer (or Link Layer)
+	1. Physical Layer					|	
+
 
 
 

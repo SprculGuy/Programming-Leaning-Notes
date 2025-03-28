@@ -4,6 +4,7 @@
 *.class
 tempCodeRunnerFile.*
 text.txt
+app.*
 *.pdf
 /Python/Package
 /node_modules

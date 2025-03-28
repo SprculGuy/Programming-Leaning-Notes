@@ -77,6 +77,11 @@
 
 **Softwares--
     HWiNFO64		> gives all syste/sensors details for hardware components
+	G-Helper		> lightweight, open-source control tool for Asus laptops; alternative to Asus's Armoury Crate
+	Shutter Encoder	> open-source & free video converter and editor, offering a wide range of encoding and editing capabilities
+	OBS Studio		> open-source & free live streaming and video recording software
+	Obsidian 		> note-taking app that helps you organize your ideas and knowledge
+	TrafficMonitor	> network monitoring software for current upload/download internet speed, total data used and CPU and RAM usage
 
 
 **File Related

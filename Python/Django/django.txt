@@ -1,0 +1,45 @@
+
+Creating Virtual environment
+	D:\Anynomus\Documents\Projects> python -m venv simple-django-project
+
+Activate Virtual environment
+	D:\Anynomus\Documents\Projects\simple-django-project> Scripts\activate 
+
+
+Installing Django in Virtual environment
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project> pip install Django
+
+Creating Django Project
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project> django-admin startproject simpleproject
+	
+Creating task specific application 
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project> cd .\simpleproject\
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py startapp simple_app
+
+
+Running Project
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py runserver
+
+Add "simple_app" to 
+	simple-django-project\simpleproject\simpleproject\settings.py	
+	INSTALLED_APPS = [
+		...,
+		'simple_app'
+	]
+
+Migrate app to create them in database table
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py migrate
+
+Create Superuser or Admin user
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py createsuperuser
+		Username (leave blank to use 'ap788'): ankit
+		Email address: 
+		Password: bmsr9407
+		Password (again): bmsr9407
+		Superuser created successfully
+	
+After creating user we can run our server and login into http://127.0.0.1:8000/admin/
+
+After creating the 'simple_app'(Model,View,DataBase) we can convert python into SQL queries(ORM)
+	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py makemigrations
+

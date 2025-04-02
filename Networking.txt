@@ -1,7 +1,3 @@
-https://github.com/sprculguy/programming.git
-    https or http               -> Protocol 
-    github.com                  -> domain name
-    sprculguy/programming.git   -> resourse
 
 
 
@@ -155,7 +151,17 @@ HTTP Web Server response Status Codes
 
 
 
-
-
-
+API(Application Programming Interface)
+	- 
+	Types of APIs
+		1. Private - within Organisation
+		2. Partner - for selected Bussiness/Partner after usage varification by charging some ammount
+		3. Public - 3rd party
+	- |	   Base URL	  	|		End Point		  |
+	  https://github.com/sprculguy/programming.git
+		https or http               -> Protocol 
+		github.com                  -> domain name
+		.com						-> primary domain
+		github 						-> secondary domain
+		sprculguy/programming.git   -> resourse
 

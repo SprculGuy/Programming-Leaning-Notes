@@ -11,7 +11,7 @@ Installing Django in Virtual environment
 
 Creating Django Project
 	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project> django-admin startproject simpleproject
-	
+
 Creating task specific application 
 	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project> cd .\simpleproject\
 	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py startapp simple_app
@@ -37,9 +37,26 @@ Create Superuser or Admin user
 		Password: bmsr9407
 		Password (again): bmsr9407
 		Superuser created successfully
-	
+
 After creating user we can run our server and login into http://127.0.0.1:8000/admin/
 
 After creating the 'simple_app'(Model,View,DataBase) we can convert python into SQL queries(ORM)
 	(simple-django-project) PS D:\Anynomus\Documents\Projects\simple-django-project\simpleproject> python .\manage.py makemigrations
 
+
+
+Serialization
+    - to convert complex data(queryset) to the python data structure(directory)
+
+	Types
+		1. serializers.Serializer
+		2. serializers.ModelSerializer
+
+
+
+Views
+    1. Function Based Views(using function decorator)
+        @api_view()
+
+    2. Class Based Views(using inheritance of class)            
+        APIView     Generic views, Mixins, Concrete View Classes, ViewSets

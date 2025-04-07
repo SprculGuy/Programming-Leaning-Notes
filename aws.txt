@@ -1,16 +1,5 @@
-AWS Cloud Practitioner > CLF-C02
-
-
-
-AWS Cloud History -
-    2002 - internally launched
-    2004 - publicly launched SQS (simple queue services)
-    2006 - relaunched publicly SQS, S3, EC2
-
-
-
 Types of cloud services
-    public 	- Owned and operated by provider(AWS, Microsoft Azure, GCP) which provide cloud services over the internet on Pay-as-you-go pricing model based
+    public 	- Owned and operated by provider(AWS, Microsoft Azure, GCP) which provide cloud services over the internet based on Pay-as-you-go pricing model.
     private - single organization that work on private infrastructure(on-premises or hosted by a third-party provider) suitable for high security and compliance requirements.
     hybrid 	- Combines public and private cloud infrastructures.Provides flexibility and scalability while maintaining control over sensitive data.
 
@@ -46,187 +35,19 @@ Shared Responsibility Model
 
 
 
-AWS Global infrastructure - https://infrastructure.aws/
-    AWS Regions [ Asia Pacific(Mumbai) : ap-south-1, Asia Pacific(Sydney) : ap-southeast-2, US East(Ohio) : us-east-2 ]
-        - Geographic areas containing multiple, isolated data centers(Physical facilities housing servers, networking equipment and other infrastructure) 
-        - most AWS services are region scoped(service behaves as new if region is changed)
-        For launching new application, how should you choose the region?
-            - compliance : with gov and legal requirements
-            - latency : according to users' locations to give them min latency
-            - service availability
-            - pricing : vary from region to region
 
-    AWS Availability zones(AZ) [ ap-south-1a, ap-south-1b ap-south-1c ]
-        - Each region has at least 3 isolated availability zones(2 or more data centers) connected with high bandwidth ultra-low latency network
-        - linked altogether forming a region
+AWS Cloud Practitioner > SAA-03
 
-	AWS Local Zones [ Kolkata : ap-south-1-ccu-1a, Delhi : ap-south-1-del-1a ]
-		- Bring AWS resources (compute(EC2, ECS), database(RDS, ElastiCache), storage(EBS), etc.) closer to your end users for latency-sensitive applications
-		- Optional, i.e. must be enabled mannually to extend your VPC to more locations
+AWS is a cloud provider which provides you with services and servers that you can use on demand and scale easily
+    some of the biggest websites hosted on AWS 
+        1. amazon.com
+        2. netflix  
 
-	AWS WaveLength [ ap-south-1-wl1-mum-wlz-1, ap-south-1-wl1-ccu-wlz-1 ]
-		- Brings AWS services(EC2, EBS, VPC, etc.) embedded within the telecommunications providers datacenters at the edge of the 5G networks
-		- Optional, i.e. must be enabled mannually, without any additional charges or service agreements
-		- Ultra-low latency applications through 5G networks as Traffic doesn’t leave the Communication Service Provider’s (CSP) network
+AWS Cloud History -
+    2002 - internally launched
+    2004 - publicly launched SQS (simple queue services)
+    2006 - relaunched publicly SQS, S3, EC2
 
-    AWS Edge Locations/Points of Presence - AWS has 400+ Points of presence
-		- Network infrastructure points strategically located around the world
-		- Improve latency and performance for applications and services
-		- generally used for Cloudfront Distributions(Global Content Delivery Network)
-
-
-
-Ways to Access AWS
-    1. AWS management Console (protected by password + MFA(via Virtual/Physical MFA device)) - Web Interface
-    2. AWS CLI (Protected by Access Keys) - access keys are single time given credentials(id and secret key) to access AWS services from terminal of our PC
-    3. AWS SDK (for application code(coding language specific): protected by access keys) - access and manage AWS services programmatically embedded within application
-
-  Note - Access keys are generated through AWS Management Console
-        Access Key Id (like username)
-        Access Key (like secret password)
-
-
-
-AWS Architecting & Ecosystem
-	• Well Architected Framework General Guiding Principles
-		- Stop guessing your capacity needs - use auto scaling and scale the based on what the actual demand on your system is going to be
-		- Test systems at production scale
-		- Automate to make architectural experimentation easier 
-			• CloudFormation;  infrastructure as code can easily create an architecture on different accounts and different regions
-			• BeanStalk;  platform as a service
-		- Allow for evolutionary architectures - design based on changing requirements. for example, make serverless designs(Developers don’t have to manage/provision servers instead it's managed/provisioned by AWS)
-		- Drive architectures using data - choose architecture and services based on actual usage, patterns, queries and what you actually need based on this data
-		- Improve through game days - Simulate applications for flash sale days for sudden stike of traffic, failover simulation
-
-
-	AWS Cloud Best Practices – Design Principles
-		Scalability: ability to accommodate a larger load
-			1. Vertical Scalability 
-				- flexible size/capacity of instance
-				- scale up/down(elasticity)
-			2. Horizontal Scalability 
-				- flexible number of instances, parallel execution
-				- scale out/in using ASG and ELB
-				- High Availability is must, run instances of same application across multi AZ
-        Agility: gives ability make users work faster as creation and deletion happens qickly
-		Disposable Resources: servers should be easily disposable & easily configurable
-		Automation: use Serverless, Infrastructure as a Service, Auto Scaling, etc.
-		Loose Coupling: Break it down into smaller, loosely coupled(independant) components
-		Services, not Servers: Refrain using EC2, use managed services(serverless), databases, etc.
-
-
-	Well-Architected Framework 6 Pillars
-		1. Operational Excellence
-			- Ability to run and monitor systems to deliver business value and to continually improve supporting processes and procedures
-			- Design Principles;
-			    • Perform operations as code - Infrastructure as code, i.e. make use of Cloudformation
-			    • Make frequent, small, reversible changes - So that in case of any failure, you can reverse it
-			    • Refine operations procedures frequently and ensure that team members are familiar with it
-			    • Anticipate failure
-			    • Learn from all operational failures
-			    • Use managed(serverless) services - to reduce operational burden
-			    • Implement observability for actionable insights - performance, reliability, cost, etc.
-		2. Security
-		3. Reliability
-		4. Performance Efficiency
-		5. Cost Optimization
-		6. Sustainability
-
-        Note; They are not something to balance or trade-offs, they’re a reccomandations
-
-
-	AWS Well-Architected Tool
-		- Free tool to review your architectures against the Well-Architected Framework 6 pillars and adopt architectural best practices by Simulating workload and answering questions
-
-
-	AWS Customer Carbon Footprint Tool
-		- Track, measure, review, and forecast the Carbon emissions generated from your AWS usage
-		- Helps you meet your own sustainability goals
-
-
-	AWS Cloud Adoption Framework (AWS CAF)
-		- Ebook/whitepaper which helps to build and then execute a comprehensive plan for your digital transformation through innovative use of AWS
-		- Created by AWS Professionals by taking advantage of AWS Best Practices and lessons learned from 1000s of customers
-		- AWS CAF identifies specific organizational capabilities that underpin successful cloud transformations
-		- AWS CAF groups its capabilities in six perspectives:
-			Business 
-			People
-			Governance 
-			Platform
-			Security
-			Operations
-
-
-	Free AWS Ecosystem
-		AWS Blogs: get new feature release, as well as in-depth article around how to do a specific use case
-        AWS Partner Solutions (formerly Quick Starts): automated reference deployments built by AWS solutions architects and AWS Partners to start using your environment within minutes
-		AWS Forums(community): engaging with other developer/architect in community
-		AWS Whitepapers & Guides: to learn in depth around a specific area of AWS
-		AWS Solutions Library(formerly Quick Starts): use case based technical content pool with architectural digrams based on best practices, authored by AWS and the AWS community to expand your knowledge of the cloud
-
-
-	AWS Marketplace
-		- we can sell your own solutions on the AWS Marketplace
-		- Digital catalog with thousands of software listings from independent 3rd-party software vendors
-			• Custom AMI (custom OS, firewalls, technical solutions)
-			• CloudFormation templates
-			• Software as a Service
-			• Containers
-		- buying/selling cost will be added to your AWS bill
-
-
-    Cloud Migration Strategies : The 7Rs
-        Retire : Turn off things you don’t need(maybe as a result of Re-architecting) and only focus your attention on resources that must be maintained
-            - Helps with reducing the surface areas for attacks(more security) 
-            - Save cost, maybe up to 10% to 20%
-        
-        Retain : filter/shorlist the services for cloud migration
-            - because of Security, data compliance, performance, unresolved dependencies
-            - No business value to migrate, mainframe or mid-range and non-x86 Unix apps
-        
-        Relocate : Move apps from on-premises to its Cloud version or move EC2 instances to a different VPC, AWS account or AWS Region
-            - Example: transfer servers from VMware Software-defined Data Center(SSDC) to VMware Cloud on AWS
-        
-        Rehost “lift and shift” : Simple migrations without cloud optimizations, applications is migrated as it is
-            - By re-hosting(applications, databases, data) or migrating machines(physical, virtual, another Cloud) to AWS Cloud
-            - Could save as much as 30% on cost
-            - Example: Migrate using AWS Application Migration Service
-
-        Replatform “lift and reshape” : migrating without changing the core architecture, but leverage some Cloud optimizations
-            - Save time and money by moving to a fully managed service or Serverless
-            - Example: migrate your database to RDS or migrate your application to Elastic Beanstalk
-        
-        Repurchase “drop and shop” : Moving to a different product(SaaS platform) while moving to the Cloud
-            - Expensive in the short term, but quick to deploy
-            - Example: CRM to Salesforce.com, HR to Workday, CMS to Drupal
-        
-        Refactor/Re-architect : Reimagining how the application is architected using Cloud Native features
-            - Driven by the need of the business to add features and improve scalability, performance, security, and agility
-            - Move from a monolithic application to micro-services
-            - Example: move an application to Serverless architectures, use AWS S3
-
-
-    AWS Application Discovery Service
-        - Plan migration projects by gathering information like Server utilization data and dependency mapping about on-premises data centers
-        AWS Agentless Discovery Connector(for Agentless Discovery)
-            - gives information about VM inventory, configuration, and performance history such as CPU, memory, and disk usage
-        AWS Application Discovery Agent(for Agent-based Discovery)
-            - gives lower level of information like System configuration, system performance, running processes, and details of the network connections between systems
-        AWS Migration Hub : for AWS DMS(Database Migration Service) & AWS Application Migration Service(MGN)
-            - central location to collect server and applications inventory data from AWS Application Discovery Service, for the assessment, planning and tracking of migrations to AWS
-            AWS Migration Hub Orchestrator : provides pre-built templates to save time and efforts migrating enterprise apps(eg. SAP, MS SQL server)
-    
-
-    AWS Application Migration Service(MGN) 
-        - Lift-and-shift(rehost) solution, in which we converts physical, virtual, and other cloud-based servers to run natively on AWS
-        - Minimal downtime, reduced costs
-        - Supports wide range of platforms, Operating Systems, and databases
-
-
-    AWS Migration Evaluator
-        - Helps you build a data-driven business case for migration to AWS
-        - Provides a clear baseline of what your organization is running today by conducting broad-based discovery using Agentless Collector
-        - Take a snapshot of on-premises foot-print, server dependepncies, etc. then analyze current state, define target state, then develop migration plan
 
 
 
@@ -242,8 +63,9 @@ Ideal Application Architecture;
 
 
 
+
 AWS Services
-	Account Management and Advanced Identity
+	Account Management 
 		• Root user privileges
 			• Root user = Account Owner (created when the account is created) who has complete access to all AWS services and resources
 			• Lock away your AWS account root user access keys and do not use the root account for everyday tasks, even administrative tasks
@@ -257,6 +79,16 @@ AWS Services
 				• Configure an Amazon S3 bucket to enable MFA
 				• Edit or delete an Amazon S3 bucket policy that includes an invalid VPC ID or VPC endpoint ID
 				• Sign up for GovCloud
+
+
+		• To Access AWS
+			1. AWS management Console (protected by password + MFA(via Virtual/Physical MFA device)) - Web Interface
+			2. AWS CLI (Protected by Access Keys) - access keys are single time given credentials(id and secret key) to access AWS services from terminal of our PC
+			3. AWS SDK (for application code(coding language specific): protected by access keys) - access and manage AWS services programmatically embedded within application
+
+			Note - Access keys are generated through AWS Management Console
+					Access Key Id (like username)
+					Access Key (like secret password)
 
 
 		AWS IAM(IAM Identity and Access Management) - Global service (For trusted users and belong to your company)
@@ -320,7 +152,13 @@ AWS Services
 							• Secrets Manager Secrets
 						- Define Zone of Trust = AWS Account or AWS Organization
 
+				IAM User Group
+					- IAM User Groups can contain only IAM Users
 
+
+
+
+	Advanced Identity
 		AWS Organizations (to manage multi account)
 			- Global Service used to manage multiple child accounts under single Master/Management account
 			- Service Control Policies(SCP) - centrally manage all IAM users, groups, and roles, including the AWS account root user in your AWS Organization
@@ -416,6 +254,21 @@ AWS Services
 			- Identity providers - user pool
 				• Built-in identity store in IAM Identity Center
 				• 3rd party: Active Directory(AD), OneLogin, Okta
+
+
+		Amazon WorkSpaces
+			- Managed Desktop as a Service(DaaS-fully managed VDI and desktop) solution to easily provision Windows or Linux desktops
+			- Great to eliminate management of on-premise VDI(Virtual Desktop Infrastructure)
+			- Fast(Regional-should be provisioned close to users Region) and quickly scalable to thousands of users
+			- Secured data – integrates with KMS
+			- Pay-as-you-go on-demand service with monthly or hourly rates
+
+
+		Amazon AppStream 2.0
+			- Desktop Application Streaming Service - Stream a desktop application to web browsers (no need to connect to a VDI)
+			- Deliver to any computer(that has a web browser), without acquiring, provisioning infrastructure as application is delivered from within a web browser
+			- Allow to configure an instance type per application type (CPU, RAM, GPU)
+
 
 
 
@@ -549,6 +402,7 @@ AWS Services
 
 
 
+
 	Support
         AWS Trusted Advisor
             - online tool that provides you real-time guidance to help you provision your resources 
@@ -564,6 +418,9 @@ AWS Services
                 • Programmatic Access using AWS Support API
 
 
+        Professional Services of AWS
+            - global team of experts working alongside users team and a choosen member of APN
+
         AWS Partner Network(APN)
             - The AWS Partner Network is the global partner program for technology and consulting businesses that leverage AWS to build solutions and services for customers
 
@@ -572,6 +429,23 @@ AWS Services
 
             APN Technology Partner 
                 - provides hardware, connectivity services, or software solutions that are either hosted on or integrated with, the AWS Cloud
+
+                APN Training Partner  
+                    - find who can help you to learn AWS
+                
+                AWS Competency program
+                    - aws Competencies given to APN Partners who have demonstrated technical proficiency and proven customer success in specialized solution area
+            
+            AWS Navigate program
+                - help Partner to become better partner
+
+            AWS IQ
+                - Quickly find Professional help for users AWS project, out of third-party experts that are AWS Certified and available for on-demand project work to engage and get paid
+                - provides you with video conferencing, contract management features, secure collaboration and integrated billing
+
+            AWS managed services(AMS)
+                - Team of AWS experts to provide you infrastructure and application support 24/7 on AWS
+                - Handles routine management tasks such as change requests, monitoring, patch management, security and backup services following best practices
 
 
         AWS Support Plans Pricing
@@ -609,7 +483,7 @@ AWS Services
             - AWS Enterprise Support Plan (24/7)
                 • Intended to be used if you have mission critical workloads
                 • All of Business Support Plan +
-                • Access to a designated Technical Account Manager (TAM)
+                • Access to a designated Technical Account Manager(TAM)
                 • Concierge Support Team(for AWS billing and account best practices helps)
                 • Infrastructure Event Management, Well-Architected & Operations Reviews
                 • Access to AWS Incident Detection and Response(for an additional fee)
@@ -619,14 +493,204 @@ AWS Services
 
 
 
-	Global AWS Cloud Infrastructure
+
+	Architecting & Ecosystem
+		• Well Architected Framework General Guiding Principles
+			- Stop guessing your capacity needs - use auto scaling and scale the based on what the actual demand on your system is going to be
+			- Test systems at production scale
+			- Automate to make architectural experimentation easier 
+				• CloudFormation;  infrastructure as code can easily create an architecture on different accounts and different regions
+				• BeanStalk;  platform as a service
+			- Allow for evolutionary architectures - design based on changing requirements. for example, make serverless designs(Developers don’t have to manage/provision servers instead it's managed/provisioned by AWS)
+			- Drive architectures using data - choose architecture and services based on actual usage, patterns, queries and what you actually need based on this data
+			- Improve through game days - Simulate applications for flash sale days for sudden stike of traffic, failover simulation
+
+
+		AWS Cloud Best Practices – Design Principles
+			Scalability: ability to accommodate a larger load
+				1. Vertical Scalability 
+					- flexible size/capacity of instance
+					- scale up/down(elasticity)
+				2. Horizontal Scalability 
+					- flexible number of instances, parallel execution
+					- scale out/in using ASG and ELB
+					- High Availability is must, run instances of same application across multi AZ
+			Agility: gives ability make users work faster as creation and deletion happens qickly
+			Disposable Resources: servers should be easily disposable & easily configurable
+			Automation: use Serverless, Infrastructure as a Service, Auto Scaling, etc.
+			Loose Coupling: Break it down into smaller, loosely coupled(independant) components
+			Services, not Servers: Refrain using EC2, use managed services(serverless), databases, etc.
+
+
+		Well-Architected Framework 6 Pillars
+			1. Operational Excellence
+				- Ability to run and monitor systems to deliver business value and to continually improve supporting processes and procedures
+				- Design Principles;
+					• Perform operations as code - Infrastructure as code, i.e. make use of Cloudformation
+					• Make frequent, small, reversible changes - So that in case of any failure, you can reverse it
+					• Refine operations procedures frequently and ensure that team members are familiar with it
+					• Anticipate failure
+					• Learn from all operational failures
+					• Use managed(serverless) services - to reduce operational burden
+					• Implement observability for actionable insights - performance, reliability, cost, etc.
+			2. Security
+			3. Reliability  : Testing recovery procedures, stopping guessing capacity, and managing changes in automation
+			4. Performance Efficiency   : democratize advanced technologies, go global in minutes, use serverless architecture, experiment more often, mechanical sympathy
+			5. Cost Optimization
+			6. Sustainability
+
+			Note; They are not something to balance or trade-offs, they’re a reccomandations
+
+
+		AWS Well-Architected Tool
+			- Free tool to review your architectures against the Well-Architected Framework 6 pillars and adopt architectural best practices by Simulating workload and answering questions
+
+
+		AWS Customer Carbon Footprint Tool
+			- Track, measure, review, and forecast the Carbon emissions generated from your AWS usage
+			- Helps you meet your own sustainability goals
+
+
+		AWS Cloud Adoption Framework(AWS CAF)
+			- Not a service but a Ebook/whitepaper which helps to build and then execute a comprehensive plan for your digital transformation through innovative use of AWS
+			- Created by AWS Professionals by taking advantage of AWS Best Practices and lessons learned from 1000s of customers
+			- AWS CAF allows to identifies specific organizational capabilities that underpin successful cloud transformations
+			- AWS CAF groups its capabilities in six perspectives:
+				Business 
+				People
+				Governance 
+				Platform
+				Security
+				Operations
+
+
+		Free AWS Ecosystem
+			AWS Blogs: get new feature release, as well as in-depth article around how to do a specific use case
+			AWS Partner Solutions (formerly Quick Starts): automated reference deployments built by AWS solutions architects and AWS Partners to start using your environment within minutes
+			AWS re:POST(community - AWS managed QnA service): engaging with other developer/architect in community, thats why not for questions that are time sensitive and involves personal information
+			AWS Whitepapers & Guides: to learn in depth around a specific area of AWS
+			AWS Solutions Library(formerly Quick Starts): use case based technical content pool with architectural digrams based on best practices, authored by AWS and the AWS community to expand your knowledge of the cloud
+
+
+		AWS Marketplace
+			- we can sell your own solutions on the AWS Marketplace
+			- Digital catalog with thousands of software listings from independent 3rd-party software vendors
+				• Custom AMI (custom OS, firewalls, technical solutions)
+				• CloudFormation templates
+				• Software as a Service
+				• Containers
+			- buying/selling cost will be added to your AWS bill
+
+
+		AWS Training
+			- Digital(online) and classroom Training(in-person or virtual)
+			- Also provides private training(for organization)
+			- Dedicated training and certification for US Government
+			- Enterprise training and certification
+			AWS Academy : helps universities teach AWS
+
+
+
+
+	Cloud Migration Essentials
+		Cloud Migration Strategies : The 7Rs
+			Retire : Turn off things you don’t need(maybe as a result of Re-architecting) and only focus your attention on resources that must be maintained
+				- Helps with reducing the surface areas for attacks(more security) 
+				- Save cost, maybe up to 10% to 20%
+			
+			Retain : filter/shorlist the services for cloud migration
+				- because of Security, data compliance, performance, unresolved dependencies
+				- No business value to migrate, mainframe or mid-range and non-x86 Unix apps
+			
+			Relocate : Move apps from on-premises to its Cloud version or move EC2 instances to a different VPC, AWS account or AWS Region
+				- Example: transfer servers from VMware Software-defined Data Center(SSDC) to VMware Cloud on AWS
+			
+			Rehost “lift and shift” : Simple migrations without cloud optimizations, applications is migrated as it is
+				- By re-hosting(applications, databases, data) or migrating machines(physical, virtual, another Cloud) to AWS Cloud
+				- Could save as much as 30% on cost
+				- Example: Migrate using AWS Application Migration Service
+
+			Replatform “lift and reshape” : migrating without changing the core architecture, but leverage some Cloud optimizations
+				- Save time and money by moving to a fully managed service or Serverless
+				- Example: migrate your database to RDS or migrate your application to Elastic Beanstalk
+			
+			Repurchase “drop and shop” : Moving to a different product(SaaS platform) while moving to the Cloud
+				- Expensive in the short term, but quick to deploy
+				- Example: CRM to Salesforce.com, HR to Workday, CMS to Drupal
+			
+			Refactor/Re-architect : Reimagining how the application is architected using Cloud Native features
+				- Driven by the need of the business to add features and improve scalability, performance, security, and agility
+				- Move from a monolithic application to micro-services
+				- Example: move an application to Serverless architectures, use AWS S3
+
+
+		AWS Application Discovery Service
+			- Plan migration projects by gathering information like Server utilization data and dependency mapping about on-premises data centers
+			AWS Agentless Discovery Connector(for Agentless Discovery)
+				- gives information about VM inventory, configuration, and performance history such as CPU, memory, and disk usage
+			AWS Application Discovery Agent(for Agent-based Discovery)
+				- gives lower level of information like System configuration, system performance, running processes, and details of the network connections between systems
+			AWS Migration Hub : for AWS DMS(Database Migration Service) & AWS Application Migration Service(MGN)
+				- central location to collect server and applications inventory data from AWS Application Discovery Service, for the assessment, planning and tracking of migrations to AWS
+				AWS Migration Hub Orchestrator : provides pre-built templates to save time and efforts migrating enterprise apps(eg. SAP, MS SQL server)
+		
+
+		AWS Application Migration Service(MGN) 
+			- Lift-and-shift(rehost) solution, in which we converts physical, virtual, and other cloud-based servers to run natively on AWS
+			- Minimal downtime, reduced costs
+			- Supports wide range of platforms, Operating Systems, and databases
+
+
+		AWS Migration Evaluator
+			- Helps you build a data-driven business case for migration to AWS
+			- Provides a clear baseline of what your organization is running today by conducting broad-based discovery using Agentless Collector
+			- Take a snapshot of on-premises foot-print, server dependepncies, etc. then analyze current state, define target state, then develop migration plan
+
+
+		AWS DataSync
+			- Move large amount of data from on-premises(using Datasync Agent) to AWS Amazon S3(any storage classes – including Glacier), Amazon EFS, Amazon FSx for Windows
+			- Replication tasks are incremental and can be scheduled hourly, daily, weekly
+
+
+
+
+	Global Cloud Infrastructure
 		• Gives ability to create global application(deployed in multiple geographies - Regions and/or Edge Locations) for 
 		• For; Decreased Latency, Disaster Recovery, Attack protection from 
+		
 		• Global Application Architectures		
 			1. Single Region, Single AZ		✕ High Availability;  ✕ Global Latency;   Low Difficulty
 			2. Single Region, Multi AZ		✓ High Availability;  ✕ Global Latency;   Modrate Difficulty 
 			3. Multi Region, Active-Passive	✓ High Availability;  ✓ Global Reads’ Latency;  ✕ Global Writes’ Latency;   Modrate Difficulty 
 			4. Multi Region, Active-Active	✓ High Availability;  ✓ Global Reads’ Latency;  ✓ Global Writes’ Latency;   High Difficulty
+		
+		• AWS Global infrastructure - https://infrastructure.aws/
+			AWS Regions [ Asia Pacific(Mumbai) : ap-south-1, Asia Pacific(Sydney) : ap-southeast-2, US East(Ohio) : us-east-2 ]
+					- Geographic areas containing multiple, isolated data centers(Physical facilities housing servers, networking equipment and other infrastructure) 
+					- most AWS services are region scoped(service behaves as new if region is changed)
+					For launching new application, how should you choose the region?
+						- compliance : with gov and legal requirements
+						- latency : according to users' locations to give them min latency
+						- service availability
+						- pricing : vary from region to region
+
+			AWS Availability zones(AZ) [ ap-south-1a, ap-south-1b ap-south-1c ]
+					- Each region has at least 3 isolated availability zones(2 or more data centers) connected with high bandwidth ultra-low latency network
+					- linked altogether forming a region
+
+			AWS Local Zones [ Kolkata : ap-south-1-ccu-1a, Delhi : ap-south-1-del-1a ]
+					- Bring AWS resources (compute(EC2, ECS), database(RDS, ElastiCache), storage(EBS), etc.) closer to your end users for latency-sensitive applications
+					- Optional, i.e. must be enabled mannually to extend your VPC to more locations
+
+			AWS WaveLength [ ap-south-1-wl1-mum-wlz-1, ap-south-1-wl1-ccu-wlz-1 ]
+					- Brings AWS services(EC2, EBS, VPC, etc.) embedded within the telecommunications providers datacenters at the edge of the 5G networks
+					- Optional, i.e. must be enabled mannually, without any additional charges or service agreements
+					- Ultra-low latency applications through 5G networks as Traffic doesn’t leave the Communication Service Provider’s (CSP) network
+
+			AWS Edge Locations/Points of Presence - AWS has 400+ Points of presence
+					- Network infrastructure points strategically located around the world
+					- Improve latency and performance for applications and services
+					- generally used for Cloudfront Distributions(Global Content Delivery Network)
 
 
 		AWS Route53 : Global DNS
@@ -695,6 +759,7 @@ AWS Services
 
 
 
+
 	Cloud Integration
 		• When we start deploying multiple applications, they will inevitably need to communicate with one another
 		• There are two patterns of application communication
@@ -736,6 +801,13 @@ AWS Services
 			- Managed message broker service for Rabbit MQ, Active MQ and doesn’t “scale” as much as SQS/SNS 
 			- Runs on servers, so best practice is to run in Multi-AZ with failover
 			- Amazon MQ has both queue feature (~SQS) and topic features (~SNS)
+
+
+		AWS Pinpoint
+            - Scalable 2-way(outbound+inbound) personalize marketing communications service via email, sms, push notification, voice with support of receving replies
+			- Use Case: run campaign, bulk transactional SMS message
+			- create message templates, delivery schedules, highly-targeted segments; unlike SNS & SES where we need to manage each message's audience, content, and delivery schedule
+
 
 
 
@@ -817,7 +889,8 @@ AWS Services
 
 
 
-	Cloud Networking 
+
+	Cloud Networking
 		• IP Addresses in AWS
 			- IPv4 : Internet Protocol version 4 (4.3 Billion Addresses)
 				- All public IPv4 on AWS will be charged $0.005 per hour(includes Elastic IP)
@@ -920,7 +993,8 @@ AWS Services
 
 
 
-	Security & Compliance Section		
+
+	Security & Compliance		
 		• OSI Model									 TCP/IP Model
 			7. Application Layer					 ↱  4. Application Layer
 			6. Presentation Layer					 |
@@ -1134,6 +1208,7 @@ AWS Services
 
 
 
+
 	Deploying and Managing Infrastructure at Scale Section
 		AWS CloudFormation
 			- declarative way(JSON/YAML) of outlining your AWS Infrastructure(no need to figure out ordering and orchestration)
@@ -1248,6 +1323,18 @@ AWS Services
 			- Send session log data to S3 or CloudWatch Logs
 
 
+		AWS Amplify
+			- A set of tools and services that helps you develop and deploy scalable full stack web and mobile applications
+			- Authentication, Storage, API(REST, GraphQL), CI/CD, Pub-Sub, Analytics, AI/ML Predictions, Monitoring, Source Code from AWS, GitHub, etc.
+			AWS AppSync	
+				- Store and sync data across mobile & web apps in real-time using GraphQL(mobile technology from Facebook) in which client Code can be generated automatically
+				- Allows integrations with DynamoDB/Lambda
+				- Real-time subscriptions/sync(because of GraphQL backend)
+				- Offline data synchronization(replaces Cognito Sync)
+				- Fine Grained Security
+
+
+
 
 	Compute
 		AWS EC2(Elastic Compute Cloud) - IAAS / Local Service (AZ specific)
@@ -1307,7 +1394,8 @@ AWS Services
 					2. Convertible Reserved Instance - long workload with flexible instances, change instance attributes
 				- Saving Plans - minimum committed amount of usage, locked instance family & AWS region but size flexible(micro,small)
 				- Spot Instances - cheapest, lose instance because of bid; short & failure resilient workload
-				- Dedicated Hosts - most expensive, books entire physical server, gives lower level hardware access
+				- Spot Fleet - set of Spot Instances and optionally On-demand Instances allows you to automatically request Spot Instances with the lowest price
+				- Dedicated Hosts - most expensive, books entire physical server, gives lower level hardware access, good for companies with high compliance needs or use own software licenses
 				- Dedicated Instances - instance running on dedicated hardware, no control over instance placement 
 				- Capacity Reservation - reserved in specific AZ for any duration, no matter you use or not you have to pay all, short-term un-interrupted workload
 
@@ -1485,6 +1573,19 @@ AWS Services
 			- Used to create a simple web application, a website or a dev/test environment
 
 
+        AWS Step Function : 
+            - build serverless visual workflow ro orchestrate lambda function
+            - Features; sequencing, parallel functions, confitions, timeouts, error handling, human authentication(approval) etc.
+            - can integrate with; EC2 servers, ECS, On-premises servers, API Gateway, SQS queues, etc.
+            - use cases: order fulfillment, data processing, web applications, etc.
+
+
+        AWS Ground Station (for users having own Satellites roaming around earth)
+            - Managed service to control satellite communications(in the shortest possible time), process data & scale satellite opperations and send data to s3 or EC2 instance
+            - use cases: weather forcasting, surface imaging, communications, video broadcasts
+
+
+
 
 	Storage
 		AWS S3(infinitely scaling storage/Simple Storage Service) (region specific)
@@ -1553,15 +1654,20 @@ AWS Services
 
 			Replication
 				- Versioning must be enabled as well as proper IAM Permissions should be given for both(source & target) buckets
-				- Copying is asynchronous
+				- Copying is asynchronous/background
 				- Buckets can be in different AWS accounts
+                - Only new objects are replicated after you enable Replication. optionally, we can replicate existing obj(including delete markers) using S3 Batch Replication
+                - Deletion with VersionId are not replicated to avoid malicious deletes
+                - there is not replication chaining. i.e. bkt A has replication into bkt B, which has replication to bkt C then objects of A are not replicated to C
 				- Two types of replication:
-					1. Cross-Region Replication
+					1. Cross-Region Replication(CRR)
+                        Use Case;
 						- compliance
-						- lower latency access
+                            - lower latency access(to other region user)
 
-					2. Same-Region Replication
-						- log aggregation 
+					2. Same-Region Replication(SRR)
+                        Use Case;
+                            - log aggregation across multiple S3 buckets
 						- live replication between production and test accounts 
 
 			Storage Class
@@ -1640,7 +1746,8 @@ AWS Services
 
 
 
-	DataBase	
+
+	DataBase
 		Relational Database	: tables(row + column)
 			AWS RDS(Relational Database Service) 
 				- Storage backed by EBS
@@ -1794,6 +1901,30 @@ AWS Services
 
 
 
+
+	Disaster Recovery 
+		• Strategies
+			- Backup & Restore : Slowest but cheapest
+			- Pilot Light : Only the most essential parts of your system are running in the cloud. You can quickly turn on the rest when needed
+			- Warm Standby : Scaled-down version of your full system is always running in the cloud, ready to scale. Faster recovery than pilot light, more expensive
+			- Multi-site/Hot-site : A full, identical copy of your system is constantly running in the cloud. Instant failover, fastest recovery, but most expensive
+
+
+		AWS Elastic Disaster Recovery (DRS)
+			- Quickly and easily recover your physical, virtual, and cloud-based servers into AWS
+			    Example: protect your most critical databases(including Oracle, MySQL, and SQL Server), enterprise apps(SAP), protect your data from ransomware attacks, etc.
+			- Continuous block-level replication using AWS replication agent(small program) for your servers from your corporate data center into the cloud
+
+
+		AWS Backup
+			- Fully-managed service to centrally manage On-demand and automate/scheduled backup across AWS services
+			- Supports PITR(Point-in-time Recovery)
+			- Ability to set frequency, Retention Periods, Lifecycle Management, Backup Policies, etc. for backups
+			- Allows Cross-Region & cross-Account(using AWS Organizations) Backup
+
+
+
+
 	Machine Learning Services
 		AWS Rekognition
 			- face detection, labeling, celebrity recognition
@@ -1814,7 +1945,9 @@ AWS Services
 
 		AWS Lex
 			- build conversational bots(eg. chatbots)
-			- Amazon Lex is a service for building conversational interfaces into any application using voice and text. Lex provides the advanced deep learning functionalities of automatic speech recognition (ASR) for converting speech to text, and natural language understanding (NLU) to recognize the intent of the text, to enable you to build applications with highly engaging user experiences and lifelike conversational interactions.
+			- Service for building conversational interfaces into any application using voice and text. 
+			- Provides the advanced deep learning functionalities of automatic speech recognition(ASR) for natural language understanding(NLU) to recognize the intent of the text
+			- To enable you to build applications with highly engaging user experiences and lifelike conversational interactions
 
 
 		AWS Connect
@@ -1846,21 +1979,8 @@ AWS Services
 
 
 
+
 	Other AWS Services
-		Amazon WorkSpaces
-			- Managed Desktop as a Service(DaaS-fully managed VDI and desktop) solution to easily provision Windows or Linux desktops
-			- Great to eliminate management of on-premise VDI(Virtual Desktop Infrastructure)
-			- Fast(Regional-should be provisioned close to users Region) and quickly scalable to thousands of users
-			- Secured data – integrates with KMS
-			- Pay-as-you-go on-demand service with monthly or hourly rates
-
-
-		Amazon AppStream 2.0
-			- Desktop Application Streaming Service - Stream a desktop application to web browsers (no need to connect to a VDI)
-			- Deliver to any computer(that has a web browser), without acquiring, provisioning infrastructure as application is delivered from within a web browser
-			- Allow to configure an instance type per application type (CPU, RAM, GPU)
-
-
 		AWS IoT Core
 			- Allows to easily connect IoT devices(Network of internet-connected devices that are able to collect and transfer data) to the AWS Cloud
 			- Serverless, secure & scalable to billions of devices and trillions of messages
@@ -1877,63 +1997,8 @@ AWS Services
 				• Fully managed & secure, pay for what you use, where alternate way of transcoding in EC2 requires more money
 
 
-		AWS AppSync	
-			- Store and sync data across mobile & web apps in real-time using GraphQL(mobile technology from Facebook) in which client Code can be generated automatically
-			- Allows integrations with DynamoDB/Lambda
-			- Real-time subscriptions/sync(because of GraphQL backend)
-			- Offline data synchronization(replaces Cognito Sync)
-			- Fine Grained Security
-			- AWS Amplify can use AWS AppSync in the background if you want to build a GraphQL backend with Amplify
-
-
-		AWS Amplify
-			- A set of tools and services that helps you develop and deploy scalable full stack web and mobile applications
-			- Authentication, Storage, API(REST, GraphQL), CI/CD, Pub-Sub, Analytics, AI/ML Predictions, Monitoring, Source Code from AWS, GitHub, etc.
-
-
 		AWS Device Farm
 			- Fully-managed service that tests your web and mobile apps concurrently on multiple devices(desktop browsers, real mobile devices, and tablets)
 			- Also gives ability to configure device settings(GPS, language, Wi-Fi, Bluetooth, etc.)
 
 
-		AWS Backup
-			- Fully-managed service to centrally manage On-demand and automate/scheduled backup across AWS services
-			- Supports PITR (Point-in-time Recovery)
-			- Ability to set frequency, Retention Periods, Lifecycle Management, Backup Policies, etc. for backups
-			- Allows Cross-Region & cross-Account(using AWS Organizations) Backup
-
-
-		Disaster Recovery Strategies
-			- Backup & Restore : Slowest but cheapest
-			- Pilot Light : Only the most essential parts of your system are running in the cloud. You can quickly turn on the rest when needed
-			- Warm Standby : Scaled-down version of your full system is always running in the cloud, ready to scale. Faster recovery than pilot light, more expensive
-			- Multi-site/Hot-site : A full, identical copy of your system is constantly running in the cloud. Instant failover, fastest recovery, but most expensive
-
-
-		AWS Elastic Disaster Recovery (DRS)
-			- Quickly and easily recover your physical, virtual, and cloud-based servers into AWS
-			    Example: protect your most critical databases(including Oracle, MySQL, and SQL Server), enterprise apps(SAP), protect your data from ransomware attacks, etc.
-			- Continuous block-level replication using AWS replication agent(small program) for your servers from your corporate data center into the cloud
-
-
-		AWS DataSync
-			- Move large amount of data from on-premises(using Datasync Agent) to AWS Amazon S3(any storage classes – including Glacier), Amazon EFS, Amazon FSx for Windows
-			- Replication tasks are incremental and can be scheduled hourly, daily, weekly
-
-
-        AWS Step Function : 
-            - build serverless visual workflow ro orchestrate lambda function
-            - Features; sequencing, parallel functions, confitions, timeouts, error handling, human authentication(approval) etc.
-            - can integrate with; EC2 servers, ECS, On-premises servers, API Gateway, SQS queues, etc.
-            - use cases: order fulfillment, data processing, web applications, etc.
-
-
-        AWS Ground Station (for users having own Satellites roaming around earth)
-            - Managed service to control satellite communications(in the shortest possible time), process data & scale satellite opperations and send data to s3 or EC2 instance
-            - use cases: weather forcasting, surface imaging, communications, video broadcasts
-
-
-        AWS Pinpoint
-            - Scalable 2-way(outbound+inbound) personalize marketing communications service via email, sms, push notification, voice with support of receving replies
-			- Use Case: run campaign, bulk transactional SMS message
-			- create message templates, delivery schedules, highly-targeted segments; unlike SNS & SES where we need to manage each message's audience, content, and delivery schedule

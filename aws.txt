@@ -1,32 +1,33 @@
 Types of cloud services
-    public 	- Owned and operated by provider(AWS, Microsoft Azure, GCP) which provide cloud services over the internet based on Pay-as-you-go pricing model.
-    private - single organization that work on private infrastructure(on-premises or hosted by a third-party provider) suitable for high security and compliance requirements.
-    hybrid 	- Combines public and private cloud infrastructures.Provides flexibility and scalability while maintaining control over sensitive data.
+    public 	- Owned and operated by provider(AWS, Microsoft Azure, GCP) of cloud services over the internet based on Pay-as-you-go pricing model.
+    private - Single organization that work on private infrastructure(on-premises or hosted by a third-party provider); suitable for high security and compliance requirements.
+    hybrid 	- Combines public and private cloud infrastructures by providing flexibility and scalability while maintaining control over sensitive data.
 
 
 
 Types of cloud computing services model
 	On-premises >                                                                                   - Everything is managed by us
-	IAAS        >                                        Virtualization|Servers|Storage|Networking  - Managed by cloud;AWS EC2
-	PAAS        >                  Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Managed by cloud;AWS Elastic Beanstalk
-	SAAS        > Application|Data|Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Everything is managed by cloud;AWS Rekognition for ML
+	IAAS        >                                        Virtualization|Servers|Storage|Networking  - Managed by cloud; AWS EC2
+	PAAS        >                  Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Managed by cloud; AWS Elastic Beanstalk
+	SAAS        > Application|Data|Runtime|Middleware|OS|Virtualization|Servers|Storage|Networking  - Everything is managed by cloud; AWS Rekognition for ML
 
 
 
-Shared Responsibility Model
+Shared Responsibility Modelclose ad [x]
+    
+input
     AWS Cloud Responsibility - Security of the Cloud
         - Infrastructure(Global Network(data centers) Security) - patching and fixing flaws within the infrastructure
         - Isolation on physical hosts(for dedicated hosts)
-        - Replacing faulty hardware, Backup & Replication for managed services like, S3, dynamodb, RDS, etc.
+        - Replacing faulty hardware, OS maintenance/patching,, Optimizations, Backup & Replication for managed services like, S3, dynamodb, RDS, etc.
         - compliance validation(regulations)
-
+ 
     Users/Customer Responsibility - Security in the Cloud
         - Security Groups rules, firewall & network configuration
-        - Guest OS, application patches and updates
-        - software & utilities installed
+        - Guest OS, application patches and updates of software & utilities installed
         - IAM roles assignment & user access management
         - Encryption of application data(client-side as well as server-side)
-        - data Backup & Replication(snapshot) procedure
+        - data Backup(snapshot) & Replication procedure
 
 	Shared Responsibility - 
 		- Patch Management
@@ -45,21 +46,52 @@ AWS is a cloud provider which provides you with services and servers that you ca
 
 AWS Cloud History -
     2002 - internally launched
-    2004 - publicly launched SQS (simple queue services)
+    2004 - publicly launched SQS(simple queue services)
     2006 - relaunched publicly SQS, S3, EC2
 
 
 
 
-Ideal Application Architecture;
+Ideal AWS Application Architectures;
+	1. Stateless Server Architectures; Stateless : Store session data(ElastiCache, RDS, Client HTTP cookies)
+										Multi-AZ and Health Checks enabled				  Multi-AZ ASG
+		Route 53 	<-- 	User   -->	  	  Elastic Load Balancer				-->		AZ1-EC2, AZ2-EC2,...
 
-																			VPC
-														Public Subnets					Private Subnet
-														Security Group 				   
-			AWS Shield		   AWS Shield				  AWS Shield			  		Security Group	
-	User --> Route 53 --> CloudFront Distribution  -->   Load Balancer		-->       Auto Scalling Group    -->    Application(EC2 instances, DB, etc.)
-									⇣⇡						  ⇣⇡	
-								AWS WAF						 ACM
+
+
+	2. Statefull Server Architectures											
+																										  Multi-AZ				   Multi-AZ
+																										 ElastiCache	 	-->		  RDS
+				    																		  ↱			Lazy Loading			  Read Replicas	 		
+				    							Multi-AZ					Multi-AZ ASG	  |	   		(res caching)
+		Route 53    <-- 	User   	-->	  Elastic Load Balancer		-->			EC2 		--|	  
+				    	 Session ID			 Health Checks						ENI			  |	  	  
+																							  ↳				EFS	
+																											 
+
+
+	3. Serverless Architectures
+																					VPC
+																Public Subnets					Private Subnet
+																Security Group 				   
+			AWS Shield		   			AWS Shield				  AWS Shield			  		Security Group	
+			Route 53 <-- User --> CloudFront Distribution  -->   Load Balancer		-->       Auto Scaling Group    -->    Application(EC2 instances, DB, etc.)
+											⇣⇡						  ⇣⇡	
+										 AWS WAF					 ACM
+
+		Additional Best Practices
+			Monitoring and Logging:
+				CloudWatch: For monitoring and logging.
+				CloudTrail: For auditing API calls.
+			Backup and Recovery:
+				AWS Backup: Centralized backup service.
+				RDS Automated Backups: For database backups.
+			Security:
+				AWS KMS (Key Management Service): For managing encryption keys.
+				AWS Secrets Manager: For managing secrets like database credentials.
+			Networking:
+				VPC Peering: For connecting VPCs.
+				Transit Gateway: For connecting multiple VPCs and on-premises networks.
 
 
 
@@ -159,8 +191,8 @@ AWS Services
 
 
 	Advanced Identity
-		AWS Organizations (to manage multi account)
-			- Global Service used to manage multiple child accounts under single Master/Management account
+		AWS Organizations - Global Service (for management of multi-account) 
+			- Used to manage multiple child accounts under single Master/Management account
 			- Service Control Policies(SCP) - centrally manage all IAM users, groups, and roles, including the AWS account root user in your AWS Organization
 			- Cost Benefits
 				• consolidated billing across all accounts(no need to add payment method for all accounts)
@@ -172,8 +204,8 @@ AWS Services
 				• Does not apply to the Master Account and service-linked roles(enables AWS services to integrate with AWS Organizations)
 				• Use case; restrict access to certain services, enforce PCI compliance by explicitly disabling services
 			- Consolidated Billing
-				• Combined Usage – combine the usage across all AWS accounts in the AWS Organization to share the volume pricing, Reserved Instances and Savings Plans discounts
-				• One Bill – get one bill for all AWS Accounts in the AWS Organization
+				• Combined Usage : combine the usage across all AWS accounts in the AWS Organization to share the volume pricing, Reserved Instances and Savings Plans discounts
+				• One Bill : get one bill for all AWS Accounts in the AWS Organization
 			- management account can turn off Reserved Instances discount sharing for any account in the AWS Organization, including itself
 			- Multi Account strategies
 				• Create account(Organizational Units);
@@ -235,9 +267,9 @@ AWS Services
 			- 3 types of AD available in AWS
 				• AWS Managed Microsoft AD	
 					- Create your own AD in AWS, manage users locally, supports MFA
-					- Establish “trust” connections with your onpremise AD
+					- Establish “trust” connections with your on-premise AD
 				• AD Connector
-					- Directory Gateway(proxy) to redirect to onpremise AD, supports MFA
+					- Directory Gateway(proxy) to redirect to on-premise AD, supports MFA
 					- Users are managed on the on-premise AD
 				• Simple AD
 					- AD-compatible managed directory on AWS
@@ -260,7 +292,7 @@ AWS Services
 			- Managed Desktop as a Service(DaaS-fully managed VDI and desktop) solution to easily provision Windows or Linux desktops
 			- Great to eliminate management of on-premise VDI(Virtual Desktop Infrastructure)
 			- Fast(Regional-should be provisioned close to users Region) and quickly scalable to thousands of users
-			- Secured data – integrates with KMS
+			- Secured data : integrates with KMS
 			- Pay-as-you-go on-demand service with monthly or hourly rates
 
 
@@ -301,9 +333,9 @@ AWS Services
 				• Traffic Cost; 
 					- Free for inbound traffic
 					- Free for traffic between 2 EC2 in same AZ with private IP
-					- $0.01/GB, for traffic between 2 EC2 in diffrent AZ if using private IP
-					- $0.02/GB, for traffic between 2 EC2 in diffrent AZ if using public/elastic IP as traffic have to go via Internet
-					- $0.02/GB, for traffic between 2 EC2 in diffrent Regions
+					- $0.01/GB, for traffic between 2 EC2 in different AZ if using private IP
+					- $0.02/GB, for traffic between 2 EC2 in different AZ if using public/elastic IP as traffic have to go via Internet
+					- $0.02/GB, for traffic between 2 EC2 in different Regions
 				• Recommended to use Private IP instead of Public IP for good savings and better network performance
 				• Use same AZ for maximum savings(trade-of with high availability)
 				• Charges for IPv4 address creation;
@@ -506,15 +538,15 @@ AWS Services
 			- Improve through game days - Simulate applications for flash sale days for sudden stike of traffic, failover simulation
 
 
-		AWS Cloud Best Practices – Design Principles
+		AWS Cloud Best Practices : Design Principles
 			Scalability: ability to accommodate a larger load
-				1. Vertical Scalability 
-					- flexible size/capacity of instance
-					- scale up/down(elasticity)
-				2. Horizontal Scalability 
-					- flexible number of instances, parallel execution
+				1. Vertical Scalability
+					- flexible capacity/size of instance, Of'course with upto H/W limits
+					- scale up/down
+				2. Horizontal Scalability(elasticity)
+					- flexible number of instances/systems, parallel execution
 					- scale out/in using ASG and ELB
-					- High Availability is must, run instances of same application across multi AZ
+            Availability: fault tolerance with appropriate back-up failovers using ASG and ELB across multi AZ
 			Agility: gives ability make users work faster as creation and deletion happens qickly
 			Disposable Resources: servers should be easily disposable & easily configurable
 			Automation: use Serverless, Infrastructure as a Service, Auto Scaling, etc.
@@ -648,7 +680,7 @@ AWS Services
 
 
 		AWS DataSync
-			- Move large amount of data from on-premises(using Datasync Agent) to AWS Amazon S3(any storage classes – including Glacier), Amazon EFS, Amazon FSx for Windows
+			- Move large amount of data from on-premises(using Datasync Agent) to AWS Amazon S3(any storage classes; including Glacier), Amazon EFS, Amazon FSx for Windows
 			- Replication tasks are incremental and can be scheduled hourly, daily, weekly
 
 
@@ -693,23 +725,56 @@ AWS Services
 					- generally used for Cloudfront Distributions(Global Content Delivery Network)
 
 
-		AWS Route53 : Global DNS
-			- Managed DNS (Domain Name System) to route users to the closest deployment with least latency and disaster recovery strategies
+		AWS Route53 : Global DNS + AWS Domain Registrar(like GoDaddy)
+			- Managed DNS(Domain Name System) inform users about the closest deployed node with least latency and disaster recovery strategies
+			- Allows global(from 15 regions;> 18% healthy reports considered as healthy) health checks for AWS public(HTTP/HTTPS/TCP) or private(CloudWatch alarm) resources
+				• Health Checks can be setup to pass/fail based on the text in the first 5120 bytes of the response
+				• Combine the results of upto 256 Child Health Checks(for EC2 instances, etc.) into a single Parent Health Check with specified min child healthiness considers parent as healthy
+			- Only AWS service which providing 100% availability SLA
+			- port 53 is the traditional DNS port, therefore name Route 53
+			- allows using domain from a 3rd party registrar to use Route 53 as the DNS service provider by using Route 53 Name Servers on NS Records on 3rd party website
 			- In AWS, the most common records are:
-				• A record (IPv4)  								|	www.google.com 	=>  12.34.56.78
-				• AAAA IPv6 									| 	www.google.com 	=>  2001:0db8:85a3:0000:0000:8a2e:0370:7334
-				• CNAME: hostname to hostname					| 	search.google.com =>  www.google.com
-				• Alias (ex: ELB, CloudFront, S3, RDS, etc.)	| 	example.com 	=>  AWS resource
-			- Routing Policies:
-				• Simple routing policy (only one with no health checks) - 	Web browser (foo.example.com) ⇄ (A:11.22.33.44) Route 53
-				• Weighted routing policy -	 Route 53  (req)=>  { EC2_1(70%) | EC2_2(20%) | EC2_3(10%) }
-				• Latency routing policy - 	Route 53
-				• Failover routing policy -  Route 53  (req)=>  { if  healthy_primary:   EC2(primary)  else  EC2(failover) }
+				• A (IPv4)  										|	www.google.com 	=>  12.34.56.78
+				• AAAA (IPv6) 										| 	www.google.com 	=>  2001:0db8:85a3:0000:0000:8a2e:0370:7334
+				• CNAME: hostname to target hostname(only A/AAAA)	| 	search.google.com =>  www.google.com
+					- Can’t create a CNAME record for the "top node of a DNS namespace"(example.com) as this needs A & NS records but CNAME can't coexist with other DNS records, but you can CNAME create for subdomain(www.example.com)
+				• Alias (A/AAAA record with Alias enabled for AWS) 	| 	example.com 	=>  AWS resource(ex: ELB, CloudFront distribution, S3 websites, API Gateway api, VPC interface endpoints, Elastic Beanstalk env., Global accelerator, Route 53 Record(Same Hosted Zone), etc.)
+					- Alias records are pointers to other AWS resources not actual DNS records
+					- Unlike CNAME, Alias can be used for "top node of a DNS namespace"(example.com)
+					- Alias is free of charge; auto recognizes changes in the resource’s IP addresses with additional health check ability of target resource
+					- TTL value cannot be configured directly for Alias Record, automatically managed by Route 53
+					- Couldn't set an Alias record for an EC2 DNS name
+				• NS(Name Servers for the Hosted Zone)				|	DNS names or IP addresses of the servers to respond the DNS queries for your hosted zone
+				• with additional advanced record types; CAA, DS, MX(for email delivery), NAPTR, PTR, SOA, TXT(for SPF, DKIM, or domain verification), SPF, SRV, etc.
+			- Route53 Hosted Zone : container of records that define how to route traffic for a domain and its subdomains
+				1. Public : Publically accessible for public domain name resolution(anyone from internet query domain name to get IP of actual server)
+				2. Private : route traffic within one or more VPCs to the private domain names
+			- Pricing;
+				• Charges $0.50 per month per hosted zone registration
+				• Route 53 domain regitration costs $12-$13 per year
+				• price per request reaching Route 53(except for Alias record)
+			- Each DNS record(rules to route traffic) contains:
+				1. Domain/subdomain Name. e.g., example.com
+				2. Record Type. e.g., A or AAAA
+				3. Value. e.g., 12.34.56.78
+				4. Routing Policy : how Route 53 responds to queries
+				5. TTL(Time To Live) : amount of time the record cached at local DNS Resolvers of client; mandatory for all DNS, exept Alia Records
+			- Routing(only for DNS queries) Policies:
+				• Simple routing policy : Web browser(foo.example.com) ⇄ (A:11.22.33.44)Route 53
+					- only type with no health checks
+					- random one is chosen if multiple values(addresses) are returned, thats why only one AWS resource should be specified when Alias Enabled
+				• Weighted routing policys :	(DNS queries) =>  { EC2_1(70%) | EC2_2(20%) | EC2_3(10%) }
+				• Geolocation : based on user location specified by continent, country, state; routes to created “Default” record incase there’s no match on location
+				• Latency based routing policy
+				• Failover routing policy : (DNS queries)=>  { if  healthy_primary:   EC2(primary)  else  EC2(secondary/failover) }; only one primary and one secondary/failover
+				• Geoproximity (using Route 53 Traffic Flow) : route traffic based on the geographic location of users and resources(AWS region or Latitude-Longitude) with defined bias/weight rules
+				• IP-based Routing : Routing is based on clients’ IP(list of CIDRs) addresses from a particular ISP to a specific endpoint
+				• Multi-Value Answer : to route traffic to multiple(only healthy; max 8) resources; used for client side load balancing(different than ELB)
 
 
-		AWS Cloudfront : Global Content Delivery Network
+		AWS Cloudfront : Global Content Delivery Network Service
 			- Replicates the part of your application to AWS Edge Locations(216 Point of Presence globally) for decreased latency
-			- Cache common and frequent requests – improved user experience and decreased latency
+			- Cache common and frequent requests; improves user experience and decreased latency
 			- CloudFront - Origins(locations where your original content is stored)
 				• S3 bucket
 					- For distributing files(static content) and caching them at the edge; also be used as an ingress(to upload files to S3)
@@ -846,7 +911,7 @@ AWS Services
 					• ECS : collection from containers
 					• AWS Lambda : collection from function logs
 					• CloudTrail based on filter
-					• Route53 : Log DNS queries
+					• Route 53 : Log DNS queries(requests)
 
 		AWS EventBridge(formerly CloudWatch Events)
 			- react to events in AWS, or trigger a rule on a schedule
@@ -893,20 +958,26 @@ AWS Services
 	Cloud Networking
 		• IP Addresses in AWS
 			- IPv4 : Internet Protocol version 4 (4.3 Billion Addresses)
-				- All public IPv4 on AWS will be charged $0.005 per hour(includes Elastic IP)
-				• Public IPv4 
-					- used on the Internet
-					- By default, EC2 instance gets a new a public IP address every time you restart
+				- All public IPv4(255.255.255.255) on AWS will be charged $0.005 per hour(includes Elastic IP as it is public ip)
+				• Public IPv4
+					- used on the Internet, i.e. must be unique across whole web
+					- By default, EC2 instance gets a new a public IP address every time you stop and start again
 				• Private IPv4
-					- Used on private networks(LAN) such as internal AWS networking (e.g. 192.168.1.1)
+					- Used on private networks(LAN) such as internal AWS networking(e.g. 192.168.1.1)
+                    - must be unique within a private network, but two different private networks can have the same IP addresses
 					- Private IPv4 is fixed for EC2 Instances even if you start/stop them
+                    - To connect to the internet from a private network, we can use NAT and Internet Gateway(proxy)
 				• Elastic IP 
-					- allows you to attach a fixed public IPv4 address to EC2 instance
+					- allows you to attach a fixed public IPv4 address to one EC2 instance at a time
+                    - By default, max 5 Elastic IP per region per account(can be increased by communicating with AWS)
+                    - try to avoid using Elastic IPs as they often reflect poor architectural decisions. 
+                    - Instead, use a random public IP and register a DNS name to it. Or, follw best practice using a Load Balancer eliminating use of public IP
 			- Monitor pulic IP address in use : "Amazon VPC IP Address Manager" -> "Public IP insights"
 
 			- IPv6 : Internet Protocol version 6 (3.4 × 10!" Addresses)
 				• Every IP address is public in AWS (no private range)
 				• Example IPv6 address: 2001:db8:3333:4444:cccc:dddd:eeee:ffff
+				• Newer, to solve the problems for IoTs
 				• Free to use/expose services on internet
 
 		• Classic ports to know
@@ -918,11 +989,11 @@ AWS Services
 			3389 = RDP(Remote Desktop Protocol) - log into a windows instance
 
 
-		AWS VPC(virtual private cloud)  - regional resource
+		AWS VPC(virtual private cloud)  - Regional resource
 			- private virtual network to deploy your resources dedicated to your AWS account in specific region
 			- VPC CIDR range: 172.31.0.0/16 - range of IP addresses that are allowed within VPC; 172.31.0.0/16 => 172.31.0.0 - 172.31.255.255 total of 65,536 IP addresses
 
-			Subnet  - Availability Zone resource
+			Subnet  - AZ specific resource
 				- allow you to partition your network inside your VPC according to Availability Zones 
 				- In default VPC all subnets are public
 				- Partition services on;
@@ -935,11 +1006,24 @@ AWS Services
 				- VPC can only have one Internet Gateway 
 				- for instances in public subnet to get accessed from/to Internet
 
-			NAT Gateways(AWS-managed)/NAT Instances(self-managed)
+			Network Address Translation(NAT) Gateways(AWS-managed)/NAT Instances(self-managed)
 				- for instances in private subnet that need access to Internet while still remaining private
+                - allows multiple devices on a private network to share a single public IP address for internet access
 
 			Route Tables  
 				- To define access to the internet and between subnets, we use Route Tables
+
+			Elastic Network Interface(ENI) - AZ specific resource
+				- Logical component that represents a virtual network card within a particular subnet(AZ) of the VPC. i.e. can't attach to an EC2 instance in a different AZ
+				- ENI could be created independently and attached to EC2 instances for failover within a particular subnet(AZ) of the VPC.
+				- ENI attributes;
+					• MAC address
+					• Single primary static private IPv4 that gets created/deleted with the resource(EC2 instance)
+					• Multiple secondary private IPv4
+					• could have single elastic or public IPv4 per private IPv4
+					• Can have multiple security groups attached to ENI 
+					• "Delete on Termination" Flag
+					• Source/Destination Check enabled by default, i.e. instance with private IPv4 NATs the request to internet using Elastic IPv4 and vice versa for response from the Internet to Instance
 
 			Network security
 				- by allowed/deny inbound/outbound traffic
@@ -1024,7 +1108,7 @@ AWS Services
 				• Rules can include IP addresses, HTTP headers, HTTP body, or URI strings
 				• Protects from common attack - SQL injection and Cross-Site Scripting (XSS)
 				• Size constraints, geo-match (block countries)
-				• Rate-based rules (to count occurrences of events) – for DDoS protection
+				• Rate-based rules (to count occurrences of events); for DDoS protection
 
 
 		AWS Network Firewall
@@ -1087,14 +1171,22 @@ AWS Services
 
 
 		AWS Certificate Manager (ACM)
-			- Provision, manage, and deploy SSL/TLS(public/private) Certificates used to provide in-flight encryption for websites by providing an HTTPS endpoints
+			- Provision, manage, and deploy SSL/TLS(public-private) certificates used to provide in-flight traffic encryption for websites by providing an HTTPS(http with SSL/TLS handshake) endpoints
 			- Free of charge for public TLS certificate
 			- Provids automatic TLS certificate renewal
-			- Integrations with (load TLS certificates on)
-				• Elastic Load Balancers
+			- Integrations with (loads TLS certificates on)
+				• Elastic Load Balancers(X.509 certificate)
 				• CloudFront Distributions
 				• APIs on API Gateway
-
+				• Create upload users own certificates
+			- SSL(Secure Socket Layer)/TLS(Transport Layer Security) is secret handshake(encryption + Trust) between client and server to create private, encrypted tunnel before communication
+			- Certificates are digitally signed & issued by trusted Certificate Authorities(CA) like; Symantec, GoDaddy, Letsencrypt, etc. with expiration time that's why certificates must be renewed
+			- When setting an HTTPS listener, 
+				• Must specify a default certificate
+				• Add an optional list of certificates to support multiple domains
+				• Clients can use SNI(Server Name Indication) to specify the hostname
+					SNI - Let clients tell the server which domain it’s reaching before a secure connection so that Server knows exactly which SSL/TLS certificate to send, 
+						  SNI allows multiple SSL certificates to be loaded on single server for multiple domains hosting on single server(12.134.123.44) -> a.com(certA), b.com(certB)
 
 		AWS Secrets Manager
 			- Secrets storing service with capability to force rotation of secrets every X days with automated generation of secret on rotaion using lambda functions
@@ -1104,7 +1196,7 @@ AWS Services
 				• $0.05 per 10,000 API calls
 
 
-		AWS Artifact -  Global(not really a service)
+		AWS Artifact -  Global resource (not really a service)
 			- Provides on-demand access to AWS compliance documents and agreements which are used to support internal audit or compliance
 			- Artifact Reports - Allows you to download AWS security/compliance reports from third-party auditors, like AWS ISO certifications, Payment Card Industry (PCI), and System and Organization Control (SOC) reports
 			- Artifact Agreements - Allows you to review, accept, and track the status of AWS agreements such as the Business Associate Addendum (BAA) or the Health Insurance Portability and Accountability Act (HIPAA) for an individual account or in your organization
@@ -1253,21 +1345,27 @@ AWS Services
 
 		AWS Elastic Beanstalk
 			- Managed Platform as a Service : Developers responsibility is only application code 
-			- Beanstalk automatically handles;
-				• Deployment strategy is configurable but performed by Elastic Beanstalk
-				• Instance configuration/OS is handled by Beanstalk
+			- Beanstalk automatically(leveraging CloudFormation) handles;
+				• Deployment (strategy is fully configurable)
+				• Instance configuration/OS
 				• Capacity provisioning
 				• Load balancing & auto-scaling
 				• Application health-monitoring & responsiveness
-			- Beanstalk is free but you pay for the underlying instances/services
-			- Support for many platforms:
+			- Beanstalk is free but user only pay for the underlying instances/services provisioned
+			- components;
+				• Application : collection of Elastic Beanstalk components(environments, versions, configurations, etc.)
+				• Application Version : an iteration of your application code
+				• Environment :
+					- Collection of AWS resources running an application version(only one application version at a time)
+					- Environment Tiers : Web Server Environment(dev, test, prod, etc.) Tier & Worker Environment Tier(scaling based on Number of SQS messages)
+			- Support for many platforms :
 				• Go, Java SE, Java with Tomcat, Node.js, PHP, Python, Ruby, .NET on Windows Server with IIS
 				• Packer Builder
-				• Single/Multi Container or Preconfigured Docker
-			- Three architecture models:
-				• Single Instance deployment: good for dev environment
-				• LB + ASG: great for production or pre-production web applications
-				• ASG only: great for non-web apps in production (workers, etc.)
+				• Single/Multi Container or pre-configured Docker
+			- Three architecture models :
+				• Single Instance deployment : good for dev environment
+				• LB + ASG : great for production or pre-production web applications
+				• SQS + ASG : great for non-web apps in production (workers, etc.)
 
 
 		AWS CodeDeploy (Hybrid Service - either used on AWS(EC2 Instances) and On-premises infrastructures)
@@ -1337,7 +1435,7 @@ AWS Services
 
 
 	Compute
-		AWS EC2(Elastic Compute Cloud) - IAAS / Local Service (AZ specific)
+		AWS EC2(Elastic Compute Cloud) - IAAS/Local Service (AZ specific resource)
 			- Rent virtual machines (EC2)
 			- Storing data on virtual drives (EBS)
 			- Distributing load across machines (ELB)
@@ -1352,7 +1450,7 @@ AWS Services
 					- Hardware Attached (EC2 instance store)
 				- Network Card
 				- Firewall rules (Security group)
-				- Bootstrap Script (configure at only first launch - EC2 user data)      
+				- Bootstrap Script (configure at only first launch - EC2 user data) automate the installation steps
 						// Bootstrapping means launching commands in root access when the machine starts to handle boot tasks which includes   
 											- installing updates/software
 											- downloading common files from internet
@@ -1389,88 +1487,185 @@ AWS Services
 
 			EC2 Purchasing Option
 				- On-Demand - short-term un-interrupted workload, predictable pricing, pay by second
+                    • Pay per second (Linux/Windows) or per hour (other) and price is fixed
+					• Minimum billing time of 60 sec
 				- Reserved(1 to 3 years) 
-					1. Reserved Instance - long workload, reserve a specific instance attribute(i.e. instance type, Region, OS, tenancy(Host,Dedicated,default))
-					2. Convertible Reserved Instance - long workload with flexible instances, change instance attributes
-				- Saving Plans - minimum committed amount of usage, locked instance family & AWS region but size flexible(micro,small)
+                        1. Reserved Instance - long workload, reserve a specific instance attribute(i.e. instance type, Region, OS, tenancy(Host,Dedicated,default))
+                        2. Convertible Reserved Instance - long workload with flexible instances, change instance attributes
+                    • 1 to 3-years commitment for EC2 instance
+                    • All upfront(most discount), partial upfront, no upfront
+                    • Up to 75% discount compared to On-demand on hourly rate
+				- Savings Plans - minimum committed amount of usage, locked instance family & AWS region but size flexible(micro,small)
+                    • Better alternative to Reserved Instances
+                    • Commit to $10/hour for three years on C5 instances in a region regardless of AZ, size(m5.xl to m5.4xl), OS(Linux/Windows) or tenancy(shared/dedicated host)
 				- Spot Instances - cheapest, lose instance because of bid; short & failure resilient workload
-				- Spot Fleet - set of Spot Instances and optionally On-demand Instances allows you to automatically request Spot Instances with the lowest price
+                    • Bid for unused capacity in EC2 instances
+						- Up to 90% discount compared to On-demand on hourly rate
+						- Defining Spot Request:
+                            • Request type;
+                                One-time : as soon as instances launched, Spot request will get terminated
+                                Persistent : Spot request continues to capture instances for valid from/valid until
+                            • MAX spot price; capture instance while (CURRENT spot price < defined MAX spot price); as hourly spot price varies based on offer and capacity
+                            • Desired number of Instances
+                            • Launch Specification(AMI)
+                            • Valid from/valid until(could be infinite)
+                        - We get 2 min of grace period to stop(reserving state to use again : Persistent Spot Request) or terminate(One-time Spot Request) instances
+                        - Cancelling open, active or disabled Spot Requests does not terminate captured instances
+                        - For stoping/terminating spot instances. first, we must cancel associated Persistent Spot request to avoid relaunching
+                        - Well-suited for data analysis, batch jobs, background processing, optional tasks or workloads that are resilient to failures; not suitable for critical jobs		
+				- Spot Fleets - set of Spot Instances and optionally On-demand Instances allows you to automatically request Spot Instances with the lowest price
+                    • Auto launching set of Spot Instances(with the lowest price) and optionally On•demand Instances to meets the target capacity/count with price constraints(max cost)
+                    • Strategies to allocate/launch Spot Instances:
+                        - lowestPrice: launch spot instances from the pool(instance type(m5.large), OS, AZ) with the lowest price; for, cost optimisation, short workload
+                        - diversified: launching spot instances which are distributed across all pools(ensuring availability); great for relatively long workloads
+                        - capacityOptimized: launching spot instances from pool with the optimal capacity for the number of instances
+                        - priceCapacityOptimized(recommended): Selects the Instance pool with the lowest price from the choosen pools with highest capacity available, best for most workloads        
 				- Dedicated Hosts - most expensive, books entire physical server, gives lower level hardware access, good for companies with high compliance needs or use own software licenses
+                    • Physical server fully dedicated for your use
+                    • Reservation for 1 year or 3 years commitment
+                    • allows you to use your eligible software licenses from vendors such as Microsoft and Oracle on Amazon EC2
 				- Dedicated Instances - instance running on dedicated hardware, no control over instance placement 
 				- Capacity Reservation - reserved in specific AZ for any duration, no matter you use or not you have to pay all, short-term un-interrupted workload
 
+			EC2 Placement Groups
+				- control(without direct hardware interaction) over EC2 instances placement compared to one another within the AWS infrastructure
+				- placement strategies;
+					• Cluster(for high performance and low network latency, but has high risk due to AZ failure) : grouping instances into low-latency hardware setup in single AZ
+					• Spread(for availability, not scalability) : spreads instances across different AZ, max 7 instances per group per AZ
+					• Partition(for scalability) : groups instances across multiple(max 7) different failure isolated partitions(set of server racks) within one or across multiple AZ
+						Note : Partition or set of server racks; specific details can be accessed by instance metadata
+
 			EC2 Storage
-				Elastic Block Store(EBS) Volumes (AZ specific - using snapshot(back-up + restore) we can move to another AZ)
-					- network drive(not physical) attached to instance when they run
-					- persists data even after instance termination
-					- mounted to only one EC2 instance at a time (Foundational Practitioner level) (for associate level - "multi-attach" feature for io1 and io2 EBS Volumes)
-					- multiple EBSs can be attached to single instance, as well as EBS can be left unattached
-					- have provisioned capacity and performance - size in GB and IOPS(I/O operation per second) 
-					- EBS Snapshot
-						- moved to EBS Snapshot Archive(75% cheaper) according to setting assigned to archive tier or manual moving but restoring archive to EBS will takes 24 to 72 hours
-						- Recycle Bin for EBS snapshot with specified retention(from 1 day to 1 year)
-					- pricing(I/O operation per second - performance of volume);
-						• Volume type (based on performance)
-						• Storage volume in GB per month provisionned(eg. 100 GB), regardless of we use it or not
-						• IOPS:
-							- General Purpose SSD: Included
-							- Provisioned IOPS SSD: Provisionned amount in IOPS
-							- Magnetic: Number of requests
-						• Snapshots:
-							- Added data cost per GB of snapshot per month
-						• Data transfer:
-							- Outbound data transfer are tiered for volume discounts
-							- Inbound is free
+                Block Storage
+                    Elastic Block Store(EBS) Volumes (AZ specific resource - To access in other AZ/other Regions AZ we can use snapshot(back-up) and restore in that AZ/Regions AZ)
+                        - Isolated network drive(not physical) attached to only one running instance at a time (except "multi-attach" in same AZ for io1/io2 EBS Volumes)
+                        - Multiple EBSs can be attached to single instance, as well as EBS can be left unattached
+                        - Persists data even after instance termination, which is managed by "Delete on Termination" flag.
+                        - Allows to use provisioned capacity and performance - size in GB and IOPS(I/O operation per second)
+                        - Enables EC2 instance Hibernation(preserves RAM(max 150 GB) state only in encrypted root EBS volume for max 60 days)
+                        - pricing(I/O operation per second - performance of volume);
+                            • Volume type: (based on performance)
+                                1. GP2/GP3 				 : General purpose SSD volume that balances price and performance for a wide variety of workloads
+                                2. io1/io2 Block Express : Highest-performance SSD volume for mission-critical low-latency and high-throughput workloads
+                                3. st1 					 : Low cost HDD volume designed for frequently accessed, throughput intensive workloads
+                                4. sc1 					 : cheapest HDD volume designed for less frequently accessed workloads
+                                Note : only GP2/GP3 and io1/io2 SSD Block Express can be used as boot volumes, that means root OS running on these volumes only
+                            • Size of storage volume in GB per month provisionned(eg. 100 GB), regardless of if used or not
+                                - GP2/GP3 : 1 GB to 16 TB
+                                - io1/io2 : 4 GB to 64 TB
+                                - st1/sc1 : 125 GB to 16 TB
+                            • IOPS(I/O operation per second):
+                                - General Purpose SSD: GP2/GP3 has 3,000-16,000 IOPS and throughput of 125-1000 MB/s
+                                - Provisioned IOPS(PIOPS) SSD: io1/io2 has max 2,56,000 IOPS(EC2 Nitro Instance), supports multi-attach(max 16 instances, cluster-aware file system is must), used for DB workloads needing better IOPS and consistency
+                                - st1: Throughput optimized, max 500 IOPS and throughput of 500 MB/s, used for Big Data, Data Warehousing, Log Processing, etc.
+                                - sc1: Cost Optimized, max 250 IOPS and throughput of 250 MB/s, used for infrequently accessed data with lowest storage cost
+                                - Magnetic(Standard): Number of requests
+                            • Snapshots:
+                                - Added data cost per GB of snapshot per month
+                            • Data transfer:
+                                - Inbound is free
+                                - Outbound data transfer are tiered for volume discounts
+                        EBS Snapshot
+                            • Backup of EBS volume in any AZ or Regions at any point of time with no need of detachment(but recommended to detach first to get best performance)
+                            • Allows recovery from Recycle Bin for EBS snapshot deletion(for accidental deletion) with specified retention period(from 1 day to 1 year)
+                            • EBS Snapshot Archive(upto 75% cheaper) : allows automatic movement to archival tier as well as manual moving, but restoring will takes 24 to 72 hours
+                            • Fast Snapshot Restore(FSR) : By paying extra, force full initialization of snapshot to EBS volume for low-latency instance launching
+                        EBS Encryption
+                            • Managed encryption, handled by AWS(using KMS(AES-256) keys) with very negligible latency impact after you created encrypted EBS volume from encrypted snapshot
+                            • Data at rest inside volume, data in-flight of EBS and EC2, all snapshot only from encrypted EBS and all volume created with any snapshot are/may be encrypted
+                            • Any Snapshots created from non-encrypted EBS volume won't be encrypted; to encrypt snapshot we can use copy snapshot feature
 
-				Local EC2 Instance Store
-					- Temporary block-level storage for your EC2 instance
-					- better I/O performance and high disk performance as High performance disk physically attached to Instance
-					- if instance with instance store stopped/terminated, storage is lost 
-							therefore cannot be used as long term storage of data, e.g. buffer, cache, temp data
-					- Risk of data loss if H/W fails, so Backup and Replication should be done 
+                    EC2 Instance Store(local)
+                        - Temporary(wiped out in case of stop/terminate/failure of VM instance) block-level storage physically attached to a virtual machine/instance
+                        - No additional cost beyond the cost of the instance. But, size, number and type(HDD or SSD) available depend on the specific instance type you choose
+                        - Higher I/O performance(IOPS of 3,10,000) and high disk performance as High performance disk physically attached to instance, rather than networkly attached EBS volume
+                        - Risk of data loss if hardware fails, so Backup and Replication should be users responsibility
+                        - Ideal for volatile data; buffer, cache, temp data
+                
+                Network File System Storage
+                    Elastic File System(EFS) - managed(auto scalable) network file system (Multi-Availability Zone storage)
+                        - can be mounted on 1000s of instances(with Linux based AMI, not Windows) in different AZs using EFS Mount Target with controlled access via security group
+                        - auto scalable(1000 concurrent NFS clients with 10+GB/s throughput), highly expensive(3x than GP2 EBS volume)
+                        - provides a file system interface, and concurrently-accessible storage for up to thousands of Amazon EC2 with only Linux(POSIX system) instances 
+                        - Pricing; pay per use(per GB used), has One-Zone(single AZ) FS type & lifecycle policies feature for upto 90% cost saving
+                        - Storage Tier: Lifecycle Policies feature to move files after n days for cost
+                            • Standard : for frequently accessed files
+                            • EFS-IA(Infrequent Access) : cost-optimized storage class to save cost for storing files not accessed frequently
+                            • Archive : rarely(few times a year) accessed data, 50% cheaper
 
-				Elastic File System(EFS) - managed network file system (multi-Availability Zone storage)
-					- can be mounted on 100s of instances using EFS Mount Target unlike EBS
-					- scalable, highly expensive, pay per use
-                    - provides a file system interface, file system access semantics, and concurrently-accessible storage for up to thousands of Amazon EC2 instances
-					EFS-IA(Infrequent Access) - cost-optimized storage class to save cost according to Lifecycle Policy for files not accessed
-					- Pricing; pay per use, has infrequent access & lifecycle rules
+                    FSx(File System x) - 
+                            - Fully managed third-party file system service optimized for high-performance file systems on AWS
+                            - Two most important offerings
+                                1. FSx for Windows file server(for windows EC2 instances)
+                                    - supports windows NTFS and SMB protocol(to access externally)
+                                    - integration with MicroSoft Active Directory for user security
+                                2. FSx for Lustre (Linux + cluster)
+                                    - scalable file storage for High Performance Computing
+                                    - In backend, storing data on AWS S3
 
-				FSx(File System x) - 
-						- Fully managed third-party file system service optimized for high-performance file systems on AWS
-						- Two most important offerings
-							1. FSx for Windows file server(for windows EC2 instances)
-								- supports windows NTFS and SMB protocol(to access externally)
-								- integration with MicroSoft Active Directory for user security
-							2. FSx for Lustre (Linux + cluster)
-								- scalable file storage for High Performance Computing
-								- In backend, storing data on AWS S3
-
-			AMI(Amazon Machine Image) (region specific) e.g. Amazon Linux 2 AMI
-				- provides the information required to launch/create ready to use EC2 instance with customization(can add software, configuration, os, monitoring, etc.)
-				- for faster boot/configuration time because all software will be available pre-packaged on instance through AMI
+			AMI(Amazon Machine Image) (Regional resource - copied across regions) e.g. Amazon Linux 2 AMI
+				- provides the information required to launch/create ready to use EC2 instance with customization(can add software, configuration, os, monitoring tool, etc.)
+				- Faster boot/configuration time because all softwares will be available pre-packaged on instance through AMI(custom instance launching instructions)
                 - AMI must be in the same region as that of the Amazon EC2 instance to be launched, AMI can be copied to the region where you want to launch the EC2 instance
-				EC2 Image Builder' AWS service used to automatically build, test & distribute AMI
+				- Allows recovery from Recycle Bin for AMI deletion(for accidental deletion) with specified retention period(from 1 day to 1 year)	
+				- Allows creation of custom(Golden) AMIs by configuring an EC2 instance first(takes time) and then using Golden AMI to launch new instances quickly
+				- unlike Bootstrap Script automation, Golden AMI is an image that contains all your software installed and configured so that future EC2 instances can boot up quickly from that AMI
+				EC2 Image Builder : AWS service used to automatically and easily build, test & distribute own AMI rather than using public AMIs or AWS Marketplace AMI(buy-sell)
 
-			ELB(Elastic Load Balancing)    
-				- AWS managed servers that forward traffic to multiple EC2 instances(servers)
-				- used across multiple AZ
-				- Types 
-					1. Application Load Balancer(HTTP/HTTPS/gRPC only traffic, static DNS) - Layer 7
-					2. Network Load Balancer( TCP/UDP/TLS traffic with ultra high performance, static IP) - Layer 4
-					3. Gateway Load Balancer(Route traffic to firewalls, GWLB protocol) - Layer 3 
-						- inspect traffic via 3rd party virtual appliances before taking response to instance
-
-			ASG(Auto Scale Group) 
-				- implement elasticity(auto scale up and down based on demand) for application across multiple AZ  
-				- integrates with ELB(automatically register new instances to load balancer) as well as replace unhealthy instances
-				- Scaling Strategies
-					- Manual 
-					- Dynamic
-						1. Simple/Step Scaling - according to CloudWatch alarm trigger (CPU > 70% -> add instance | CPU < 30% -> remove instance)
-						2. Target Tracking Scaling - defined target avg ASG CPU to stay around 60%
-						3. Scheduled Scaling - increase min/max capacity to 9AM to 12 AM on Sat-Sun
-					- Predictive - uses ML to predict future traffic ahead of time
+			ELB(Elastic Load Balancer)
+				- AWS managed load balancer/load balancer instances that forward traffic to multiple EC2 instances(servers) optionally across multiple AZ
+				- used to expose single point of access(DNS) to the application seamlessly handling failures 
+                - Equipped with health check mechanism via port(4567) and a route(/health) by HTTP protocol expecting response 200:success response
+                - Integration with target groups which are set of machines/servers from below AWS services
+                    • AWS EC2, EC2 instances managed by Auto Scaling Groups, AWS ECS, AWS Lambda
+                    • AWS Certificate Manager(ACM), private IP addresses
+                    • AWS CloudWatch
+                    • Route 53, AWS WAF, AWS Global Accelerator
+				ELB Stickey Sessions(Session Affinity) 
+					- To implement stickiness at target group level so that the same clients traffic is always redirected to the same instance behind a load balancer avoding re-logins requirements
+					- for CLB, ALB with cookies having defined expiration duration, and Network Load Balancer	
+						1. Application-based Cookies : cookies with application specified custom expiration duration(1sec to 7days)
+							a. Custom cookie : generated by application with custom name(except AWSALB, AWSALBAPP, or AWSALBTG) specified individually for each target group
+							b. Application cookie : generated by the load balancer with name is AWSALBAPP
+						2. Duration-based Cookies : generated by the load balancer having load balancer specified expiration time with name is AWSALB for ALB, AWSELB for CLB
+				ELB Cross-Zone Load Balancing
+					ALB : Enabled by default(can be disabled at Target Group level), no additional charges for inter AZ data traffic
+					NLB and GWLB : Disabled by default, can be enabled with extra charge for inter AZ data traffic
+				- Connection Draining(for CLB)/Deregistering Delay(for ALB,NLB) : time to complete in-flight traffic while server/instance is de-registering or unhealthy
+				- Types of ELB
+                    0. Classic Load Balancer(HTTP/HTTPS/TCP/SSL(secure TCP)) : older generation(2009) load balancer
+					1. Application Load Balancer(only HTTP/HTTPS/websocket/gRPC traffic, static DNS)(2016) : Layer 7(HTTP)
+                        • manage traffic for multiple HTTP applications across target groups(set of machines; EC2 instances managed by ASG, ECS containers, Lambda Functions, private IP addresses) based on routing rules defined in routing table
+                        • supports redirects(for example, from HTTP to HTTPS);
+                        • Health Check supports HTTP and HTTPS protocol
+						• IP receive in requests will be the ALB's private IP address; ALB adds an additional request header called "X-Forwarded-For" contains the client's IP address
+						• provides a static DNS name but does NOT provide a static IP
+                        • Great for micro services & container-based application(has a port mapping feature to redirect to dynamic port in ECS)
+					2. Network Load Balancer(TCP/UDP/TLS(secure TCP) traffic)(2017) : Layer 4
+                        • For ultra high performance requirements with ultra low latency
+                        • provides both static DNS name & static IP per AZ and supports elastic IP assignment(helpful for whitelisting application with specific static IP) to each AZ
+                        • Health Check supports TCP, HTTP and HTTPS protocol
+						• Registered targets in a Target Groups for an Application Load Balancer can be ALBs too
+					3. Gateway Load Balancer(Route traffic to firewalls, GWLB protocol)(2020) : Layer 3(Network Layer)
+                        • To analyze traffic at network level via firewall, intrusion detection & prevention systems, deep packet inspection, payload manipulation, etc.
+						• Inspect network traffic via 3rd party virtual appliances in target group before forwarding that to application
+                            User [Route Table]      -->      Gateway Load Balancer      -->      Application
+                                                                    ⇣   ⇡
+                                                                Target Group
+                                                    3rd Party Security Virtual Appliances
+                                                    
+			ASG(Auto Scale Group)
+				- implement elasticity(auto scale out(increase count) and scale in(decrease count) based on demand) for application across multiple AZ with defined min-max count
+				- integrates with ELB(automatically register new instances to load balancer) as well as replace unhealthy instances by using Load Balancer health check result
+				- Free to use, but you have to pay underlying EC2 instances managed by ASG
+				- Scaling using Scaling Policies & Launch Template(AMI + Instance Type + EC2 user data + EBS volume + SG + IAM roles + Network-Subnet config + Load Balancer)
+					• Dynamic
+						1. Simple/Step Scaling : according to CloudWatch alarm/alarms trigger(CPU > 70% -> add instance | CPU < 30% -> remove instance)
+						2. Target Tracking Scaling : defined target avg CPU utilitization to stay around 60%
+					• Scheduled : increase min/max capacity to 9AM to 12 AM on Sat-Sun
+					• Predictive : uses ML to predict future traffic ahead of time
+				- Metrics to scale in/out on CPU-utilization, Request count per target, Average Network In/Out, Any custom metric(captured using CloudWatch)
+				- Scaling Cooldowns : As scaling activity happens, cooldown period(default 300 seconds) begins, stopping launch/terminate additional instances to allow for metrics to stabilize
 
 			EC2 Pricing
 				- Only charged for what you use
@@ -1483,23 +1678,6 @@ AWS Services
 					• Instance size
 				- ELB running time and amount of data processed by load balancer
 				- Detailed monitoring(default freq is 5 min, we can set min 1 min freq, paying specified ammount for that)
-				- EC2 models
-					• On-demand instances:
-						- Pay per second (Linux/Windows) or per hour (other) and price is fixed
-						- Minimum billing time of 60 sec
-					• Reserved instances:
-						• 1 or 3-years commitment in EC2 instance
-						• All upfront(most discount), partial upfront, no upfront
-						• Up to 75% discount compared to On-demand on hourly rate
-					• Spot instances:
-						• Bid for unused capacity in EC2 instances	
-						• Up to 90% discount compared to On-demand on hourly rate
-						• Could be terminated at short notice, well-suited for data analysis, batch jobs, background processing, and optional tasks
-					• Dedicated Host:
-						• Physical server fully dedicated for your use
-						• Reservation for 1 year or 3 years commitment
-						• allows you to use your eligible software licenses from vendors such as Microsoft and Oracle on Amazon EC2
-					• Savings plans as an alternative to save on sustained usage
 
 
 		AWS ECS(Elastic Container Service)
@@ -1588,7 +1766,7 @@ AWS Services
 
 
 	Storage
-		AWS S3(infinitely scaling storage/Simple Storage Service) (region specific)
+		AWS S3(infinitely scaling storage/Simple Storage Service) (Regional resource)
 			- Used for 
 				- Backup and storage
 				- Disaster recovery(by storing on multiple regions)
@@ -1645,19 +1823,18 @@ AWS Services
 					EC2(services) -> IAM Role
 					Cross-Account -> Bucket Policy
 
-			Versioning
+			S3 Versioning
 				- versioning is for objects, but enabled at Bucket-Level
 				- Easy rollback
 				- Avoid unintended deletion
 				- Files prior to enabling versioning will have version 'null'
 				- Suspending(turning off) versioning doesn't delete previous versions
 
-			Replication
+			S3 Replication
 				- Versioning must be enabled as well as proper IAM Permissions should be given for both(source & target) buckets
-				- Copying is asynchronous/background
-				- Buckets can be in different AWS accounts
-                - Only new objects are replicated after you enable Replication. optionally, we can replicate existing obj(including delete markers) using S3 Batch Replication
-                - Deletion with VersionId are not replicated to avoid malicious deletes
+				- Copying/replication happens asynchronous/background
+                - Only new objects(with version) are replicated after you enable Replication. optionally, with additional cost replication of existing obj can be done using S3 Batch Replication
+                - Deletion with VersionId(permanent deletes) are not replicated to avoid malicious deletes
                 - there is not replication chaining. i.e. bkt A has replication into bkt B, which has replication to bkt C then objects of A are not replicated to C
 				- Two types of replication:
 					1. Cross-Region Replication(CRR)
@@ -1670,7 +1847,7 @@ AWS Services
                             - log aggregation across multiple S3 buckets
 						- live replication between production and test accounts 
 
-			Storage Class
+			S3 Storage Class
 				- Can move between classes manually or using S3 Lifecycle configurations	
 				- Durability:	Same for all storage classes
 					• High durability (99.999999999%, 11 9’s) of objects across multiple AZ
@@ -1679,7 +1856,7 @@ AWS Services
 					• Measures how readily available a service is
 					• Example: S3 standard object has 99.99% availability. i.e. not available 53 minutes a year(accessing object will give random error)
 				- types:
-					1. AWS S3 Standard - General Purpose
+					1. Standard - General Purpose
 						- Object has 99.99% availability
 						- User for low latency frequently accessed data
 						- sustain the concurrent loss of data.
@@ -1714,6 +1891,11 @@ AWS Services
 						• Archive Instant Access tier (automatic): 	objects not accessed for 90 days
 						• Archive Access tier (optional): 			configurable from 90 days to 700+ days
 						• Deep Archive Access tier (optional): 		configurable from 180 days to 700+ days
+
+            S3 Lifecycle Rules
+                - shedule objects to change storage classes based on specific rules(prefix filters, duration of storage, etc.)
+                - In-case of multiple lifecycle rules defined, first one to execute takes priority
+
 
 			- Pricing;
 				- Storage class: S3 Standard, S3 Infrequent Access, S3 One-Zone IA, S3 Intelligent Tiering, S3 Glacier and S3 Glacier Deep Archive
@@ -1750,14 +1932,32 @@ AWS Services
 	DataBase
 		Relational Database	: tables(row + column)
 			AWS RDS(Relational Database Service) 
-				- Storage backed by EBS
-				- can’t SSH into your instances
 				- Best for OLTP(Online Transaction Processing)
-				- Snapshot(AZ specific - using snapshot(back-up + restore) we can share, copy data to another region)
-				- Replication
-					Same AZ - Upto 15 read replicas can be created to scale the read workload, data write only to main DB
-					Multi AZ - Failover DB(standby/emergency DB copy) in case of main DB AZ outage and we can only have 1 other AZ as db failover
-					Multi Region - Disaster recovery for region with best all region read performance requiring multi-region replication cost 	
+				- RDS database engines support; Postgres, MySQL, MariaDB, Oracle, Microsoft SQL Server, IBM DB2, AWS Aurora
+				- AWS managed service with automated provisioning(vertical and horizontal scaling), optional backups(5 min freq, max 35 days retention) and restorable to specific point timestamp(5 min - 35 days)
+				- Storage backed by EBS(as AWS managed DB also hosted on EC2 instance), with automatic storage scaling upto defined max storage threshold
+                - IAM Authentication(for DB connection), Security Groups(to control network access to DB), private proxy(middleman of application and DB, Improving database efficiency)
+                - Encryption
+                    • at-rest : Must be defined as launch time. if not, need to go through DB snapshot & restore as encrypted. unencrypted masters read replica cannot be encrypted
+                    • In-flight : TLS-ready by default, use the AWS TLS root certificates client-side
+				- Snapshot(AZ specific resource - using snapshot(back-up) & restore we can share, copy data to another region)
+				- Allows restoration of on-premises database from S3 into new RDS instance running MySQL
+				- can’t SSH into your underlying instances hosting RDS(except RDS Custom), unlike mannually using EC2 instance used to host DB
+				RDS Custom
+					- Managed Oracle and Microsoft SQL Server Database with additional(including RDS) features having full admin access to the underlying OS and the database
+					- Access to;
+						• OS patches installation
+						• DB customization
+						• Native DB features
+						• SSH or SSM Session Manager into underlying EC2 Instance hosting DB
+					- Strongly recommended to take DB snapshots as access of underlying H/W also results in accidental breaking configuration. And de-activate RDS "Automation Mode" before performing customization
+				- Read Replication
+					• Up to 15 Read Replicas Within AZ, Cross AZ or Cross Region
+					• Replication is ASYNC in same AZ(Synchronous in Multi-AZ), so reads are eventually consistent with zero-downtime
+					• Replicas can be promoted to their own DB
+					Same AZ - read replicas can be created to scale the read workload, data write only to main DB
+					Multi AZ - One DNS name both for main and failover DB(standby/emergency DB copy) used in case of main DB AZ outage. But, only have 1 other AZ as db failover
+					Multi Region - Disaster recovery for region with best all region read performance requiring multi-region replication cost
 				- Pricing;
 					• Per hour billing
 					• Database characteristics/models:
@@ -1767,7 +1967,10 @@ AWS Services
 					• Purchase type:
 						- On-demand
 						- Reserved instances (1 or 3 years) with optional up-front
-					• Backup Storage: There is no additional charge for backup storage up to 100% of your total database storage for a region.
+					• Backup Storage: There is no additional charge for backup storage up to 100% of your total database storage for a region
+					• Read Replication : 
+						- free for same Region but different AZs replication(asynchronous data syncing from main DB to replica DB)
+						- cost associated for different Region replication(asynchronous data syncing from main DB to replica DB) 
 					• Additional storage (per GB per month)
 						- for the underlying storage based on the EBS volume that you provision for your RDS database
 					• Number of input and output requests per month
@@ -1777,23 +1980,50 @@ AWS Services
 					• Data transfer:
 						- Outbound data transfer are tiered for volume discounts
 						- Inbound is free
+				- For stopped RDS database, user still have to pay for storage. Therefore instead of stopping unsable RDS-DB user should snapshot(cheaper) & restore as/when required
 
 
-			AWS Aurora
+			AWS Aurora (RDS Aurora)
 				- AWS cloud optimized Proprietary database with MySQL and PostgreSQL support
-				- Storage grows automatically in increment of 10 GB, upto 128 GB
-				- Cost more than RDS by 20%, but more efficient(cost effective) for cloud. Not in free tier
+				- Aurora is made for high availability, store 6 copies of the data across 3 AZ anytime data is written with Self Healing(with peer-to-peer replication)
+				- Storage grows automatically in increment of 10 GB, upto 128 TB, And storage is striped across 100s of volumes(EBS) supporting any point in time recovery
+				- Cost 20% more than RDS, but more efficient(cost effective) for cloud. Not availabile in free tier
 				- Best for OLTP(Online Transaction Processing)
-				AWS Aurora Serverless
-					Automated database instantiation and auto-scaling based on actual usage which provides least management overhead
-					Pay per second, can be more costeffective
-					Use cases: good for infrequent, intermittent or unpredictable workloads
+				- Max 15 cross region read replicas(excluding main/master DB) with faster auto scaling read replica as well as any of these read replica automatically becomes failover(instantly) in-case main DB fails
+				- Uses Writer Endpoint(Pointing to the master) & Reader Endpoint(Connection Load Balancing) at connection level suitable for replicas auto scaling and instant main DB failover
+				- Allows Custom Endpoints to define a subset of Aurora read instances to handle read traffic
+				- On top of snapshots(back-up) and restores, Aurora offers faster DB cloning by sharing the same data volume(no data movement) and storing thereafter changes separately
+				- Automated back-up max retention period is 35 days, Allows on-demand back-up for long-term backup storage for disaster recovery or audit purpose
+				- For restoration of on-premises database from S3 into new RDS instance running MySQL, backup of on-premises database should be taken using "Percona XtraBackup"
+                - IAM Authentication(for DB connection), Security Groups(to control network access to DB), private proxy(middleman of application and DB, Improving database efficiency)
+                - Encryption
+                    • at-rest : Must be defined as launch time. if not, need to go through DB snapshot & restore as encrypted. unencrypted masters read replica cannot be encrypted
+                    • In-flight : TLS-ready by default, use the AWS TLS root certificates client-side
+				Aurora Serverless
+					- Automated database instantiation(process of creating a new instance of a class) and auto-scaling based on actual usage which provides least management overhead
+					- Pay per second, can be more cost-effective
+					- Use cases: good for infrequent, intermittent or unpredictable workloads
+				Aurora Global DataBase
+					- 1 Primary Region(read/write)
+					- Up to 5 secondary(read-only) regions, And max 16 Read Replicas per secondary region
+					- Cross-region replication takes less than 1 second
+					- disaster recovery has an RTO of < 1 minute
+				Aurora ML
+					- Enables you to add ML-based predictions to your applications via SQL
+					- Simple, optimized, and secure integration between Aurora and AWS ML services; Amazon SageMaker(use with any ML model), Amazon Comprehend(for sentiment analysis)
+					- Use cases: fraud detection, ads targeting, sentiment analysis, product recommendations
+				Babelfish for Aurora PostgreSQL
+					- Allows Aurora PostgreSQL to translate commands(in T-SQL) targeted for MS SQL Server, therefore Microsoft SQL Server based applications can work on Aurora PostgreSQL
+					- The same applications can be used after a migration of your database(using AWS SCT and DMS)
 
 
 			AWS ElastiCache
-				- Managed in-memory caching capabality Redis or Memcached for any(Relational/NoSQL) database
-				- high performance, low latency, reduce load off databases for read intensive workloads
-				- AWS takes care of OS maintenance / patching, optimizations, setup, configuration, monitoring, failure recovery and backups
+				- Managed in-memory caching capabality Redis(highly available read replica) or Memcached(multi-node(sharded), best for multi-threading performance) for any(Relational/NoSQL) database
+				- high performance, low latency, user login session data management, reduce load out off databases for read intensive workloads
+                - Allows on-premise to create ElastiCache instances on an AWS Outpost
+                - IAM authentication for Redis(not ElastiCache) + Redis Auth(password/token with SSL in-flight encryption) implementing extra security
+                - ElastiCache Redis Sorted Set gurarantees both uniqueness and ordering(Each time a new element added, it’s ranked in real time, then added in correct order)
+
 
 
 		NoSQL Database : key-value(JS Object Notation), document, graph, in-memory, search database
@@ -2000,5 +2230,3 @@ AWS Services
 		AWS Device Farm
 			- Fully-managed service that tests your web and mobile apps concurrently on multiple devices(desktop browsers, real mobile devices, and tablets)
 			- Also gives ability to configure device settings(GPS, language, Wi-Fi, Bluetooth, etc.)
-
-

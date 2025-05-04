@@ -32,7 +32,14 @@ Classic ports to know
     22 = SSH(Secure Shell) - log into a Linux instance
     3389 = RDP(Remote Desktop Protocol) - log into a windows instance
 
+	5432 = PostgreSQL  
+    3306 = MySQL  
+    1521 = Oracle RDS  
+    1433 = MSSQL Server  
+    3306 = MariaDB (same as MySQL)
+    5432 = Aurora PostgreSQL compatible
 
+   
 
 Hosts 
     - Any devices that sends & receives trffic; eg. client, server.
@@ -74,7 +81,22 @@ OSI Model									TCP/IP Model
 
 DNS(Domain Name Server)
     - special kind of Server with stored domain name and address mapping
-
+	Terminologies
+		- Domain Registrar : AWS Route53, GoDaddy, etc.
+		- DNS Record : A, AAAA, CNAME(Canonical Name), NS(NameServer), CAA, DS, MX, NAPTR, PTR, SOA, TXT, SPF, SRV, etc.
+		- Zone File : contains DNS records,to match these hostnames to IPs
+		- Name Server: resolves DNS queries(Authoritative{the customer can update the DNS records} or Non-Authoritative)
+		- Top Level Domain (TLD): .com, .us, .in, .gov, .org, etc.
+		- Second Level Domain (SLD): amazon.com, google.com, etc.
+		- |	   Base URL	  	|		End Point		  |
+		  https://ind.www.github.com/sprculguy/programming.git
+			https or http               -> Protocol 
+			github.com                  -> Second Level Domain / domain name
+			.com						-> Top Level Domain / primary domain
+			www.github.com				-> Sub Domain
+			ind.www.github.com			-> FQDN(Fully Qualified Domain Name)
+			github 						-> secondary domain
+			sprculguy/programming.git   -> resource / path
 
 
 HTTP Web Server Request Methods
@@ -157,11 +179,4 @@ API(Application Programming Interface)
 		1. Private - within Organisation
 		2. Partner - for selected Bussiness/Partner after usage varification by charging some ammount
 		3. Public - 3rd party
-	- |	   Base URL	  	|		End Point		  |
-	  https://github.com/sprculguy/programming.git
-		https or http               -> Protocol 
-		github.com                  -> domain name
-		.com						-> primary domain
-		github 						-> secondary domain
-		sprculguy/programming.git   -> resourse
 

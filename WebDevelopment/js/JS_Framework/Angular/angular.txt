@@ -1,0 +1,4 @@
+Browser side JS framework and collection of features & tools(extra features we can use; like, CLI, Debugging tools, IDE plugins)
+	- Simpllifies the process of building complex, interactive web user interfaces
+	- collection of packages and rules anyone should follow to build highly interactive user interfaces easily, compair to using vanila JS
+	- Provides platform to build 

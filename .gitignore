@@ -12,3 +12,4 @@ app.*
 !.vscode/extensions.json
 *.logs*
 *node_modules*
+z.txt

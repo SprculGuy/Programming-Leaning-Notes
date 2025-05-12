@@ -1,5 +1,6 @@
 ** DOCKER -  
-		Docker virtualizes operating systems kernel(software), where as virtual machines virtualizes entire hardware.
+		Software development platform to deploy apps which are packaged in containers that can be run on any OS regardless of where they’re run
+		Docker virtualizes operating systems kernel(software), where as virtual machines virtualizes entire hardware
 		Docker simplifies the deployment process, promotes consistency across different environments, and enhances scalability by isolating applications into containers.
 
 
@@ -65,3 +66,7 @@ Docker limitations -
 
 		containers are created form container images 
 		container images are a compressed and pre-packaged file system that contains application along with its environment and configuaration with an instruction(entry point) on how to start the application
+
+
+Kubernetes
+	Pods running on nodes

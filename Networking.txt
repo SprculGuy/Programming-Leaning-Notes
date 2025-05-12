@@ -112,9 +112,24 @@ HTTP Web Server Request Methods
 
 
 CORS(Cross-Origin Resource Sharing) - Security mechanism that allows web applications to access resources from other domains
-    - CORS defines a way for client web applications that are loaded in one domain to interact with resources in a different domain.
-    - CORS allows the client browser to check with the third-party servers if the request is authorized before any data transfers.
+    - CORS defines a way for client web applications that are loaded in one domain to interact with resources in a different domain
+    - CORS allows the client browser to check with the third-party servers if the request is authorized before any data transfers
+	- origin = protocol(https) + domain(www.example.com) + port(443)
+	- CORS is Web Browser based mechanism used to allow request to other origins(allowing requests with CORS(Access-Control-Allow-Origin) headers) from the main origin
 
+																			OPTIONS /
+																			Host: www.cross-origin.com
+																			Origin: https://www.origin.com
+													  	  ↗--3--- Pre-flight req ----------------------------------↘
+														↗							  								 ↘
+							  						  ↗	  Access-Control-Allow-Origin: https://www.origin.com 		   ↘
+							  HTTPS req				↗	  		Access-Control-Allow-Methods: GET, PUT, DELETE			 ↘
+	https://www.origin.com		<---1-	 Web Browser <---------------------------------------------- Pre-flight res ---4-- https://www.cross-origin.com
+	Web Server					-2--->	      Client																	  Web Server
+													↘						GET /									    ↗
+													  ↘						Host: www.cross-origin.com				  ↗
+													   	↘					Origin: https://www.origin.com		    ↗
+														  ↘--5----------------------------------------------------↗
 
 
 HTTP Web Server response Status Codes
